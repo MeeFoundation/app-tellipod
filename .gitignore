@@ -1,0 +1,16 @@
+node_modules
+.DS_Store
+.env*
+!.env.example
+dist
+build
+coverage
+*.tsbuildinfo
+
+# React Native / Expo
+.expo
+ios/Pods
+ios/build
+android/build
+android/.gradle
+android/app/build
