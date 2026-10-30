@@ -1,0 +1,76 @@
+schema: spec-driven
+
+# Read by every artifact instruction and by `openspec instructions apply|archive`.
+# Project specifics live here, never in the generated skills: `openspec update`
+# overwrites those.
+context: |
+  Tellipod — a React Native app (iOS and Android, Expo) for working with a user's pods. It is a client of the Mee PDN: the app renders what it receives and sends what the user does; visibility, merging, propagation, permission enforcement and the data model belong to the nodes and the data layer, which live in mia-docs and are linked, not copied. Desktop is out of scope. Specs live here; the code is the pnpm workspace around them, whose apps/app-tellipod/README.md holds the code layout every change is held to.
+
+  Pod behavior, data model and storage are defined in MeeFoundation/pod-ontologies (app-behavior.md, storage.md); link to it, do not copy it. A pod is never called a "folder" or a "category"; a category is a concept a pod was created from.
+
+  Main spec tree layout. A capability spec is specs/<path>/spec.md and its capability id is that <path>: components/<component>/<subcomponent>/<topic>/spec.md for mobile-common (shell, pods), components/<component>/<topic>/spec.md for ios-app, android-app and ui-kit. Cross-cutting practices sit in specs/code-practices/<topic>/spec.md, decisions in specs/architecture/adr/NNNN-<title>.md. A delta sits in the change at the same path, changes/<name>/specs/<path>/spec.md, so `openspec validate --specs` covers the main tree and archive lands every delta where it belongs. Links inside a delta are written for its place in the main tree, not for the change directory. There are no README index files; a leaf spec's Purpose section and its Depends on and Read when lines tell a reader whether to open it.
+
+  Specs are written before implementation: an item that is not decided goes under "Open questions" instead of being invented. A spec states only what the app shows or does; a rule that a node or the data layer decides is named in the scope line and linked.
+
+  Cross-cutting practices every change is held to — read the one that applies before writing, they are short:
+
+  - specs/code-practices/typescript-styleguide.md — the TypeScript rules for all app code.
+  - apps/app-tellipod/README.md — the vertical-slice layout (app → screens → features → shared), thin routes, imports through a slice's index.ts, cross-slice imports through B/@x/A.
+
+  Docs style: each paragraph is one physical line (the renderer wraps it); numbers as digits with thousands separators; no invented abbreviations or notation; present tense, with no "for now", "legacy", or "until X lands"; platform terms keep their English names. Scenario headings are exactly four hashes — a wrong level drops the scenario from validation silently.
+
+# Per-artifact rules. Each item is a folded scalar: a plain one holding ": "
+# parses as a mapping, and openspec then drops the artifact's rules whole.
+rules:
+  proposal:
+    - >-
+      Give the case that motivates the change an example, and every open question one case run under each of its options, on real values from the design or the app. It opens with `**Example:**` and the case in one sentence; a table is a markdown table, any other shape a fenced block. Leave an example out only where it would be contrived.
+  design:
+    - >-
+      A decision names what it rejected under one heading and one wording — "**Rejected alternatives:**", bold, nothing else — followed by a list, one alternative per item. The item says what the alternative was in the fewest words that identify it; anything substantial for or against it goes in a nested list under bold "**Pros:**" and "**Cons:**", each present only when it has something substantial to say. An alternative with nothing substantial to say about it is not listed; a decision with nothing rejected carries no block.
+    - >-
+      The text of a decision describes what was chosen and nothing else — no "not X", no "rather than Y"; the alternatives and the case against them live only in the Rejected alternatives block.
+    - >-
+      Say which concerns of the change belong to the node or the data layer and not to the app, and link them; an app spec does not restate them.
+  specs:
+    - >-
+      Each spec opens with Purpose, Depends on and Read when; one that is derived from a source adds Source (a Figma file and page, or a pod-ontologies file).
+    - >-
+      Keep leaf specs near 120 lines or fewer; split rather than grow.
+    - >-
+      Every requirement has at least one scenario (WHEN/THEN) written from the app's perspective: what the user sees or does.
+    - >-
+      Verify a scenario against the design (Figma) or the pod-ontologies source before writing it down; a plausible formulation that neither contains is an open question, not a requirement.
+    - >-
+      A delta that introduces a capability carries a `## Purpose`; archive seeds the main spec with it and writes a placeholder otherwise.
+    - >-
+      Define a shared term once and link to it; do not redefine it in another spec.
+  tasks:
+    - >-
+      Every scenario the deltas add needs a task that makes it real, and a way to tell it is not vacuous — a scenario that would pass with the mechanism removed asserts nothing.
+
+# Advisory guidance returned by `openspec instructions apply|archive`; the apply
+# and archive skills read it at run time.
+operations:
+  apply:
+    guidance:
+      - >-
+        Hold the implementation to apps/app-tellipod/README.md and specs/code-practices/typescript-styleguide.md. Route files stay thin; UI comes from the from-scratch UI kit with design tokens, never literals.
+      - >-
+        A task that adds a scenario is done only when its check would fail with the mechanism removed.
+      - >-
+        Verify a task with the narrowest relevant check before ticking it — `just lint`, `just typecheck`, `just knip`, or `just check` for all three.
+      - >-
+        Git operations that change state — add, commit, checkout, push, rebase — are performed by a human, never by the agent.
+  archive:
+    guidance:
+      - >-
+        Run `openspec validate --all --strict` first and stop on failure. It is a parser gate for deltas and main specs, not a review: a scenario heading at the wrong level drops out silently, so check every delta's `#### Scenario:` headings by eye.
+      - >-
+        After the merge, re-read every main spec the change touched, and check that its Depends on links still resolve.
+      - >-
+        The merge does not sweep. When the change removes or renames a screen, a term or a mechanism, grep specs/** and every other active change for the old name.
+      - >-
+        An ADR with status obsolete stays a stub: never refill it, cite it as a current decision, or reuse its number.
+      - >-
+        The archive step is a filesystem move. Git operations that change state — add, commit, checkout, push, rebase — are performed by a human, never by the agent.
