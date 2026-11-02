@@ -1,0 +1,11 @@
+When generating a Git commit message from Source Control, use Conventional
+Commits: `<type>(<optional scope>): <imperative summary>`.
+
+Use a concise, lowercase imperative summary with no trailing period. Keep the
+header and every body line at 100 characters or fewer. Generate body text only
+when it adds necessary context; wrap each body line at 100 characters or fewer.
+
+Use the most specific applicable type: `feat`, `fix`, `docs`, `refactor`,
+`test`, `build`, `ci`, `chore`, or `perf`. Include a scope when it clarifies the
+affected area. Return only the commit message, without commentary or Markdown
+fences.

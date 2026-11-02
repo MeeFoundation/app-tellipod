@@ -4,6 +4,8 @@ date: 2026-10-29
 ---
 # One React Native app with Expo for iOS and Android
 
+- Read when: questioning the cross-platform approach or adding platform-specific code
+
 ## Context and Problem Statement
 
 Tellipod must run on iOS and Android. Desktop (Windows, macOS) is out of scope for this repo.

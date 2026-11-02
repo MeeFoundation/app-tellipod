@@ -1,52 +1,53 @@
 # pod-forms
 
 - Depends on: `../pod-access/spec.md`, `../../../ui-kit/components/spec.md`
-- Read when: rendering or adding a tool or form
+- Realizes: [pod-tools-and-forms](../../../../behaviour/pod-tools-and-forms/spec.md)
+- Read when: rendering forms from shapes or changing the Add Tool request
 - Source: `pod-ontologies/app-behavior.md`, UI Implementation and Adding a Tool
 
 ## Purpose
 
-How the app shows the tools and forms in a pod, and how the user adds a new one.
+How the app builds forms from SHACL shapes and submits a new tool.
 
 ## Requirements
 
 ### Requirement: Forms are generated from shapes
 
-The app SHALL build each form from the SHACL shape for its content, not from hand-written forms per class.
-It SHALL show one field per property constraint, with input type from the constraint's datatype, class or node kind.
+The app SHALL build each form from the SHACL shape for its content, with one field per property constraint.
+The input type SHALL come from the constraint's datatype, class or node kind.
 
 #### Scenario: New shape shipped
 
-- WHEN a new shape is added to the data model
-- THEN a form for it appears without new screen code
+- WHEN a shape is added to the data model
+- THEN its form renders without new screen code
 
-### Requirement: Required and repeating fields
+### Requirement: Cardinality drives required and repeat
 
-A field SHALL be required when its minimum count is above zero, and repeatable when its maximum count allows more than one.
+A field SHALL be required when its minimum count is above zero and repeatable when its maximum count allows more than one.
+Save SHALL be enabled when every required field has a value.
 
 #### Scenario: Required field empty
 
-- WHEN a required field is empty
-- THEN the form cannot be saved
+- WHEN a required field has no value
+- THEN the save action is disabled
 
-### Requirement: Field types
+### Requirement: Value lists
 
-A field with a fixed list of values SHALL be a closed dropdown filled from that list only.
-A field with an open vocabulary SHALL list the ontology's individuals of that range, show their label, and store their IRI.
-A dropdown that depends on another field SHALL show only the values valid for the other field's choice.
+A field with a fixed list SHALL render a closed dropdown from that list.
+A field with an open vocabulary SHALL list the ontology's individuals of that range, display their label and store their IRI.
+A dependent dropdown SHALL filter its values by the current value of the field it depends on.
 
 #### Scenario: Make and model
 
-- WHEN the user picks a make
-- THEN the model dropdown shows only that make's models
+- WHEN the make field changes
+- THEN the model dropdown is refiltered and a model no longer valid is cleared
 
-### Requirement: Add Tool
+### Requirement: Add Tool request
 
-"Add Tool" SHALL be offered on every pod.
-It SHALL ask which tool to add, and for a Form also which template, with Contact Info preselected.
-The user's name for the tool SHALL be stored as its topic, and a new tool SHALL get a new identifier.
+Add Tool SHALL submit the tool kind, for a Form the chosen template (default Contact Info), and the user's name for the tool as its topic.
+The request SHALL carry a newly generated identifier.
 
-#### Scenario: Adding a form
+#### Scenario: Default form
 
-- WHEN the user adds a Form tool and keeps the default
-- THEN a Contact Info form is created in the pod
+- WHEN the dialog is confirmed with the defaults
+- THEN the request holds kind Form, template Contact Info and a new identifier

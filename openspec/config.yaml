@@ -1,76 +1,202 @@
 schema: spec-driven
 
-# Read by every artifact instruction and by `openspec instructions apply|archive`.
-# Project specifics live here, never in the generated skills: `openspec update`
-# overwrites those.
+# Shared project context.
+# Keep this short: it is injected into artifact instructions.
+# Detailed knowledge is discovered through indexes, not copied here.
 context: |
-  Tellipod — a React Native app (iOS and Android, Expo) for working with a user's pods. It is a client of the Mee PDN: the app renders what it receives and sends what the user does; visibility, merging, propagation, permission enforcement and the data model belong to the nodes and the data layer, which live in mia-docs and are linked, not copied. Desktop is out of scope. Specs live here; the code is the pnpm workspace around them, whose apps/app-tellipod/README.md holds the code layout every change is held to.
+  Tellipod is an Expo / React Native application for iOS and Android,
+  built in a pnpm monorepo. Desktop is out of scope.
 
-  Pod behavior, data model and storage are defined in MeeFoundation/pod-ontologies (app-behavior.md, storage.md); link to it, do not copy it. A pod is never called a "folder" or a "category"; a category is a concept a pod was created from.
+  Tellipod is a client of the Mee PDN. The app renders data and submits
+  user actions. Node and data-layer responsibilities, including the data
+  model, visibility, merging, propagation, and permission enforcement,
+  are defined outside this repository.
 
-  Main spec tree layout. A capability spec is specs/<path>/spec.md and its capability id is that <path>: components/<component>/<subcomponent>/<topic>/spec.md for mobile-common (shell, pods), components/<component>/<topic>/spec.md for ios-app, android-app and ui-kit. End-to-end user-visible behavior that spans components sits in specs/behaviour/<topic>/spec.md, derived from pod-ontologies' app-behavior.md and linking to the component specs that realize it. Cross-cutting practices sit in specs/code-practices/<topic>/spec.md, decisions in specs/architecture/adr/NNNN-<title>.md. A delta sits in the change at the same path, changes/<name>/specs/<path>/spec.md, so `openspec validate --specs` covers the main tree and archive lands every delta where it belongs. Links inside a delta are written for its place in the main tree, not for the change directory. There are no README index files; a leaf spec's Purpose section and its Depends on and Read when lines tell a reader whether to open it.
+  Authoritative sources:
+  - MeeFoundation/pod-ontologies: pod behavior (app-behavior.md) and
+    storage (storage.md).
+  - mia-docs: node and data-layer architecture.
+  - Figma file "Mee - Design System": approved UI behavior and visual
+    design. Ask the user for the file link when it is needed.
+  - apps/app-tellipod/README.md: application code architecture.
+  - openspec/specs/README.md: specification discovery entry point.
 
-  Specs are written before implementation: an item that is not decided goes under "Open questions" instead of being invented. A spec states only what the app shows or does; a rule that a node or the data layer decides is named in the scope line and linked.
+  Do not duplicate external source specifications. Reference them.
+  Do not call a pod a folder or category. A category is a concept
+  from which a pod was created.
 
-  Cross-cutting practices every change is held to — read the one that applies before writing, they are short:
+  CONTEXT DISCOVERY
 
-  - specs/code-practices/typescript-styleguide.md — the TypeScript rules for all app code.
-  - apps/app-tellipod/README.md — the vertical-slice layout (app → screens → features → shared), thin routes, imports through a slice's index.ts, cross-slice imports through B/@x/A.
+  Use progressive disclosure when exploring, proposing, designing,
+  implementing, or reviewing changes.
 
-  Docs style: each paragraph is one physical line (the renderer wraps it); numbers as digits with thousands separators; no invented abbreviations or notation; present tense, with no "for now", "legacy", or "until X lands"; platform terms keep their English names. Scenario headings are exactly four hashes — a wrong level drops the scenario from validation silently.
+  1. Start with openspec/specs/README.md to identify relevant areas.
+  2. Follow area README.md indexes and their "Read when" guidance.
+  3. Read only relevant leaf specs, ADRs, and code-practice documents.
+  4. Follow "Depends on" links when the dependency affects the task.
+  5. Read external sources or Figma when required to verify behavior.
+  6. Inspect implementation code when implementation evidence is needed.
+  7. Expand context when new dependencies or conflicts are discovered.
 
-# Per-artifact rules. Each item is a folded scalar: a plain one holding ": "
-# parses as a mapping, and openspec then drops the artifact's rules whole.
+  Always apply openspec/specs/code-practices/README.md: its
+  practices bind every change, so read the files it lists that
+  match the work (TypeScript, screens or UI-kit components, specs).
+
+  If the relevant file is already known, open it directly.
+  Do not recursively load the specification tree.
+  Do not treat an index summary as a substitute for the source document.
+  Do not infer missing requirements from filenames or summaries.
+
+  SPECIFICATION ORGANIZATION
+
+  Capability IDs are paths relative to specs/, without /spec.md.
+  A delta uses the same relative path under changes/<name>/specs/.
+  Links inside a delta are written for the main tree, not for the
+  change directory.
+
+  - behaviour/: user-visible behavior. Use cases are small, from
+    the user's side. journeys/ chain use cases for one persona and goal.
+  - components/: technical contract of one component. Each spec
+    that realizes use cases names them under "Realizes:"; ui-kit
+    specs are shared building blocks and have none.
+  - code-practices/: cross-cutting engineering requirements.
+  - architecture/adr/: architectural decisions.
+
+  Specifications describe app-observable behavior.
+  Node and data-layer rules belong to their authoritative sources.
+  Undecided behavior belongs under "Open questions".
+
+  Documentation conventions:
+  - Scenarios state positive outcomes: what the user does and then
+    sees. Follow code-practices/spec-writing-guide.md.
+  - One physical line per paragraph.
+  - Scenario headings use exactly "#### Scenario:".
+  - Use digits with thousands separators.
+  - Do not invent abbreviations or notation.
+  - Use present tense and stable requirements.
+  - Preserve English platform terminology.
+
+# Per-artifact rules. Each item is a folded scalar (>-): a plain scalar
+# containing ": " parses as a mapping, and openspec then drops the
+# artifact's rules whole.
 rules:
   proposal:
     - >-
-      Give the case that motivates the change an example, and every open question one case run under each of its options, on real values from the design or the app. It opens with `**Example:**` and the case in one sentence; a table is a markdown table, any other shape a fenced block. Leave an example out only where it would be contrived.
+      Identify affected capabilities and authoritative sources.
+      Read relevant existing specifications before proposing changes.
+      Explain the motivation, scope, and boundaries.
+    - >-
+      Give the motivating case an example. For each open question,
+      illustrate the alternatives using a concrete case with real
+      values from the design or application. Start each example with
+      "**Example:**". Use Markdown tables or fenced blocks where
+      appropriate; omit contrived examples.
+    - >-
+      Keep unresolved decisions explicit. Do not invent behavior
+      unsupported by the design or authoritative sources.
+
   design:
     - >-
-      A decision names what it rejected under one heading and one wording — "**Rejected alternatives:**", bold, nothing else — followed by a list, one alternative per item. The item says what the alternative was in the fewest words that identify it; anything substantial for or against it goes in a nested list under bold "**Pros:**" and "**Cons:**", each present only when it has something substantial to say. An alternative with nothing substantial to say about it is not listed; a decision with nothing rejected carries no block.
+      Describe selected decisions and their consequences. Separate
+      application responsibilities from node and data-layer concerns,
+      and link the authoritative sources.
     - >-
-      The text of a decision describes what was chosen and nothing else — no "not X", no "rather than Y"; the alternatives and the case against them live only in the Rejected alternatives block.
+      Document rejected options under exactly
+      "**Rejected alternatives:**". Use one list item per alternative.
+      Include nested "**Pros:**" and "**Cons:**" only when substantial.
+      Do not repeat rejected options in the selected decision text.
     - >-
-      Say which concerns of the change belong to the node or the data layer and not to the app, and link them; an app spec does not restate them.
+      Identify affected components, capability dependencies,
+      architectural constraints, and relevant ADRs.
+      Create a new ADR only for a durable architectural decision.
+
   specs:
     - >-
-      Each spec opens with Purpose, Depends on and Read when; one that is derived from a source adds Source (a Figma file and page, or a pod-ontologies file).
+      Each leaf spec opens with a title and a metadata list (Depends on,
+      Realizes where it applies, Read when, and Source when derived from
+      a Figma file/page or authoritative document), followed by
+      "## Purpose".
     - >-
-      Keep leaf specs near 120 lines or fewer; split rather than grow.
+      Put user-side use cases in behaviour/, chained journeys in
+      behaviour/journeys/, and technical contracts in components/.
+      Journey scenarios have at most ten steps and name their starting
+      state. Component specs link the use cases they realize.
     - >-
-      Every requirement has at least one scenario (WHEN/THEN) written from the app's perspective: what the user sees or does.
+      Keep leaf specs near 120 lines or fewer. Split by cohesive
+      capability when necessary.
     - >-
-      Verify a scenario against the design (Figma) or the pod-ontologies source before writing it down; a plausible formulation that neither contains is an open question, not a requirement.
+      Every requirement has at least one user-observable WHEN/THEN
+      scenario. Verify behavior against Figma or authoritative
+      specifications before asserting it. Unsupported behavior
+      remains an open question.
     - >-
-      A delta that introduces a capability carries a `## Purpose`; archive seeds the main spec with it and writes a placeholder otherwise.
+      Use exactly four heading hashes for scenarios:
+      "#### Scenario:". A wrong heading level can silently
+      exclude a scenario from validation.
     - >-
-      Define a shared term once and link to it; do not redefine it in another spec.
+      A delta introducing a capability includes "## Purpose".
+      Keep delta paths aligned with their eventual main spec paths.
+      Write internal links for the main spec location.
+    - >-
+      Maintain hierarchical README.md indexes when capabilities
+      are added, renamed, removed, or their Read when changes.
+      Index updates are tasks against the main tree, not spec deltas.
+    - >-
+      Define shared domain terminology once and link to its
+      authoritative definition instead of duplicating it.
+
   tasks:
     - >-
-      Every scenario the deltas add needs a task that makes it real, and a way to tell it is not vacuous — a scenario that would pass with the mechanism removed asserts nothing.
+      Every added or modified scenario must map to implementation
+      work and a meaningful verification. A check must fail if
+      the mechanism being tested is removed.
+    - >-
+      Include tasks for affected indexes, documentation references,
+      and dependency links when the change modifies them. Archive
+      moves only spec files, so write one task per affected README.md
+      naming the file and the row to add, rename, or remove, and
+      run those tasks against the main tree.
 
-# Advisory guidance returned by `openspec instructions apply|archive`; the apply
-# and archive skills read it at run time.
 operations:
   apply:
     guidance:
       - >-
-        Hold the implementation to apps/app-tellipod/README.md and specs/code-practices/typescript-styleguide.md. Route files stay thin; UI comes from the from-scratch UI kit with design tokens, never literals.
+        Before implementation, discover applicable code practices
+        through the indexes. Follow apps/app-tellipod/README.md
+        for vertical-slice boundaries and
+        openspec/specs/code-practices/typescript-styleguide.md for TypeScript.
       - >-
-        A task that adds a scenario is done only when its check would fail with the mechanism removed.
+        Keep routes thin. Use the project UI kit and design tokens,
+        not ad hoc visual literals. Respect slice public APIs and
+        documented cross-slice import boundaries.
       - >-
-        Verify a task with the narrowest relevant check before ticking it — `just lint`, `just typecheck`, `just knip`, or `just check` for all three.
+        Verify completed tasks with the narrowest relevant check:
+        just lint, just typecheck, just knip, or just check.
+        Do not mark tasks complete without verification.
       - >-
-        Git operations that change state — add, commit, checkout, push, rebase — are performed by a human, never by the agent.
+        Never perform state-changing Git operations.
+        A human handles add, commit, checkout, push, and rebase.
+
   archive:
     guidance:
       - >-
-        Run `openspec validate --all --strict` first and stop on failure. It is a parser gate for deltas and main specs, not a review: a scenario heading at the wrong level drops out silently, so check every delta's `#### Scenario:` headings by eye.
+        Run openspec validate --all --strict before archiving.
+        Stop on failure. Inspect scenario heading levels manually;
+        parser validation alone is insufficient.
       - >-
-        After the merge, re-read every main spec the change touched, and check that its Depends on links still resolve.
+        After merging deltas, re-read affected main specs and verify
+        their Depends on links.
       - >-
-        The merge does not sweep. When the change removes or renames a screen, a term or a mechanism, grep specs/** and every other active change for the old name.
+        Verify all affected README.md indexes: every entry has a row,
+        and each row still matches the Read when guidance of the
+        document it indexes. Rows may condense that guidance but must
+        not contradict or omit a trigger.
       - >-
-        An ADR with status obsolete stays a stub: never refill it, cite it as a current decision, or reuse its number.
+        Search active specs and changes for stale references after
+        renaming or removing capabilities, screens, or terminology.
       - >-
-        The archive step is a filesystem move. Git operations that change state — add, commit, checkout, push, rebase — are performed by a human, never by the agent.
+        Obsolete ADRs remain stubs. Never reuse their numbers or
+        cite them as current decisions.
+      - >-
+        Archiving does not authorize state-changing Git operations.
+        A human handles add, commit, checkout, push, and rebase.

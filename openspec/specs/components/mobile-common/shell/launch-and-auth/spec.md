@@ -1,46 +1,64 @@
 # launch-and-auth
 
 - Depends on: `../../../../../../apps/app-tellipod/README.md` (code layout)
-- Read when: changing launch, onboarding or sign-in flow
+- Realizes: [launch-and-sign-in](../../../../behaviour/launch-and-sign-in/spec.md)
+- Read when: changing the launch state machine, route guarding or the biometric gate
 - Source: Figma file "Mee - Tellipod App v4.0.3", page "App", section Onboarding
 
 ## Purpose
 
-What the user sees from opening the app until the main app is shown.
+How the app decides which screen to show from process start until the main app, and how it asks the platform for a biometric.
 
-## Launch sequence
+## Launch state machine
 
-splash screen → onboarding (welcome) → auth → app
+splash → onboarding → auth → app
 
 ## Requirements
 
-### Requirement: Launch order
+### Requirement: The launch state decides the route
 
-The app SHALL show the splash screen first, then onboarding, then authentication, then the main app.
-The user SHALL NOT reach the main app before authentication succeeds.
+The app SHALL derive the start route from two persisted facts: whether onboarding has been completed, and whether a session is authenticated.
+Routes in `app/` only render the screen for the state; the decision lives in one place.
 
-#### Scenario: First launch from the store
+#### Scenario: Fresh install
 
 - WHEN the user opens the app for the first time
 - THEN the splash screen is followed by the welcome and onboarding screens
-- AND authentication follows onboarding
+- AND authentication follows onboarding, and the main app follows authentication
 
-#### Scenario: Unauthenticated user on a later launch
+#### Scenario: Signed-out restart
 
-- WHEN the user opens the app and is not authenticated
+- WHEN the user opens the app after completing onboarding and is not authenticated
 - THEN the splash screen is followed by authentication, without onboarding
 
-### Requirement: Biometric sign-in is supported
+### Requirement: The main app requires authentication
 
-The app SHALL offer the platform biometric (Face ID on iOS, the system biometric prompt on Android) as a way to authenticate, when the device has one enrolled.
-Platform details are in `../../../ios-app/authentication-and-keys/spec.md` and `../../../android-app/authentication-and-keys/spec.md`.
+The user SHALL NOT reach any route of the main app before authentication succeeds.
 
-#### Scenario: Device with biometrics
+#### Scenario: Successful authentication
 
-- WHEN the device has a biometric enrolled and the user reaches authentication
+- WHEN the user authenticates successfully
+- THEN the main app opens
+
+### Requirement: The biometric option follows the device
+
+The app SHALL offer the platform biometric only when the device has one enrolled.
+A device without an enrolled biometric authenticates by the fallback method.
+Platform specifics are in [ios-app](../../../ios-app/authentication-and-keys/spec.md) and [android-app](../../../android-app/authentication-and-keys/spec.md).
+
+#### Scenario: Device with a biometric
+
+- WHEN the user reaches authentication on a device with an enrolled biometric
 - THEN the biometric prompt is offered and a successful match opens the main app
 
-#### Scenario: No biometric enrolled
+#### Scenario: Device without a biometric
 
-- WHEN the device has none enrolled
-- THEN the biometric prompt is not offered and the user authenticates by the fallback method
+- WHEN the user reaches authentication on a device with none enrolled
+- THEN the biometric prompt is not offered and the fallback method is shown
+
+## Open questions
+
+- Where the onboarding-completed flag is persisted.
+- What the fallback method is.
+- Whether a deep link received while signed out is kept and opened after authentication.
+- What the user sees and can do when the biometric prompt is cancelled or the match fails.

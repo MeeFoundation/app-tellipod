@@ -1,0 +1,22 @@
+---
+description: Generate repository commit messages using Conventional Commits.
+alwaysApply: true
+---
+
+When generating a Git commit message, use the Conventional Commits format:
+
+`<type>(<optional scope>): <imperative summary>`
+
+Use a concise, lowercase imperative summary with no trailing period. Keep every
+generated line, including the header and each body line, at 100 characters or
+fewer. Select the most specific applicable type: `feat`, `fix`, `docs`,
+`refactor`, `test`, `build`, `ci`, `chore`, or `perf`. Include a scope when it
+clarifies the affected area (for example, `web`, `ui`, `docker`, or `openspec`).
+
+For a breaking change, add `!` before the colon and include a `BREAKING CHANGE:`
+footer. If a body is useful, leave one blank line after the subject and explain
+the user-visible motivation and impact concisely, wrapping each body line at
+100 characters or fewer.
+
+Base the message only on the staged changes. Return the commit message without
+Markdown fences, commentary, or alternatives unless explicitly requested.

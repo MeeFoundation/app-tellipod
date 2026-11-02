@@ -1,70 +1,66 @@
 # pod-search
 
 - Depends on: `../pod-naming-and-filing/spec.md`
-- Read when: building or changing search
+- Realizes: [find-a-pod](../../../../behaviour/find-a-pod/spec.md)
+- Read when: building or changing the search screen and its query flow
 - Source: Figma "Mee - Tellipod App v4.0.3", section "Search or Ask"; `pod-ontologies/app-behavior.md`, Finding Pods by Tag and by Property
-- Scope: what a query matches (names, tags, properties) and which tags are hidden is decided by the data layer. The app sends the text and shows what comes back.
+- Scope: what a query matches and which tags are hidden is decided by the data layer. The app sends the text and renders what comes back.
 
 ## Purpose
 
-The search screen of the app, from typing a query to opening a pod from the results.
+How the search screen moves between its states and talks to the data layer.
+
+## Screen states
+
+empty (recent searches) → results | no matches
 
 ## Requirements
 
-### Requirement: Open search
+### Requirement: State follows the input text
 
-Tapping the search field on Home SHALL open the Search screen with the field focused and the keyboard shown.
-The screen SHALL have a back button.
+The screen SHALL be in the empty state when the text is empty, and otherwise in the results or no-matches state according to the response for the current text.
 
-#### Scenario: Opening search
+#### Scenario: Typing then clearing
 
-- WHEN the user taps the search field on Home
-- THEN the Search screen opens with the field focused
+- WHEN the text changes from "step" to empty
+- THEN the state returns to empty and recent searches render
 
-### Requirement: Recent searches
+### Requirement: Latest query wins
 
-While the field is empty, the screen SHALL list the user's recent searches.
-Tapping one SHALL search for it.
+The screen SHALL render only the response for the current text; a response for earlier text is discarded.
 
-#### Scenario: Reusing a search
+#### Scenario: Out-of-order responses
 
-- WHEN the user taps "coffee" in the recent searches
-- THEN the results for "coffee" are shown
+- WHEN the response for "ste" arrives after the response for "step"
+- THEN the screen keeps showing the results for "step"
 
-### Requirement: Results
+### Requirement: Result rendering
 
-Results for the entered text SHALL be shown in two sections: Pods and Categories.
-In each result, the matching text SHALL be highlighted.
+The screen SHALL render the Pods and Categories sections from the response, highlight the matched range given in it, and render a category's counts and expandable subcategories.
 
-A pod result SHALL show the pod's name and its category path, and tapping it opens the pod.
-A category result SHALL show how many pods and subpods it has, and SHALL expand to show its subcategories.
+#### Scenario: Highlight
 
-#### Scenario: Searching for "step"
+- WHEN a response gives the match range 0–4 for "Step sister"
+- THEN "Step" renders highlighted
 
-- WHEN the user types "step"
-- THEN a pod "Step sister" is listed under Pods with "Step" highlighted and its category path
-- AND matching categories are listed under Categories
+### Requirement: Recent searches are recorded on use
 
-#### Scenario: Opening a result
+The app SHALL record a query as recent when the user opens one of its results or taps a recent search.
 
-- WHEN the user taps a pod result
-- THEN that pod opens
+#### Scenario: Tapping a result
 
-### Requirement: Clear the field
+- WHEN the user opens a result for "coffee"
+- THEN "coffee" is in the recent searches on the next visit
 
-The field SHALL have a button to clear the entered text.
+### Requirement: No-matches action creates a pod
 
-#### Scenario: Clearing
+The no-matches state SHALL render "No matches for" plus the text and an action that starts pod creation with that text as the name.
 
-- WHEN the user taps the clear button
-- THEN the field is empty and the recent searches are shown
+#### Scenario: Make a pod
 
-### Requirement: No matches
+- WHEN the user chooses "Make a coffee Pod"
+- THEN pod creation starts with the name "coffee"
 
-When nothing matches, the screen SHALL say "No matches for" followed by the entered text, and SHALL offer to make a pod named with that text.
+## Open questions
 
-#### Scenario: No matches for "coffee"
-
-- WHEN the user searches for "coffee" and nothing matches
-- THEN the screen shows "No matches for coffee" and "Make a coffee Pod"
-- AND choosing it starts creating a pod named "coffee" (see `../pod-naming-and-filing/spec.md`)
+- Where recent searches are stored and how many are kept.

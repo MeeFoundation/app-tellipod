@@ -1,51 +1,65 @@
 # pod-chat
 
 - Depends on: `../pod-access/spec.md`, `../../../ui-kit/components/spec.md`
-- Read when: building or changing chat
+- Realizes: [chat](../../../../behaviour/chat/spec.md)
+- Read when: building or changing the chat screen and its data flow
 - Source: `pod-ontologies/app-behavior.md`, Chat Area
-- Scope: the app renders the messages it receives and sends the user's messages. Who may see a message is decided by the node, not by the app.
+- Scope: the app renders the messages it receives and sends the user's messages. Who may see a message is decided by the node.
 
 ## Purpose
 
-What the app shows and lets the user do in a pod's chat.
+How the chat screen gets, renders and sends messages.
 
 ## Requirements
 
-### Requirement: Group stream
+### Requirement: Streams are keyed by pod and conversation
 
-The pod's chat SHALL show the group stream: the messages the app receives for the pod.
+The app SHALL read messages by pod identifier and conversation: the group stream, or a direct conversation with one member.
+The screen SHALL render only the messages of the selected key.
 
-#### Scenario: Opening chat
+#### Scenario: Two pods
 
-- WHEN the user opens the Chat view of a pod that has received 3 group messages
-- THEN those 3 messages are listed, and no message of another pod is
+- WHEN the chat of pod A is open and pod B receives a message
+- THEN the list of pod A is unchanged
 
-### Requirement: Send to the group stream
+### Requirement: Send targets a stream
 
-The user SHALL be able to write a message and send it to the group stream.
+A send SHALL carry the pod identifier, the conversation key and the text; the message SHALL render in the stream when the app accepts it for sending.
 
-#### Scenario: Sending a message
+#### Scenario: Group send
 
-- WHEN the user writes a message and sends it
-- THEN it is sent to the pod's group stream and appears there
+- WHEN the user sends in the group stream
+- THEN the request targets the group key and the message renders in that list
 
-### Requirement: Mention a member
+### Requirement: Mentions are structured
 
-While writing, the user SHALL be able to @-mention a member of the pod.
-A message with a mention stays in the group stream.
+The composer SHALL insert a mention as a reference to the member's identifier and render it with the member's name.
+A message with a mention SHALL keep the group key.
 
-#### Scenario: Mentioning
+#### Scenario: Mention
 
-- WHEN the user types `@` and picks a member
-- THEN the mention is inserted in the message
-- AND the message is sent to the group stream as usual
+- WHEN the user picks a member after `@`
+- THEN the composer holds a mention reference and the send keeps the group key
 
-### Requirement: Direct messages
+### Requirement: Direct conversations are separate lists
 
-The user SHALL be able to start a direct conversation with another member of the pod.
-Direct conversations SHALL be shown separately from the group stream.
+Direct conversations SHALL be listed apart from the group stream and open as their own conversation key.
 
-#### Scenario: Starting a direct message
+#### Scenario: Open a direct conversation
 
-- WHEN the user chooses another member and starts a direct conversation
-- THEN a conversation with only that member opens, apart from the group stream
+- WHEN the user chooses a member
+- THEN the screen switches to the key of that member's conversation
+
+### Requirement: Telli's info card is a structured message part
+
+A message from Telli MAY carry a card part: rows of field group, field name and value with an edit action, and a button that opens the pod's info.
+The chat SHALL render the text and the card part together as one message.
+
+#### Scenario: Reply with a card
+
+- WHEN a received message holds text and a card part with three rows
+- THEN the message renders its text above a card of three rows and the button
+
+## Open questions
+
+- The wire format of the card part, which the node or the data layer defines.

@@ -1,6 +1,7 @@
 # ios-app: notifications
 
 - Depends on: `../../mobile-common/shell/navigation/spec.md` (Notifications tab)
+- Realizes: [navigation](../../../behaviour/navigation/spec.md)
 - Read when: changing notification permission or the screen that asks for it
 
 ## Purpose
