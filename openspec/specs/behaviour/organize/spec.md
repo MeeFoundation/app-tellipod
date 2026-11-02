@@ -1,6 +1,6 @@
 # organize
 
-- Depends on: `../pod-lifecycle/spec.md`, `../../components/mobile-common/pods/pod-chat/spec.md`, `../../components/mobile-common/pods/note-editor/spec.md`
+- Depends on: `../pod-lifecycle/spec.md`, `../chat/spec.md`, `../note/spec.md`
 - Read when: building or changing the Organize action
 - Source: `pod-ontologies/app-behavior.md` (Organize, Auto File, Divide and Conquer, Tidy)
 
@@ -10,24 +10,30 @@ What the Organize action does to a selected pod. How the suggestions are produce
 
 ## Requirements
 
-### Requirement: Organize offers three actions
+### Requirement: Organize offers its actions
 
-Selecting a pod and tapping Organize SHALL offer Auto File, Divide and Conquer and Tidy.
+Selecting a pod and tapping Organize SHALL offer Auto File, Divide and Conquer and, when the note holds text to turn into a form, Tidy.
 
 #### Scenario: Opening Organize
 
 - WHEN the user selects a pod and taps Organize
-- THEN the three actions are listed
+- THEN Auto File, Divide and Conquer and Tidy are listed
 
 ### Requirement: Auto File needs consent
 
-Auto File SHALL apply only to a Custom pod, which has no category, and SHALL NOT be offered for a pod that has one.
-It SHALL suggest a category and place, and SHALL move the pod only after the user accepts.
+Auto File SHALL be offered for a Custom pod, which has no category.
+It SHALL suggest a category and place, and SHALL move the pod when the user accepts.
 
 #### Scenario: A note about a cat
 
 - WHEN the user runs Auto File on a Custom pod whose note is about caring for a cat
-- THEN the app suggests filing it under Pods > Pets and moves it only if the user accepts
+- THEN the app suggests filing it under Pods > Pets
+- AND the pod moves there when the user accepts
+
+#### Scenario: Pod with a category
+
+- WHEN the user opens Organize on a pod that has a category
+- THEN Auto File is absent from the list and Divide and Conquer and Tidy remain
 
 ### Requirement: Divide and Conquer leaves a link
 
@@ -43,19 +49,26 @@ A chunk structured enough to stay SHALL become a form tool in the same pod, and 
 #### Scenario: Follow-up question
 
 - WHEN the new pod is created
-- THEN the app may ask for missing facts, such as the issuing bank, and offer a better name, which the user may decline
+- THEN the app asks for missing facts, such as the issuing bank, and offers a better name
+- AND the user can skip both
 
-### Requirement: Tidy turns a message into a form
+### Requirement: Tidy turns note text into a form
 
-Tidy SHALL turn a chat message that carries structured information into a form tool in the same pod.
+Tidy SHALL be offered when text in the note carries structured information, and SHALL turn that text into a form tool in the same pod.
+Tidy SHALL be absent from the list when the note holds nothing to turn into a form.
 
-#### Scenario: A plumber's contact details
+#### Scenario: Card details in the note
 
-- WHEN the user runs Tidy on a reply holding a plumber's name, phone number and email
+- WHEN the note holds a card's name, number and expiry and the user runs Tidy
 - THEN the pod gains a form with those values in separate fields
+
+#### Scenario: Note without structured information
+
+- WHEN the user opens Organize on a pod whose note holds no structured information
+- THEN the list shows Auto File and Divide and Conquer only
 
 ## Open questions
 
 - What the user sees while a suggestion is being produced, and how a declined suggestion is shown.
-- Whether the chat message stays after Tidy turns it into a form.
+- Whether the note text stays after Tidy turns it into a form.
 - What the link shows if the pod or form it points to is later deleted.

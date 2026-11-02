@@ -1,77 +1,45 @@
 # pod-permissions
 
 - Depends on: none
-- Read when: showing, hiding or disabling an action in a pod
+- Realizes: [members-and-roles](../../../../behaviour/members-and-roles/spec.md)
+- Read when: computing which actions the UI offers in a pod
 - Source: `pod-ontologies/app-behavior.md`, Permissions
-- Scope: the node enforces permissions, including that a pod always keeps at least one owner. The app offers or hides actions to match, and does not rely on that for security.
+- Scope: the node enforces permissions, including that a pod keeps at least one owner. The app offers actions to match and is not a security boundary.
 
 ## Purpose
 
-Which pod actions the app offers to a user, by role.
+How the UI derives its action list from the user's role.
 
 ## Requirements
 
-### Requirement: Actions follow the user's role
+### Requirement: One action policy
 
-A person in a pod is an owner or a member.
-The app SHALL offer pod actions according to the user's role.
+The app SHALL compute the offered actions in one function from the user's role and the target (pod, member, attachment, form entry, owner count).
+Screens SHALL read the result and SHALL NOT check roles themselves.
+The role-by-action table is in [members-and-roles](../../../../behaviour/members-and-roles/spec.md).
 
-| Action | Owner | Member |
-|--------|-------|--------|
-| Invite a member | yes | yes |
-| Uninvite someone they invited | yes | yes |
-| Remove a member | yes | no |
-| Promote or demote a member | yes | no |
-| Leave the pod | yes | yes |
-| Delete the pod from this device | yes | yes |
-| Delete the pod for all members | yes | no |
-| Rename the pod for all members | yes | undecided |
+#### Scenario: Member role
 
-#### Scenario: Member opens pod actions
+- WHEN the policy is evaluated for a member on a pod
+- THEN the result lacks Remove member, Promote, Demote and Delete for all members
 
-- WHEN a member opens the actions for a pod
-- THEN "Remove member", "Promote", "Demote" and "Delete for all members" are not offered
+### Requirement: Target-dependent rules
 
-### Requirement: The only owner cannot be demoted
+The policy SHALL include the target's author and the pod's owner count:
+- Delete and Make private for an attachment: when the user is its author; Delete also for an owner;
+- Edit and Delete for a form entry: when the user is its author; Delete also for an owner;
+- Demote for an owner: when the pod has another owner.
 
-The app SHALL NOT offer to demote the only owner of a pod.
+#### Scenario: Only owner
 
-#### Scenario: Last owner
+- WHEN the policy is evaluated for the only owner viewing themselves
+- THEN Demote is absent
 
-- WHEN the only owner views the other members
-- THEN the action to demote that owner is not offered
+### Requirement: The node has the last word
 
-### Requirement: Attachments
+When the node rejects an action the UI offered, the app SHALL show the node's result and refresh the action list.
 
-The app SHALL NOT offer to edit an attachment.
-A member SHALL be offered deleting their own attachments, and an owner deleting any.
-A user SHALL be offered making their own attachment private, and not another member's.
+#### Scenario: Stale role
 
-#### Scenario: Viewing an attachment
-
-- WHEN a user views an attachment
-- THEN no edit action is offered
-
-#### Scenario: Another member's attachment
-
-- WHEN a member views an attachment added by another member
-- THEN "Delete" and "Make private" are not offered
-
-### Requirement: Forms
-
-A user SHALL be able to edit and delete their own form entries, such as their Contact Info, and see other members' as read-only.
-An owner SHALL also be offered deleting another member's entry.
-
-#### Scenario: Another member's entry
-
-- WHEN a member views another member's form entry
-- THEN it is read-only
-
-### Requirement: The note is open to every member
-
-The app SHALL NOT limit note actions by role: every member can read, edit, delete and export the note (see `../note-editor`).
-
-#### Scenario: Member edits the note
-
-- WHEN a member who is not an owner opens the note
-- THEN the editing actions are offered
+- WHEN the node rejects Remove member because the user's role changed
+- THEN the action list is recomputed with the new role

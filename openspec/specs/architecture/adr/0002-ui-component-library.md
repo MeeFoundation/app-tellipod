@@ -4,6 +4,8 @@ date: 2026-10-29
 ---
 # Build the UI component library from scratch in its own package
 
+- Read when: considering a third-party UI library or changing the UI kit's package boundary
+
 ## Context and Problem Statement
 
 Screens combine UI from several features, and the Mee design system exists in Figma ("Mee - Design System").

@@ -1,88 +1,69 @@
 # pod-naming-and-filing
 
 - Depends on: `../pod-permissions/spec.md`, `../pod-forms/spec.md`
-- Read when: creating, renaming, moving or receiving a pod
-- Source: `pod-ontologies/app-behavior.md`, Lazy Instantiation; Naming, Renaming, and Sharing; Auto-Filing on Receipt; Figma "Mee - Tellipod App v4.0.3" (Home)
+- Realizes: [create-and-name-pod](../../../../behaviour/create-and-name-pod/spec.md)
+- Read when: creating, renaming, moving or receiving a pod in code
+- Source: `pod-ontologies/app-behavior.md` (Lazy Instantiation; Naming, Renaming, and Sharing; Auto-Filing on Receipt)
 - Scope: how names travel between members is decided by the node. The app shows the names it receives.
 
 ## Purpose
 
-How the user creates, names, renames and places pods in the app.
+How the app computes a pod's displayed name and parent, and what it submits on create, rename and move.
 
 ## Requirements
 
-### Requirement: Create a pod
+### Requirement: Create submits category, name and template
 
-The user SHALL be able to create a pod by choosing a category, or none, and giving it a name.
-A new pod SHALL open with the Contact Info form, and with an empty tool for each tool its category declares.
-A pod with no category SHALL open with Contact Info only and no tools.
+Creating a pod SHALL submit the chosen category (or none), the name, and one tool declaration per tool in the category's template, plus the Contact Info form.
 
-#### Scenario: Pod with no category
+#### Scenario: Passport
 
-- WHEN the user creates a pod without a category
-- THEN it opens with Contact Info only and no tools
+- WHEN the user confirms creation from the Passport category
+- THEN the submitted request carries the category, the name and the Passport tool declaration
 
-### Requirement: Rename a pod
+### Requirement: Display name comes from the naming mode
 
-The user SHALL be able to rename a pod.
-In a pod with one member, three or more members, or two members and a tool, the name is shared: the app SHALL show the same name to every member.
-In a pod with two members and no tool, the name is the user's own: a rename SHALL change only what this user sees.
+The app SHALL compute the displayed name from the pod's naming mode. The Contact Info form every pod holds does not count as a tool:
+- shared, when the pod has one member, three or more members, or two members and a tool: the name received for the pod;
+- personal, when it has two members and no tool: the name this user set, or the other member's given name when none is set.
 
-#### Scenario: Shared name
+#### Scenario: Mode switch
 
-- WHEN a member renames a pod that has three members
-- THEN each member's app shows the new name
+- WHEN a tool is added to a two-member pod
+- THEN the displayed name is computed in shared mode from then on
 
-#### Scenario: Two members and a tool
+### Requirement: A rename is stored by naming mode
 
-- WHEN a member renames a two-member pod that has a tool
-- THEN the name is shared, as above
+A rename in shared mode SHALL be submitted to the node as a pod change; in personal mode it SHALL be stored for this user only.
 
-#### Scenario: Two members and no tool
+#### Scenario: Rename in personal mode
 
-- WHEN a member renames a two-member pod that has no tool
-- THEN the other member's name for the pod does not change
+- WHEN the user renames a two-member pod that has no tool
+- THEN the new name is stored for this user only and no pod change is submitted
 
-### Requirement: Name of a received two-member pod
+### Requirement: Duplicate suffix is a display concern
 
-A two-member pod without a tool that the user receives SHALL appear under the sender's given name, not under the name the sender chose.
+The app SHALL derive a distinguishing number from the siblings under the same parent when two names are equal, and SHALL render it without changing the stored name.
 
-#### Scenario: First receipt
+#### Scenario: Equal siblings
 
-- WHEN Alice sends Bob a pod she named "Bob"
-- THEN the pod appears to Bob as "Alice"
+- WHEN two siblings under one parent are named "Coffee"
+- THEN the second renders as "Coffee" with a number and stores "Coffee"
 
-### Requirement: Duplicate names are not rejected
+### Requirement: The category is immutable
 
-The app SHALL NOT ask the user about a duplicate name or reject it.
-A pod with the same name as another pod under the same parent SHALL be shown with a distinguishing number.
-This applies when creating, renaming and receiving a pod.
+Rename and move requests SHALL NOT carry a category field.
 
-#### Scenario: Duplicate name
+#### Scenario: Move
 
-- WHEN the user creates a pod with the name of a pod already under the same parent
-- THEN no error or prompt is shown
-- AND the new pod is shown with a number added to its name
+- WHEN a move request is built
+- THEN it holds the pod identifier and the new parent only
 
-### Requirement: The category does not change
+### Requirement: Receipt files under category parents
 
-A pod's category SHALL stay as it was at creation; renaming or moving the pod SHALL NOT change it.
+On receipt the app SHALL file the pod under parents matching its category, creating empty parents that are missing, and SHALL keep a user's later move.
 
-#### Scenario: Renamed pod
+#### Scenario: Move after receipt
 
-- WHEN the user renames a pod to match another category's name
-- THEN the pod keeps its category
-
-### Requirement: File a received pod
-
-When the user receives a pod from an invitation, the app SHALL file it under empty parent pods that match its category, and the user SHALL be able to move it.
-
-#### Scenario: Received pod with no parents
-
-- WHEN the user receives a pod whose category needs parent pods they do not have
-- THEN the app creates the empty parent pods and files the pod under them
-
-#### Scenario: Moving a received pod
-
-- WHEN the user moves a received pod under another parent
-- THEN it stays there
+- WHEN the user moves a received pod
+- THEN later syncs do not refile it

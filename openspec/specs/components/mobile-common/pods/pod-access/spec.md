@@ -1,54 +1,43 @@
 # pod-access
 
 - Depends on: `../../shell/launch-and-auth/spec.md`
-- Read when: adding an entry point to a pod, or a link that opens one
+- Realizes: [find-a-pod](../../../../behaviour/find-a-pod/spec.md)
+- Read when: adding an entry point to a pod, or changing how a link or invitation is resolved
 - Source: `pod-ontologies/app-behavior.md` (authoritative for pod behavior); Figma "Mee - Tellipod App v4.0.3"
 
 ## Purpose
 
-How a user gets into a pod from within the app and from outside it.
+How the app turns a link, a card tap or an invitation into an open pod.
 
 ## Requirements
 
-### Requirement: Open a pod from a link in the app
+### Requirement: One pod route
 
-Any link to a pod inside the app, usually a pod card, SHALL open that pod's screen.
+Every entry point (card, search result, note link, invitation) SHALL navigate to the same pod route, parameterized by the pod's stable identifier.
 
-#### Scenario: Tapping a pod card
+#### Scenario: Card and result
 
-- WHEN the user taps a link to a pod, such as a pod card
-- THEN the pod screen opens
+- WHEN a pod card and a search result refer to the same pod
+- THEN both navigate to the same route with the same identifier
 
-### Requirement: Open a pod from search
+### Requirement: Link resolution by identifier
 
-Search by tag or property SHALL return a flat list of links to pods, and tapping one opens the pod.
+A pod link SHALL resolve by the target's identifier.
+The display text SHALL be rendered from the target's current name when it resolves, and from the stored text otherwise.
+A link that does not resolve SHALL render in the unresolved state and have no navigation handler.
+A link without an identifier SHALL be passed to pod creation (see [pod-lifecycle](../../../../behaviour/pod-lifecycle/spec.md)).
 
-#### Scenario: Searching
+#### Scenario: Deleted target
 
-- WHEN the user searches and taps a result
-- THEN the pod opens
+- WHEN the pod for an identifier is absent from the local store
+- THEN the link renders unresolved and a tap on it triggers no navigation
 
-### Requirement: Pod links resolve by identifier
+### Requirement: Invitations are processed after sign-in
 
-A link to a pod in a note SHALL resolve by the target pod's stable identifier, not by its display text.
-A link that cannot be resolved SHALL be shown as unresolved and be inert.
+The app SHALL hand the invitation payload to the data layer, wait for the received pod to arrive, create empty parent pods its category needs, and then navigate to the pod route.
+The onboarding step is bypassed (see `../../shell/launch-and-auth/spec.md`).
 
-#### Scenario: Link to a deleted pod
+#### Scenario: Missing parents
 
-- WHEN the user taps a link whose pod no longer exists
-- THEN it is shown as unresolved and nothing opens
-
-#### Scenario: Link without an identifier
-
-- WHEN the user taps a link that has no identifier
-- THEN a new single-member pod is created at the root of the tree
-
-### Requirement: Open a pod from an invitation
-
-Following an invitation link SHALL install or open the app and file the received pod in the recipient's tree, creating empty parent pods if needed.
-Onboarding is skipped (see `../../shell/launch-and-auth/spec.md`).
-
-#### Scenario: Invitation to a nested pod
-
-- WHEN the recipient has no pod for the parent branch
-- THEN empty parent pods are created and the invited pod is filed under them
+- WHEN the received pod's category path has two levels the user does not have
+- THEN two empty parent pods are created, the pod is filed under them and the pod route opens

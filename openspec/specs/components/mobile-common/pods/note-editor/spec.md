@@ -1,67 +1,49 @@
 # note-editor
 
 - Depends on: `../pod-access/spec.md`, `../../../ui-kit/components/spec.md`
-- Read when: building or changing the note
+- Realizes: [note](../../../../behaviour/note/spec.md)
+- Read when: building or changing the editor, its persistence or its export
 - Source: `pod-ontologies/app-behavior.md`, Note Area
 
 ## Purpose
 
-What the app shows and lets the user do in the note area of a pod.
+How the editor persists the note, parses shortcuts and links, and exports Markdown.
 
 ## Requirements
 
-### Requirement: One note per pod
+### Requirement: Debounced continuous save
 
-Each pod SHALL show exactly one note, which every member can read and edit (see `../pod-permissions/spec.md`).
+The editor SHALL write changes to the store on a short debounce and on leaving the screen or backgrounding the app.
 
-#### Scenario: Opening a pod
+#### Scenario: Backgrounding
 
-- WHEN a user opens a pod
-- THEN the pod's single note is shown
+- WHEN the app moves to the background with unsaved edits
+- THEN the edits are flushed to the store
 
-### Requirement: Autosave
+### Requirement: Shortcuts are editor transforms
 
-The note SHALL save continuously; there is no save action.
+Markdown shortcuts (`#`, `**`, `-`, `[[`) SHALL be input rules of the editor, applied as the user types.
 
-#### Scenario: Closing the note
+#### Scenario: Bold
 
-- WHEN the user leaves the note
-- THEN their edits are already saved
+- WHEN the typed text matches `**word**`
+- THEN the rule replaces it with bold text
 
-### Requirement: Formatting
+### Requirement: Link autocomplete
 
-The note SHALL support headings, bold, italic, strikethrough, inline code, code blocks, blockquotes, bulleted, numbered, nested and checklist items, tables and URLs.
-Markdown shortcuts (`#`, `**`, `-`, `[[`) SHALL work while typing.
+Typing `[[` SHALL open an autocomplete fed by the user's pods (pod links) and by the tools, graphs and attachments of the open pod (block links).
+Resolution of a link is in [pod-access](../pod-access/spec.md).
 
-#### Scenario: Typing a shortcut
+#### Scenario: Block link target removed
 
-- WHEN the user types `**` around a word
-- THEN the word becomes bold
+- WHEN a block link's target is absent from the pod
+- THEN the link renders unresolved and has no navigation handler
 
-### Requirement: Editing tools
+### Requirement: Markdown export
 
-The note SHALL offer find and replace, and undo and redo.
+Export SHALL serialize a resolved pod link as `[[id|text]]`, an unresolved one as `[[text]]` and a block link as its text.
 
-#### Scenario: Undo
+#### Scenario: Mixed links
 
-- WHEN the user taps undo
-- THEN the last edit is reverted
-
-### Requirement: Links in the note
-
-Typing `[[` SHALL autocomplete pod links from the user's pods and block links to a tool, graph or attachment in the same pod.
-Resolution rules are in `../pod-access/spec.md`.
-
-#### Scenario: Block link to a removed tool
-
-- WHEN a block link points to a removed tool
-- THEN it shows as unresolved and is not redirected
-
-### Requirement: Export
-
-The note SHALL be exportable as Markdown: resolved pod links as `[[id|text]]`, unresolved ones as `[[text]]`, block links as plain text.
-
-#### Scenario: Export
-
-- WHEN the user exports a note with one resolved pod link
-- THEN the Markdown contains `[[id|text]]` for it
+- WHEN a note holds one resolved pod link and one block link
+- THEN the output holds `[[id|text]]` and the block link's text

@@ -1,6 +1,7 @@
 # ios-app: authentication-and-keys
 
 - Depends on: `../../mobile-common/shell/launch-and-auth/spec.md`
+- Realizes: [launch-and-sign-in](../../../behaviour/launch-and-sign-in/spec.md)
 - Read when: changing Face ID sign-in, key storage or backup rules
 - Source: `pod-ontologies/storage.md` (no pod is stored by a cloud provider or other third party)
 
