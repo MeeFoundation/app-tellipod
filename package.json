@@ -13,11 +13,11 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
-    "@commitlint/cli": "^21.2.4",
-    "@commitlint/config-conventional": "^21.2.4",
-    "husky": "^9.1.7",
-    "knip": "6.43.0",
-    "typescript": "7.0.2"
+    "@biomejs/biome": "catalog:",
+    "@commitlint/cli": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
+    "husky": "catalog:",
+    "knip": "catalog:",
+    "typescript": "catalog:"
   }
 }
