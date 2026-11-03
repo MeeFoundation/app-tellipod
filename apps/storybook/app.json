@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "android": {
+      "package": "com.tellipod.storybook"
+    },
+    "ios": {
+      "bundleIdentifier": "com.tellipod.storybook",
+      "supportsTablet": true
+    },
+    "name": "Tellipod Storybook",
+    "orientation": "portrait",
+    "slug": "tellipod-storybook",
+    "userInterfaceStyle": "light",
+    "version": "0.0.0"
+  }
+}

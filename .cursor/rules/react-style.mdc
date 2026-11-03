@@ -1,0 +1,7 @@
+---
+description: React component style guide.
+globs: "**/*.tsx"
+alwaysApply: false
+---
+
+Follow @openspec/specs/code-practices/react-styleguide.md.

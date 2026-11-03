@@ -6,13 +6,70 @@
     "useIgnoreFile": true
   },
   "formatter": {
+    "enabled": true,
     "indentStyle": "space",
-    "indentWidth": 2
+    "indentWidth": 2,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "all"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
   },
   "linter": {
-    "enabled": true
+    "enabled": true,
+    "domains": {
+      "react": "recommended"
+    },
+    "rules": {
+      "preset": "recommended",
+      "correctness": {
+        "noPrecisionLoss": "error",
+        "noSwitchDeclarations": "error",
+        "noUnsafeFinally": "error",
+        "noUnsafeOptionalChaining": "error",
+        "noUnusedVariables": "error"
+      },
+      "nursery": {
+        "useTailwindSortedClasses": {
+          "level": "error",
+          "fix": "safe"
+        }
+      },
+      "style": {
+        "useConst": "error"
+      },
+      "suspicious": {
+        "noAsyncPromiseExecutor": "error",
+        "noCatchAssign": "error",
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": ["assert", "error", "info", "warn"]
+          }
+        },
+        "noControlCharactersInRegex": "error",
+        "noDebugger": "error",
+        "noDuplicateCase": "error",
+        "noEmptyBlockStatements": "error",
+        "noExtraNonNullAssertion": "error",
+        "noFallthroughSwitchClause": "error",
+        "noGlobalAssign": "error",
+        "noPrototypeBuiltins": "error",
+        "noUnsafeDeclarationMerging": "error",
+        "noUnsafeNegation": "error"
+      }
+    }
   },
   "assist": {
+    "enabled": true,
     "actions": {
       "source": {
         "organizeImports": "on"
@@ -20,6 +77,28 @@
     }
   },
   "files": {
-    "includes": ["**", "!openspec"]
-  }
+    "includes": [
+      "**",
+      "!openspec",
+      "!**/*.md",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/build",
+      "!**/storybook-static",
+      "!**/storybook.requires.ts",
+      "!**/global.css"
+    ]
+  },
+  "overrides": [
+    {
+      "includes": [
+        "**/package.json",
+        "**/tsconfig.json",
+        "**/vitest.config.ts"
+      ],
+      "assist": {
+        "enabled": false
+      }
+    }
+  ]
 }

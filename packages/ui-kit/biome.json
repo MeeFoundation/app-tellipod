@@ -1,0 +1,28 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              [":URL:", ":NODE:"],
+              ":BLANK_LINE:",
+              [":PACKAGE:", "!@tellipod/**"],
+              ":BLANK_LINE:",
+              "@tellipod/**",
+              ":BLANK_LINE:",
+              ":PATH:"
+            ]
+          }
+        },
+        "useSortedAttributes": "on",
+        "useSortedKeys": "on",
+        "useSortedProperties": "on"
+      }
+    }
+  },
+  "extends": "//",
+  "root": false
+}

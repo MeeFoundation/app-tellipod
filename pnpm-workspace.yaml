@@ -1,3 +1,16 @@
 packages:
   - apps/*
   - packages/*
+
+minimumReleaseAge: 10080
+
+minimumReleaseAgeExclude:
+  - "@biomejs/*"
+
+strictDepBuilds: true
+
+allowBuilds:
+  # Not needed: jest falls back to a WASM resolver, and Metro falls back to its own file watcher.
+  "@parcel/watcher": false
+  unrs-resolver: false
+  esbuild: false
