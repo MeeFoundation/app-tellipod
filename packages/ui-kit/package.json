@@ -8,12 +8,14 @@
     "test": "jest"
   },
   "dependencies": {
+    "bootstrap-icons": "catalog:",
     "clsx": "catalog:",
     "expo-linear-gradient": "catalog:",
     "nativewind": "catalog:",
     "react": "catalog:",
     "react-native": "catalog:",
     "react-native-svg": "catalog:",
+    "react-native-svg-transformer": "catalog:",
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {
@@ -33,6 +35,9 @@
     "preset": "jest-expo",
     "testPathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.svg$": "<rootDir>/jest/svgMock.js"
+    }
   }
 }

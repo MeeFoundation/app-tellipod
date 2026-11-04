@@ -9,7 +9,7 @@
 - [x] 2.1 Add `packages/ui-kit/src/Icon/` with the two icon components, the name map and `Icon`, and verify `check-circle` and `info-circle` render at the default 16 px in a test
 - [x] 2.2 Add the size and text color context, and verify in a test that an `Icon` takes the context size and color and that an explicit size or color wins
 - [x] 2.3 Hide the Icon from assistive technology unless it has an accessibility label, and verify both cases in a test
-- [ ] 2.4 Verify NativeWind applies the text color class to the SVG color on iOS or in the Storybook app, or move the mapping into the Icon as the design allows
+- [x] 2.4 Verify NativeWind applies the text color class to the SVG color on iOS or in the Storybook app, or move the mapping into the Icon as the design allows
 
 ## 3. Badge
 
@@ -22,11 +22,11 @@
 
 ## 4. Stories and exports
 
-- [ ] 4.1 Add `Badge.stories.tsx` with the grouped stories Types, Styles, Sizes, Shapes, Content and Playground, and verify they run in `apps/storybook` and each group shows several badges
+- [x] 4.1 Add `Badge.stories.tsx` with the grouped stories Types, Styles, Sizes, Shapes, Content and Playground, and verify they run in `apps/storybook` and each group shows several badges
 - [x] 4.2 Export `Badge`, `Icon` and their prop types from `packages/ui-kit/src/index.ts`, and verify `pnpm` type checking passes for the kit and the Storybook app
-- [ ] 4.3 Compare each story with its Figma frames and verify heights, colors and spacing match, noting any intentional difference in the spec
+- [x] 4.3 Compare each story with its Figma frames and verify heights, colors and spacing match, noting any intentional difference in the spec
 
 ## 5. Specs and indexes
 
-- [ ] 5.1 Add rows for `badge` and `icon` to `openspec/specs/components/ui-kit/README.md` with their "Read when", and verify the links resolve
+- [x] 5.1 Add rows for `badge` and `icon` to `openspec/specs/components/ui-kit/README.md` with their "Read when", and verify the links resolve
 - [x] 5.2 Run `openspec validate add-badge-component --strict` and verify it passes

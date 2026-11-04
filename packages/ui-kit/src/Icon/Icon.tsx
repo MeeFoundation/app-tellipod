@@ -2,7 +2,6 @@ import type { FC } from "react";
 
 import { GLYPHS, type IconName } from "./glyphs";
 import { resolveIconLook, useIconDefaults } from "./IconDefaults";
-import { StyledSvg } from "./StyledSvg";
 
 export type { IconName } from "./glyphs";
 
@@ -39,15 +38,13 @@ export const Icon: FC<IconProps> = ({
         } as const);
 
   return (
-    <StyledSvg
+    <Glyph
       {...labelProps}
       className={look.className}
       height={look.size}
       testID={`icon-${name}`}
       viewBox="0 0 16 16"
       width={look.size}
-    >
-      <Glyph />
-    </StyledSvg>
+    />
   );
 };

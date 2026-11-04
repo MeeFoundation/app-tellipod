@@ -1,42 +1,31 @@
+import CheckCircle from "bootstrap-icons/icons/check-circle.svg";
+import InfoCircle from "bootstrap-icons/icons/info-circle.svg";
 import type { FC } from "react";
-import { Circle, Path } from "react-native-svg";
+import Svg, { Circle, type SvgProps } from "react-native-svg";
 
-// Figma "Mee - Design System v5.2.4", Badge page: icon / outline / check-circle and info-circle.
-// Both are drawn on a 16 px grid and filled with the current color.
+import { withColorClass } from "./withColorClass";
 
-const CheckCircle: FC = () => (
-  <>
-    <Path
-      d="M8 15C6.14348 15 4.36301 14.2625 3.05025 12.9497C1.7375 11.637 1 9.85652 1 8C1 6.14348 1.7375 4.36301 3.05025 3.05025C4.36301 1.7375 6.14348 1 8 1C9.85652 1 11.637 1.7375 12.9497 3.05025C14.2625 4.36301 15 6.14348 15 8C15 9.85652 14.2625 11.637 12.9497 12.9497C11.637 14.2625 9.85652 15 8 15ZM8 16C10.1217 16 12.1566 15.1571 13.6569 13.6569C15.1571 12.1566 16 10.1217 16 8C16 5.87827 15.1571 3.84344 13.6569 2.34315C12.1566 0.842855 10.1217 0 8 0C5.87827 0 3.84344 0.842855 2.34315 2.34315C0.842855 3.84344 0 5.87827 0 8C0 10.1217 0.842855 12.1566 2.34315 13.6569C3.84344 15.1571 5.87827 16 8 16Z"
-      fill="currentColor"
-    />
-    <Path
-      d="M10.9703 4.97004L10.9503 4.99204L7.47734 9.41704L5.38434 7.32304C5.24216 7.19056 5.05412 7.11843 4.85982 7.12186C4.66551 7.12529 4.48013 7.204 4.34272 7.34141C4.2053 7.47883 4.12659 7.66421 4.12316 7.85851C4.11974 8.05281 4.19186 8.24086 4.32434 8.38304L6.97034 11.03C7.04162 11.1012 7.1265 11.1573 7.21992 11.1949C7.31334 11.2325 7.41339 11.251 7.51408 11.2491C7.61478 11.2472 7.71407 11.2251 7.80604 11.184C7.898 11.143 7.98074 11.0838 8.04934 11.01L12.0413 6.02004C12.1773 5.87737 12.2516 5.68693 12.2482 5.4899C12.2449 5.29288 12.1641 5.10508 12.0234 4.96713C11.8827 4.82918 11.6933 4.75214 11.4963 4.75269C11.2992 4.75323 11.1103 4.83131 10.9703 4.97004Z"
-      fill="currentColor"
-    />
-  </>
+// Bootstrap Icons are imported as components (react-native-svg-transformer), so only the icons
+// imported here reach the bundle. Add an icon: import its SVG and add it to RAW_GLYPHS.
+// Each is drawn on a 16 px grid and filled with the current color.
+
+// A filled circle of 9 px on the 16 px grid, the leading dot of a Badge. It is not a Bootstrap icon.
+const Dot: FC<SvgProps> = (props) => (
+  <Svg viewBox="0 0 16 16" {...props}>
+    <Circle cx={8} cy={8} fill="currentColor" r={4.5} />
+  </Svg>
 );
 
-const InfoCircle: FC = () => (
-  <>
-    <Path
-      d="M8 15C6.14348 15 4.36301 14.2625 3.05025 12.9497C1.7375 11.637 1 9.85652 1 8C1 6.14348 1.7375 4.36301 3.05025 3.05025C4.36301 1.7375 6.14348 1 8 1C9.85652 1 11.637 1.7375 12.9497 3.05025C14.2625 4.36301 15 6.14348 15 8C15 9.85652 14.2625 11.637 12.9497 12.9497C11.637 14.2625 9.85652 15 8 15ZM8 16C10.1217 16 12.1566 15.1571 13.6569 13.6569C15.1571 12.1566 16 10.1217 16 8C16 5.87827 15.1571 3.84344 13.6569 2.34315C12.1566 0.842855 10.1217 0 8 0C5.87827 0 3.84344 0.842855 2.34315 2.34315C0.842855 3.84344 0 5.87827 0 8C0 10.1217 0.842855 12.1566 2.34315 13.6569C3.84344 15.1571 5.87827 16 8 16Z"
-      fill="currentColor"
-    />
-    <Path
-      d="M8.92995 6.588L6.63995 6.875L6.55795 7.255L7.00795 7.338C7.30195 7.408 7.35995 7.514 7.29595 7.807L6.55795 11.275C6.36395 12.172 6.66295 12.594 7.36595 12.594C7.91095 12.594 8.54395 12.342 8.83095 11.996L8.91895 11.58C8.71895 11.756 8.42695 11.826 8.23295 11.826C7.95795 11.826 7.85795 11.633 7.92895 11.293L8.92995 6.588ZM8.99995 4.5C8.99995 4.76522 8.8946 5.01957 8.70706 5.20711C8.51952 5.39464 8.26517 5.5 7.99995 5.5C7.73474 5.5 7.48038 5.39464 7.29285 5.20711C7.10531 5.01957 6.99995 4.76522 6.99995 4.5C6.99995 4.23478 7.10531 3.98043 7.29285 3.79289C7.48038 3.60536 7.73474 3.5 7.99995 3.5C8.26517 3.5 8.51952 3.60536 8.70706 3.79289C8.8946 3.98043 8.99995 4.23478 8.99995 4.5Z"
-      fill="currentColor"
-    />
-  </>
-);
-
-// A filled circle of 9 px on the 16 px grid, the leading dot of a Badge.
-const Dot: FC = () => <Circle cx={8} cy={8} fill="currentColor" r={4.5} />;
-
-export type IconName = "check-circle" | "dot" | "info-circle";
-
-export const GLYPHS: Readonly<Record<IconName, FC>> = {
+const RAW_GLYPHS = {
   "check-circle": CheckCircle,
   dot: Dot,
   "info-circle": InfoCircle,
-};
+} as const;
+
+export type IconName = keyof typeof RAW_GLYPHS;
+
+const entries = Object.keys(RAW_GLYPHS) as IconName[];
+
+export const GLYPHS = Object.fromEntries(
+  entries.map((name) => [name, withColorClass(RAW_GLYPHS[name])]),
+) as Readonly<Record<IconName, FC<SvgProps>>>;
