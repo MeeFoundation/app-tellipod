@@ -18,3 +18,9 @@ export { LinkButton } from "./Button/LinkButton";
 export { OutlinedButton } from "./Button/OutlinedButton";
 export type { IconName, IconProps } from "./Icon/Icon";
 export { Icon } from "./Icon/Icon";
+export type {
+  TextFieldProps,
+  TextFieldSize,
+  TextFieldVariant,
+} from "./TextField/TextField";
+export { TextField } from "./TextField/TextField";

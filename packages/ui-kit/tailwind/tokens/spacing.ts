@@ -3,6 +3,8 @@
 export const spacing = {
   0: "0px",
   "0.5": "2px",
+  // Not in the Figma Spacing collection: the focus ring (outline-thickness) drawn outside a field.
+  "0.75": "3px",
   1: "4px",
   "1.5": "6px",
   2: "8px",

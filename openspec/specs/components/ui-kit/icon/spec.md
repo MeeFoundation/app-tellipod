@@ -7,7 +7,7 @@ The Icon is the kit's simple, single place for glyphs. It holds only the icons a
 
 ### Requirement: The Icon draws a named glyph
 
-An Icon SHALL accept a name, which for now is `check-circle` or `info-circle`, and draw the matching glyph from the design system's outline set.
+An Icon SHALL accept a name, which for now is `check-circle`, `info-circle`, `search` or `exclamation-circle`, and draw the matching glyph from the design system's outline set.
 An Icon SHALL accept a size in px and a text color class.
 The default size SHALL be 16 px and the default color SHALL be the `text/default/body` color.
 
@@ -20,6 +20,11 @@ The default size SHALL be 16 px and the default color SHALL be the `text/default
 
 - WHEN an Icon is rendered with the name `info-circle` and a size of 12
 - THEN it shows the outline info-circle glyph at 12 px
+
+#### Scenario: An icon for a text field
+
+- WHEN an Icon is rendered with the name `search` at 14 px
+- THEN it shows the outline search glyph at 14 px
 
 ### Requirement: An Icon in a Badge takes the Badge's look
 
@@ -57,14 +62,14 @@ The only exception SHALL be `dot`, which is the Badge's leading dot and is not a
 
 #### Scenario: A different icon version
 
-- WHEN the Bootstrap Icons package is updated and the icons are generated again
+- WHEN the Bootstrap Icons package is updated
 - THEN each listed icon draws the shapes of the new version, with no other change
 
 ### Requirement: Only the listed icons are available
 
 An Icon SHALL accept only the names on the kit's icon list.
 An icon that is not on the list SHALL NOT be part of the app.
-Adding an icon SHALL need only its Bootstrap name on the list and one command, with no hand-written shapes.
+Adding an icon SHALL need only its Bootstrap name on the list, with no hand-written shapes and no generation step.
 
 #### Scenario: An unlisted name
 
@@ -73,19 +78,10 @@ Adding an icon SHALL need only its Bootstrap name on the list and one command, w
 
 #### Scenario: Adding an icon
 
-- WHEN a developer adds the name `bell` to the list and runs the icon command
+- WHEN a developer adds the name `bell` to the list
 - THEN an Icon with the name `bell` type checks and draws the Bootstrap `bell` glyph
 
 #### Scenario: Unused icons stay out of the app
 
 - WHEN the app is built with only `check-circle` and `info-circle` on the list
 - THEN no other Bootstrap icon shapes are in the app bundle
-
-### Requirement: The generated icons stay in step with the list
-
-The generated icon file SHALL match the list, so the list and the file never disagree.
-
-#### Scenario: A stale generated file
-
-- WHEN a name is on the list but the icon command has not been run
-- THEN a test fails and names the missing icon

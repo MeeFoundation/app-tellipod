@@ -283,3 +283,43 @@ describe("Badge contrast", () => {
     expect(failing).toEqual([]);
   });
 });
+
+// Text and background pairs of the TextField, from Figma "Text Field" (light mode).
+// Every text sits on the white `surface/default/main` of the field or the screen.
+// Disabled fields are exempt from contrast.
+const TEXT_FIELD_PAIRS: readonly Pair[] = [
+  { name: "Value", text: text.default.body },
+  { name: "Placeholder and inline label", text: text.default.placeholder },
+  { name: "Label", text: text.default.body },
+  { name: "Label, focused", text: text.brand.solid },
+  { name: "Label and message, error", text: text.error.solid },
+  { name: "Helper text and counter", text: text.default.subtle },
+].map((pair) => ({ ...pair, background: surface.default.main }));
+
+// The stroke that bounds a field is a non-text element that must reach 3:1.
+const NON_TEXT_MINIMUM = 3;
+const TEXT_FIELD_STROKES: readonly Pair[] = [
+  { name: "Stroke, default", text: colors.stroke.gray.accent },
+  { name: "Stroke, focused", text: colors.stroke.brand.solid },
+  { name: "Stroke, error", text: colors.stroke.error.solid },
+].map((pair) => ({ ...pair, background: surface.default.main }));
+
+describe("TextField contrast", () => {
+  const ratio = (pair: Pair) => contrastRatio(pair.text, pair.background);
+  const failing = (pairs: readonly Pair[], minimum: number) =>
+    pairs
+      .filter((pair) => ratio(pair) < minimum)
+      .map((pair) => `${pair.name}: ${ratio(pair).toFixed(2)}`);
+
+  it("lists the text pairs below 4.5:1 for the TextField spec", () => {
+    // Update "Accessibility exceptions" in openspec/specs/components/ui-kit/text-field/spec.md
+    // when this list changes.
+    expect(failing(TEXT_FIELD_PAIRS, MINIMUM)).toEqual([]);
+  });
+
+  it("lists the strokes below 3:1 for the TextField spec", () => {
+    expect(failing(TEXT_FIELD_STROKES, NON_TEXT_MINIMUM)).toEqual([
+      "Stroke, default: 1.48",
+    ]);
+  });
+});

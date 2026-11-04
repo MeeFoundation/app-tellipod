@@ -12,15 +12,17 @@ const propOf = (
 ): unknown => element.props[name];
 
 describe("Icon glyphs", () => {
-  it.each(["check-circle", "info-circle"] as const)(
-    "%s renders at 16 px by default",
-    async (name) => {
-      await render(<Icon name={name} />);
-      const icon = screen.getByTestId(`icon-${name}`, HIDDEN);
-      expect(propOf(icon, "width")).toBe(16);
-      expect(propOf(icon, "height")).toBe(16);
-    },
-  );
+  it.each([
+    "check-circle",
+    "exclamation-circle",
+    "info-circle",
+    "search",
+  ] as const)("%s renders at 16 px by default", async (name) => {
+    await render(<Icon name={name} />);
+    const icon = screen.getByTestId(`icon-${name}`, HIDDEN);
+    expect(propOf(icon, "width")).toBe(16);
+    expect(propOf(icon, "height")).toBe(16);
+  });
 
   it("renders another size", async () => {
     await render(<Icon name="info-circle" size={12} />);

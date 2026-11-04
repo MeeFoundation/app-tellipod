@@ -4,6 +4,8 @@ export const borderWidth = {
   0: "0px",
   1: "1px",
   2: "2px",
+  // Figma outline-thickness: the width of the focus ring.
+  3: "3px",
   4: "4px",
   8: "8px",
   DEFAULT: "1px",

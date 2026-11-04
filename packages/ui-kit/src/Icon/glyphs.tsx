@@ -1,5 +1,7 @@
 import CheckCircle from "bootstrap-icons/icons/check-circle.svg";
+import ExclamationCircle from "bootstrap-icons/icons/exclamation-circle.svg";
 import InfoCircle from "bootstrap-icons/icons/info-circle.svg";
+import Search from "bootstrap-icons/icons/search.svg";
 import type { FC } from "react";
 import Svg, { Circle, type SvgProps } from "react-native-svg";
 
@@ -19,7 +21,9 @@ const Dot: FC<SvgProps> = (props) => (
 const RAW_GLYPHS = {
   "check-circle": CheckCircle,
   dot: Dot,
+  "exclamation-circle": ExclamationCircle,
   "info-circle": InfoCircle,
+  search: Search,
 } as const;
 
 export type IconName = keyof typeof RAW_GLYPHS;

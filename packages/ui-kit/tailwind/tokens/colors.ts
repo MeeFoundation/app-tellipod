@@ -170,6 +170,10 @@ export const colors = {
       solid_hover: brand[800],
       strong: brand[400],
     },
+    // Figma surface/default/main: the white of fields and screens.
+    default: {
+      main: white,
+    },
     error: {
       accent: error[200],
       elevated: white,
