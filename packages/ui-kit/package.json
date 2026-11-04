@@ -13,6 +13,7 @@
     "nativewind": "catalog:",
     "react": "catalog:",
     "react-native": "catalog:",
+    "react-native-svg": "catalog:",
     "tailwind-merge": "catalog:"
   },
   "devDependencies": {

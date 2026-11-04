@@ -237,3 +237,49 @@ describe("Button contrast", () => {
     ]);
   });
 });
+
+// Text and background token pairs of the Badge, from Figma "Badge" (light mode).
+// Outlined badges have no fill, so their text sits on the white screen.
+const BADGE_GROUPS = ["brand", "gray", "success", "error", "warning"] as const;
+
+const BADGE_PAIRS: readonly Pair[] = BADGE_GROUPS.flatMap((group) => [
+  {
+    background: surface[group].solid,
+    name: `Filled - solid ${group}`,
+    text: text[group]["on-solid-background"],
+  },
+  {
+    background: surface[group].soft,
+    name: `Filled - light ${group}`,
+    text: text[group].solid,
+  },
+  {
+    background: colors.white,
+    name: `Outlined - light ${group}`,
+    text: text[group].solid,
+  },
+]);
+
+describe("Badge contrast", () => {
+  const measured = BADGE_PAIRS.map((pair) => ({
+    name: pair.name,
+    ratio: contrastRatio(pair.text, pair.background),
+  }));
+
+  it("reports a ratio for every pair", () => {
+    expect(measured).toHaveLength(BADGE_PAIRS.length);
+    for (const { ratio } of measured) {
+      expect(Number.isFinite(ratio)).toBe(true);
+      expect(ratio).toBeGreaterThanOrEqual(1);
+    }
+  });
+
+  it("lists the pairs below 4.5:1 for the Badge spec", () => {
+    const failing = measured
+      .filter(({ ratio }) => ratio < MINIMUM)
+      .map(({ name, ratio }) => `${name}: ${ratio.toFixed(2)}`);
+    // Update "Accessibility exceptions" in openspec/specs/components/ui-kit/badge/spec.md
+    // when this list changes.
+    expect(failing).toEqual([]);
+  });
+});
