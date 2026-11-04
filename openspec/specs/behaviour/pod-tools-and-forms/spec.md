@@ -48,12 +48,17 @@ A field that depends on another field SHALL offer the values valid for the other
 - WHEN the user picks a make
 - THEN the model dropdown lists that make's models
 
-### Requirement: Members' entries
+### Requirement: Only owners change form entries
 
-A user SHALL edit and delete their own form entries, such as their Contact Info.
-Other members' entries SHALL be shown for reading.
+An owner SHALL edit and delete any form entry.
+A member who is not an owner SHALL see entries for reading.
 
-#### Scenario: Reading another member's entry
+#### Scenario: Member reads an entry
 
-- WHEN a member opens another member's Contact Info
+- WHEN a member who is not an owner opens a form entry
 - THEN the values are shown for reading
+
+#### Scenario: Owner edits an entry
+
+- WHEN an owner opens a form entry and changes a value
+- THEN the form shows the new value

@@ -14,22 +14,27 @@ What the pod holds at creation is in [pod-lifecycle](../pod-lifecycle/spec.md).
 ### Requirement: Create a pod with a category
 
 The user SHALL be able to create a pod by choosing a category and giving it a name.
-The new pod opens with the Contact Info form and an empty tool for each tool its category declares.
+The new pod opens with an empty tool for each tool its category declares, as suggested forms.
 
-#### Scenario: Creating a Passport pod
+#### Scenario: Creating a pod for passport details
 
 - WHEN the user chooses the Passport category and names the pod "Paula's Passport"
-- THEN the pod "Paula's Passport" opens with Contact Info and an empty Passport form
+- THEN the pod "Paula's Passport" opens with an empty Passport form, the form its category suggests
 
 ### Requirement: Create a pod without a category
 
 The user SHALL be able to create a pod by choosing no category.
-It opens with Contact Info only.
+It opens empty, with no suggested form. The user can still add any form to it with Add Tool.
 
 #### Scenario: Creating a Custom pod
 
 - WHEN the user creates a pod and picks no category
-- THEN the pod opens with Contact Info and no tool (Contact Info is on every pod and does not count as a tool)
+- THEN the pod opens with no tool and no suggested form
+
+#### Scenario: Adding a form to a Custom pod
+
+- WHEN the user taps Add Tool in a pod created without a category
+- THEN every form type is offered and the chosen form is added
 
 ### Requirement: A rename shows to the members who share the name
 

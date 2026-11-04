@@ -14,7 +14,7 @@ How the UI derives its action list from the user's role.
 
 ### Requirement: One action policy
 
-The app SHALL compute the offered actions in one function from the user's role and the target (pod, member, attachment, form entry, owner count).
+The app SHALL compute the offered actions in one function from the user's role and the target (pod, member, attachment, form entry, owner count, whether the target member is a person or a service).
 Screens SHALL read the result and SHALL NOT check roles themselves.
 The role-by-action table is in [members-and-roles](../../../../behaviour/members-and-roles/spec.md).
 
@@ -25,15 +25,23 @@ The role-by-action table is in [members-and-roles](../../../../behaviour/members
 
 ### Requirement: Target-dependent rules
 
-The policy SHALL include the target's author and the pod's owner count:
+The policy SHALL include the target's author, the target member's kind and the pod's owner count:
 - Delete and Make private for an attachment: when the user is its author; Delete also for an owner;
-- Edit and Delete for a form entry: when the user is its author; Delete also for an owner;
-- Demote for an owner: when the pod has another owner.
+- Edit and Delete for a form entry: when the user is an owner;
+- Demote for an owner, the user included: when the pod has another owner;
+- Remove member and Leave for an owner: when the pod has another owner;
+- Promote for a member: when the member is a person, not a service;
+- Edit and Delete for a claim: when the user is its author; Copy value and Add to info I share for a claim: when the user is its subject (see [info-claims](../info-claims/spec.md)).
 
 #### Scenario: Only owner
 
 - WHEN the policy is evaluated for the only owner viewing themselves
-- THEN Demote is absent
+- THEN Demote, Remove member and Leave are absent
+
+#### Scenario: Service member
+
+- WHEN the policy is evaluated for an owner viewing a service member
+- THEN Promote is absent
 
 ### Requirement: The node has the last word
 

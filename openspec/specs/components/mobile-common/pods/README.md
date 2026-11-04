@@ -6,6 +6,7 @@
 | [pod-naming-and-filing](pod-naming-and-filing/spec.md) | Creating, renaming, moving or receiving a pod |
 | [pod-permissions](pod-permissions/spec.md) | Showing, hiding or disabling an action in a pod |
 | [pod-forms](pod-forms/spec.md) | Rendering or adding a tool or form |
+| [info-claims](info-claims/spec.md) | Building the member screen, claim list or claim sheet |
 | [pod-chat](pod-chat/spec.md) | Building or changing chat |
 | [note-editor](note-editor/spec.md) | Building or changing the note |
 | [pod-search](pod-search/spec.md) | Building or changing search |

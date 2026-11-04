@@ -14,16 +14,16 @@ How the app computes a pod's displayed name and parent, and what it submits on c
 
 ### Requirement: Create submits category, name and template
 
-Creating a pod SHALL submit the chosen category (or none), the name, and one tool declaration per tool in the category's template, plus the Contact Info form.
+Creating a pod SHALL submit the chosen category (or none), the name, and one tool declaration per tool in the category's template. A pod without a category submits no tool declaration.
 
-#### Scenario: Passport
+#### Scenario: Passport category
 
-- WHEN the user confirms creation from the Passport category
+- WHEN the user confirms creation in the Passport category
 - THEN the submitted request carries the category, the name and the Passport tool declaration
 
 ### Requirement: Display name comes from the naming mode
 
-The app SHALL compute the displayed name from the pod's naming mode. The Contact Info form every pod holds does not count as a tool:
+The app SHALL compute the displayed name from the pod's naming mode:
 - shared, when the pod has one member, three or more members, or two members and a tool: the name received for the pod;
 - personal, when it has two members and no tool: the name this user set, or the other member's given name when none is set.
 

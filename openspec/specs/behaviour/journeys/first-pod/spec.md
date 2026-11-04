@@ -18,14 +18,14 @@ Covers: launch-and-sign-in, navigation, create-and-name-pod, pod-lifecycle, pod-
 The app SHALL support this path from start to finish, each step handing its result to the next.
 Starting state: Paula has just installed the app, has a Face ID enrolled and holds no pods.
 
-#### Scenario: From the store to a Passport pod
+#### Scenario: From the store to a pod with passport details
 
 - WHEN Paula opens the app for the first time
 - THEN the splash screen is followed by welcome and onboarding, and then authentication
 - WHEN Paula authenticates with Face ID
 - THEN the main app opens with the four tabs and an empty tree
-- WHEN Paula creates a pod from the Passport category and names it "Paula's Passport"
-- THEN the pod opens with Contact Info and an empty Passport form
+- WHEN Paula creates a pod in the Passport category and names it "Paula's Passport"
+- THEN the pod opens with an empty Passport form
 - WHEN Paula fills in the required Passport fields and saves
 - THEN the Passport form shows her values
 - WHEN Paula writes "Renew before March" in the note and leaves the pod
