@@ -48,17 +48,41 @@ A field that depends on another field SHALL offer the values valid for the other
 - WHEN the user picks a make
 - THEN the model dropdown lists that make's models
 
-### Requirement: Only owners change form entries
+### Requirement: Any member adds a form, its owner and the pod's owner change it
 
-An owner SHALL edit and delete any form entry.
-A member who is not an owner SHALL see entries for reading.
+Any member of the pod SHALL be able to add a form with Add Tool and becomes the form's owner.
+The form's owner and the pod's owner SHALL edit and delete it.
+Every other member SHALL see the form for reading.
+A form that Tidy adds at a member's request SHALL belong to that member.
 
-#### Scenario: Member reads an entry
+#### Scenario: Member adds a form
 
-- WHEN a member who is not an owner opens a form entry
+- WHEN Sam, a member who is not the pod's owner, adds a Contact Info form about Sophia
+- THEN the form is listed in the pod for every member and Sam can edit it
+
+#### Scenario: Another member reads a form
+
+- WHEN Dave, a member who is not an owner, opens the form Sam created
 - THEN the values are shown for reading
 
-#### Scenario: Owner edits an entry
+#### Scenario: The pod's owner edits a form
 
-- WHEN an owner opens a form entry and changes a value
-- THEN the form shows the new value
+- WHEN Paula, the pod's owner, changes a value in the form Sam created
+- THEN the form shows the new value to every member
+- AND the form shows that Paula made the change
+
+#### Scenario: Tidy adds a form
+
+- WHEN Sam asks Tidy to add a Contact Info form
+- THEN Sam is the owner of the form
+
+#### Scenario: Owner of the form edits it
+
+- WHEN Sam opens his form and changes a value
+- THEN the form shows the new value to every member
+
+## Open questions
+
+- How a change by the pod's owner is shown (who changed what, and when).
+- Whether the form's owner changes when another member edits the form.
+- Whether a member may make a statement about a form, or only about personal info (see [info-statements](../info-statements/spec.md)).

@@ -8,7 +8,7 @@
 
 What a member's screen shows: the info a member shares about themselves in a pod, and who can change it.
 Member info is separate from the pod's forms: it is the member's own information, not data stored in the pod by a tool.
-What other members claim about a member is in [info-claims](../info-claims/spec.md).
+What other members state about a member is in [info-statements](../info-statements/spec.md).
 
 ## Requirements
 
@@ -32,8 +32,8 @@ Every member's screen SHALL have the same layout.
 ### Requirement: Members change only their own info
 
 A member SHALL be offered an edit icon on each of their own fields and Add personal info below them, and SHALL change the value directly.
-On another member's screen the edit icon SHALL start a claim about that member instead of a change, as described in [info-claims](../info-claims/spec.md).
-No member SHALL claim something about themselves.
+On another member's screen the edit icon SHALL start a statement about that member instead of a change, as described in [info-statements](../info-statements/spec.md).
+No member SHALL make a statement about themselves.
 
 #### Scenario: Changing your own email
 

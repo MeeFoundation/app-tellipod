@@ -70,3 +70,7 @@ The user SHALL be able to export the note as Markdown: a resolved pod link as `[
 
 - WHEN the user exports a note with one resolved pod link
 - THEN the Markdown holds `[[id|text]]` for that link
+
+## Open questions
+
+- Whether a pod can hold several notes. The product requirements say one note per pod and allow several.

@@ -95,7 +95,7 @@ A link whose pod no longer exists SHALL be marked unresolved and leave the scree
 ### Requirement: An invitation opens its pod
 
 Following an invitation link SHALL open the app, or install it first, and show the received pod in the recipient's tree, filed under the empty parent pods its category needs.
-Onboarding is skipped for the invitee (see [launch-and-sign-in](../launch-and-sign-in/spec.md)).
+Onboarding is skipped for the invitee (see [launch-and-unlock](../launch-and-unlock/spec.md)).
 
 #### Scenario: Invitation to a nested pod
 

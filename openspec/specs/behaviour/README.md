@@ -8,7 +8,8 @@ Small, one behavior per scenario, from the user's side.
 
 | Spec | Read when |
 | --- | --- |
-| [launch-and-sign-in](launch-and-sign-in/spec.md) | Changing what the user sees from opening the app until the main app appears |
+| [launch-and-unlock](launch-and-unlock/spec.md) | Changing what the user sees from opening the app until the main app appears |
+| [identities](identities/spec.md) | Changing several identities, several devices, the identity switch or unlinking a device |
 | [navigation](navigation/spec.md) | Adding or changing a tab, or what a tab shows |
 | [find-a-pod](find-a-pod/spec.md) | Changing search, its results, or any link or card that opens a pod |
 | [create-and-name-pod](create-and-name-pod/spec.md) | Creating, renaming, moving or receiving a pod |
@@ -17,7 +18,7 @@ Small, one behavior per scenario, from the user's side.
 | [note](note/spec.md) | Changing what the user can do in a pod's note |
 | [chat](chat/spec.md) | Changing what the user sees or does in a pod's chat |
 | [member-info](member-info/spec.md) | Changing the member screen or what a member shares about themselves |
-| [info-claims](info-claims/spec.md) | Changing how a member proposes info about another member or answers such a proposal |
+| [info-statements](info-statements/spec.md) | Changing how a member proposes info about another member or answers such a proposal |
 | [members-and-roles](members-and-roles/spec.md) | Showing, hiding or disabling a pod action by role |
 | [organize](organize/spec.md) | Building or changing the Organize action |
 | [pod-storage-and-sharing](pod-storage-and-sharing/spec.md) | Deciding whether a piece of pod content stays on the device or reaches other members |
@@ -31,5 +32,5 @@ Longer scenarios that chain use cases for one persona and one goal, to check the
 | [first-pod](journeys/first-pod/spec.md) | Changing any step between the first launch and the first filled-in pod |
 | [invite-and-collaborate](journeys/invite-and-collaborate/spec.md) | Changing invitations, shared content, private files or who sees a message |
 | [capture-and-organize](journeys/capture-and-organize/spec.md) | Changing Organize, the links it leaves, or how a Custom pod is filed |
-| [claim-member-info](journeys/claim-member-info/spec.md) | Changing how a claim about a member is made, shown and answered |
+| [statement-member-info](journeys/statement-member-info/spec.md) | Changing how a statement about a member is made, shown and answered |
 | [search-to-new-pod](journeys/search-to-new-pod/spec.md) | Changing search, "Make a ... Pod", or how links create pods |

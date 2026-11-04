@@ -14,12 +14,14 @@ The node enforces permissions; the app offers the actions that match.
 ### Requirement: Actions follow the user's role
 
 A person in a pod is an owner or a member.
+The owner manages the pod's membership and the pod itself: inviting, removing, promoting and demoting members, and deleting the pod for all members.
+Everything else in the pod is open to every member, except what is said below about forms and attachments.
 The app SHALL offer pod actions according to the role.
 
 | Action | Owner | Member |
 |--------|-------|--------|
-| Invite a member | yes | yes |
-| Uninvite someone they invited | yes | yes |
+| Invite a member | yes | no |
+| Uninvite someone | yes | no |
 | Remove a member | yes | no |
 | Promote or demote a member | yes | no |
 | Leave the pod | yes | yes |
@@ -30,12 +32,13 @@ The app SHALL offer pod actions according to the role.
 #### Scenario: Member opens pod actions
 
 - WHEN a member opens the actions for a pod
-- THEN the list offers Invite, Uninvite, Leave and Delete from this device
+- THEN the list offers Leave and Delete from this device
+- AND Invite, Uninvite and Remove member are absent
 
 #### Scenario: Owner opens pod actions
 
 - WHEN an owner opens the actions for a pod
-- THEN the list also offers Remove member, Promote, Demote and Delete for all members
+- THEN the list also offers Invite, Uninvite, Remove member, Promote, Demote and Delete for all members
 
 ### Requirement: The only owner stays an owner
 
@@ -70,7 +73,7 @@ The app SHALL offer Promote only for a member that is a person, never for a serv
 
 ### Requirement: Attachments
 
-The user SHALL be offered Delete and Make private for their own attachments, and an owner Delete for any attachment.
+The user SHALL be offered Delete and Make private for their own attachments, and an owner Delete for any attachment (see the open questions).
 Attachments are shown for viewing.
 
 #### Scenario: Viewing an attachment
@@ -83,37 +86,45 @@ Attachments are shown for viewing.
 - WHEN a member opens an attachment added by another member
 - THEN the attachment is shown for viewing
 
-### Requirement: Form entries
+### Requirement: Forms have their own owner
 
-An owner SHALL be offered Edit and Delete for any form entry.
-A member who is not an owner SHALL see form entries for reading.
+Any member SHALL be offered to create a form in the pod.
+The member who creates a form is the form's owner.
+The form's owner and the pod's owner SHALL be offered Edit and Delete for it.
+Every other member sees the form for reading.
+The form's owner and the pod's owner can be different people.
 
-#### Scenario: Owner views an entry
+#### Scenario: Member creates a form
 
-- WHEN an owner opens a form entry
-- THEN Edit and Delete are offered
+- WHEN Sam, who is not an owner of the pod, adds a Passport form
+- THEN Sam is the owner of that form and is offered Edit and Delete for it
 
-#### Scenario: Member views an entry
+#### Scenario: Someone else's form
 
-- WHEN a member who is not an owner opens a form entry
+- WHEN Dave, a member who is not an owner, opens the form Sam created
 - THEN the values are shown for reading and Edit and Delete are absent
 
-### Requirement: Claims about a member
+#### Scenario: The pod's owner opens a member's form
 
-Every member SHALL be offered to claim a value for any other member's info field.
-A claim's author SHALL be offered Edit and Delete for it.
-The member a claim is about SHALL be offered Copy value and Add to info I share for it.
+- WHEN Paula, the owner of the pod, opens the form Sam created
+- THEN Edit and Delete are offered
+
+### Requirement: Statements about a member
+
+Every member SHALL be offered to make a statement with a value for any other member's info field.
+A statement's author SHALL be offered Edit and Delete for it.
+The member a statement is about SHALL be offered Copy value and Add to info I share for it.
 Other members see it for reading.
-See [info-claims](../info-claims/spec.md).
+See [info-statements](../info-statements/spec.md).
 
-#### Scenario: Subject opens a claim
+#### Scenario: Subject opens a statement
 
-- WHEN the member a claim is about opens it
+- WHEN the member a statement is about opens it
 - THEN Copy value and Add to info I share are offered
 
-#### Scenario: Another member opens a claim
+#### Scenario: Another member opens a statement
 
-- WHEN a member who is neither the author nor the subject opens a claim
+- WHEN a member who is neither the author nor the subject opens a statement
 - THEN the value is shown for reading
 
 ### Requirement: The note is open to every member
@@ -128,3 +139,6 @@ Every member SHALL be offered reading, editing, deleting and exporting the note.
 ## Open questions
 
 - Whether a member may rename the pod for all members.
+- Whether any member may invite people, as the product requirements say ("any person who is a member of a pod can invite"). The app offers Invite only to owners for now; permissions are to be refined.
+- Whether the form's owner changes when another member edits the form.
+- Whether Promote, Demote, Delete for all members and Delete for any attachment stay with the pod's owner now that the role is defined by inviting and removing members.

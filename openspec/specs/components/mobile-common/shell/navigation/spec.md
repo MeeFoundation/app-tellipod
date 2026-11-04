@@ -1,6 +1,6 @@
 # navigation
 
-- Depends on: `../launch-and-auth/spec.md`
+- Depends on: `../launch-and-unlock/spec.md`
 - Realizes: [navigation](../../../../behaviour/navigation/spec.md)
 - Read when: adding or changing a tab route or the tab bar
 - Source: Figma file "Mee - Tellipod App v4.0.3", page "App" (sections Home, Navigation, Notifications)
@@ -30,6 +30,16 @@ The active marker SHALL be derived from the current route, not from separate sta
 - WHEN the app opens a deep link to the Notifications route
 - THEN the Notifications tab is marked active
 
+### Requirement: The active identity comes from the identities module
+
+The tab bar and the identity switch SHALL read the active identity from [identities](../identities/spec.md) and SHALL NOT store it.
+
+#### Scenario: Switch while on a tab
+
+- WHEN the user switches identity while Notifications is shown
+- THEN Notifications renders for the new identity and the tab stays active
+
 ## Open questions
 
+- Where the identity switch sits: in a tab or on every screen.
 - The content of Ask Telli is out of scope.

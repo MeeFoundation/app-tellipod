@@ -55,6 +55,6 @@ Starting state: as in the previous requirement.
 #### Scenario: Owner and member actions
 
 - WHEN Sam opens the actions for "Lake trip"
-- THEN Remove member, Promote, Demote and Delete for all members are absent from the list
+- THEN Invite, Uninvite, Remove member, Promote, Demote and Delete for all members are absent from the list
 - WHEN Paula promotes Lee to owner
-- THEN Lee's actions list also offers Remove member, Promote, Demote and Delete for all members
+- THEN Lee's actions list also offers Invite, Uninvite, Remove member, Promote, Demote and Delete for all members

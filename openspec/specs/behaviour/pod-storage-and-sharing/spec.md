@@ -22,7 +22,7 @@ Delivery to other members and syncing between the user's own devices are decided
 
 ### Requirement: Shared content reaches every member
 
-A change to a pod's shared content SHALL appear in every member's copy: its name (except for a bare two-member pod), note, attachments, member and tool claims, and group stream.
+A change to a pod's shared content SHALL appear in every member's copy: its name (except for a bare two-member pod), note, attachments, member info, statements and tools, and group stream.
 
 #### Scenario: A member edits the note
 
