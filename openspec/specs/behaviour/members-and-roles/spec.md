@@ -108,6 +108,7 @@ The member who creates a form is the form's owner.
 The form's owner and the pod's owner SHALL be offered Edit and Delete for it.
 Every other member sees the form for reading.
 The form's owner and the pod's owner can be different people.
+Ownership of a form stays with its creator when someone else edits it.
 
 #### Scenario: Member creates a form
 
