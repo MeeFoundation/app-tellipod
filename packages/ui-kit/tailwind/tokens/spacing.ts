@@ -7,6 +7,8 @@ export const spacing = {
   "0.75": "3px",
   1: "4px",
   "1.5": "6px",
+  // Not in the Figma Spacing collection: the top gap of the Modal grabber.
+  "1.25": "5px",
   2: "8px",
   "2.5": "10px",
   3: "12px",
@@ -24,6 +26,8 @@ export const spacing = {
   11: "44px",
   12: "48px",
   14: "56px",
+  // Not in the Figma Spacing collection: the width of the Modal grabber.
+  15: "60px",
   16: "64px",
   20: "80px",
   24: "96px",

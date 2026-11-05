@@ -26,4 +26,6 @@ export const boxShadow = {
   "outline-success": "0 0 0 3px rgba(102, 142, 79, 0.4)",
   "outline-warning": "0 0 0 3px rgba(237, 149, 19, 0.4)",
   "outline-white": "0 0 0 3px rgba(255, 255, 255, 0.25)",
+  // Figma Modal: the shadow cast upward by a bottom sheet, alpha/always/dark/10 at 30 px blur.
+  sheet: "0 -1px 30px 0 rgba(2, 6, 23, 0.1)",
 } as const;

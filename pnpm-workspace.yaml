@@ -45,6 +45,7 @@ catalog:
   "bootstrap-icons": "1.13.2"
   "clsx": "2.1.1"
   "expo": "57.0.31"
+  "expo-blur": "57.0.3"
   "expo-font": "57.0.4"
   "expo-linear-gradient": "57.0.2"
   "expo-system-ui": "57.0.4"

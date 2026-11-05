@@ -18,7 +18,15 @@
     "react-native-svg-transformer": "catalog:",
     "tailwind-merge": "catalog:"
   },
+  "peerDependencies": {
+    "@gorhom/bottom-sheet": "catalog:",
+    "expo-blur": "catalog:",
+    "react-native-gesture-handler": "catalog:",
+    "react-native-reanimated": "catalog:",
+    "react-native-safe-area-context": "catalog:"
+  },
   "devDependencies": {
+    "@gorhom/bottom-sheet": "catalog:",
     "@react-native/jest-preset": "catalog:",
     "@storybook/react-native": "catalog:",
     "@testing-library/react-native": "catalog:",
@@ -26,8 +34,13 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "expo": "catalog:",
+    "expo-blur": "catalog:",
     "jest": "catalog:",
     "jest-expo": "catalog:",
+    "react-native-gesture-handler": "catalog:",
+    "react-native-reanimated": "catalog:",
+    "react-native-safe-area-context": "catalog:",
+    "react-native-worklets": "catalog:",
     "tailwindcss": "catalog:",
     "test-renderer": "catalog:"
   },

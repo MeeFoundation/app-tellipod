@@ -18,6 +18,7 @@
     "@storybook/react-native": "catalog:",
     "@tellipod/ui-kit": "workspace:*",
     "expo": "catalog:",
+    "expo-blur": "catalog:",
     "expo-font": "catalog:",
     "expo-system-ui": "catalog:",
     "nativewind": "catalog:",

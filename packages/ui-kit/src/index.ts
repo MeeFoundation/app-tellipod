@@ -18,6 +18,8 @@ export { LinkButton } from "./Button/LinkButton";
 export { OutlinedButton } from "./Button/OutlinedButton";
 export type { IconName, IconProps } from "./Icon/Icon";
 export { Icon } from "./Icon/Icon";
+export type { ModalProps } from "./Modal/Modal";
+export { Modal } from "./Modal/Modal";
 export type {
   TabProps,
   TabsLayout,

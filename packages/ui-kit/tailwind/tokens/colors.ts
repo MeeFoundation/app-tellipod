@@ -77,6 +77,10 @@ export const colors = {
   // Figma alpha/always/white/*: the sheen on Filled buttons.
   alpha: {
     always: {
+      // Figma alpha/always/dark/80: the dimmed backdrop behind the Modal.
+      dark: {
+        80: "rgba(2, 6, 23, 0.8)",
+      },
       white: {
         0: "rgba(255, 255, 255, 0)",
         15: "rgba(255, 255, 255, 0.15)",
