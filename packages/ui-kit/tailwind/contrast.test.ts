@@ -323,3 +323,73 @@ describe("TextField contrast", () => {
     ]);
   });
 });
+
+// The bar's track is `alpha/dark/5`, dark at 5%, over the white screen.
+const dark5OverWhite = (() => {
+  const [r, g, b] = [2, 6, 23];
+  const blend = (value: number) =>
+    Math.round(value * 0.05 + 255 * 0.95)
+      .toString(16)
+      .padStart(2, "0");
+  return `#${blend(r)}${blend(g)}${blend(b)}`;
+})();
+
+// Text and background pairs of the Tabs, from Figma "Tabs" (light mode).
+// A pressed tab shows Hover and a focused tab shows Focus. The Active tab is white on the track.
+const TABS_PAIRS: readonly Pair[] = [
+  {
+    background: dark5OverWhite,
+    name: "Default",
+    text: text.gray["on-soft-background"],
+  },
+  {
+    background: surface.default.main,
+    name: "Active",
+    text: text.gray["on-soft-background"],
+  },
+  {
+    background: surface.gray.light,
+    name: "Hover",
+    text: text.default.body,
+  },
+  {
+    background: surface.gray.soft,
+    name: "Focus",
+    text: text.default.body,
+  },
+];
+
+// Non-text parts that must reach 3:1: the focus outline against the tab it bounds, and the
+// white Active tab against the track it sits on.
+const TABS_NON_TEXT: readonly Pair[] = [
+  {
+    background: surface.gray.soft,
+    name: "Focus outline",
+    text: colors.stroke.brand.strong,
+  },
+  {
+    background: dark5OverWhite,
+    name: "Active tab against the track",
+    text: surface.default.main,
+  },
+];
+
+describe("Tabs contrast", () => {
+  const ratio = (pair: Pair) => contrastRatio(pair.text, pair.background);
+  const failing = (pairs: readonly Pair[], minimum: number) =>
+    pairs
+      .filter((pair) => ratio(pair) < minimum)
+      .map((pair) => `${pair.name}: ${ratio(pair).toFixed(2)}`);
+
+  it("lists the text pairs below 4.5:1 for the Tabs spec", () => {
+    // Update "Accessibility exceptions" in openspec/specs/components/ui-kit/tabs/spec.md
+    // when this list changes.
+    expect(failing(TABS_PAIRS, MINIMUM)).toEqual([]);
+  });
+
+  it("lists the non-text parts below 3:1 for the Tabs spec", () => {
+    expect(failing(TABS_NON_TEXT, NON_TEXT_MINIMUM)).toEqual([
+      "Active tab against the track: 1.11",
+    ]);
+  });
+});

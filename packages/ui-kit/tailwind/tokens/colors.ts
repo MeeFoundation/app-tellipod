@@ -83,6 +83,11 @@ export const colors = {
         25: "rgba(255, 255, 255, 0.25)",
       },
     },
+    // Figma alpha/dark/*: dark at 5% and 10%, the track and the edges of the Tabs.
+    dark: {
+      5: "rgba(2, 6, 23, 0.05)",
+      10: "rgba(2, 6, 23, 0.1)",
+    },
   },
   black: "#000000",
   brand,

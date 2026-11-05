@@ -31,6 +31,11 @@ describe("tailwind preset", () => {
     ]);
   });
 
+  it("holds the Figma alpha/dark colors", () => {
+    expect(preset.theme.colors.alpha.dark["5"]).toBe("rgba(2, 6, 23, 0.05)");
+    expect(preset.theme.colors.alpha.dark["10"]).toBe("rgba(2, 6, 23, 0.1)");
+  });
+
   it("has no default Tailwind color outside the tokens", () => {
     expect(Object.hasOwn(theme.colors, "slate")).toBe(false);
     expect(Object.hasOwn(theme.colors, "red")).toBe(false);

@@ -19,6 +19,13 @@ export { OutlinedButton } from "./Button/OutlinedButton";
 export type { IconName, IconProps } from "./Icon/Icon";
 export { Icon } from "./Icon/Icon";
 export type {
+  TabProps,
+  TabsLayout,
+  TabsProps,
+  TabsSize,
+} from "./Tabs/Tabs";
+export { Tab, Tabs } from "./Tabs/Tabs";
+export type {
   TextFieldProps,
   TextFieldSize,
   TextFieldVariant,
