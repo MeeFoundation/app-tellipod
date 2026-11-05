@@ -23,13 +23,13 @@ Starting state: "About Sofia" has the members Bob, Alice and Dave; Bob's own Ema
 - WHEN Alice opens Bob's screen and states Email "bob.home@example.org" and Phone "+4244235355"
 - THEN Bob's own fields are unchanged on Alice's screen
 - WHEN Dave opens Bob's screen
-- THEN Dave sees a card "Alice, Mum" under Bob's fields with both statements
+- THEN Dave sees a card "Alice" under Bob's fields with both statements
 - WHEN Bob opens his own screen
 - THEN the same card is listed under "Info about you — added by others"
 - WHEN Bob opens the Email statement and taps Add to info I share
 - THEN Bob's Email reads "bob.home@example.org" and the Email statement is gone
 - WHEN Alice deletes her Phone statement
-- THEN the card "Alice, Mum" is no longer listed on any screen, and Bob's info has no Phone
+- THEN the card "Alice" is no longer listed on any screen, and Bob's info has no Phone
 
 ### Requirement: The author keeps control of a statement
 
@@ -39,6 +39,6 @@ Starting state: Alice has made a statement about Email "bob.home@example.org" fo
 #### Scenario: Alice corrects her statement
 
 - WHEN Alice edits her statement and saves "bob.p.home@example.org"
-- THEN Bob's screen shows "bob.p.home@example.org" in the card "Alice, Mum"
+- THEN Bob's screen shows "bob.p.home@example.org" in the card "Alice"
 - WHEN Dave opens the statement
 - THEN the value is shown for reading and no change is offered

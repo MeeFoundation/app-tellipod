@@ -12,7 +12,8 @@ How the user moves between the main areas of the main app.
 
 ### Requirement: Four tabs
 
-The main app SHALL show four tabs at the bottom of the screen: Home, Ask Telli, Notifications and Navigation.
+The main app SHALL show four app-level tabs at the bottom of the screen: Home, Ask Telli, Notifications and Navigation.
+These are the tabs of the app itself and are not the tabs inside a pod, which are Notes, Chat and Info for now.
 
 #### Scenario: Looking at the main screen
 

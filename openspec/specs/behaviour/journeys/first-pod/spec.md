@@ -23,7 +23,7 @@ Starting state: Paula has just installed the app, has Face ID enrolled, holds no
 - WHEN Paula opens the app for the first time
 - THEN the splash screen is followed by welcome and onboarding, and then the identity choice
 - WHEN Paula picks Create identity and names it "Paula"
-- THEN "Paula" is active on the device and the main app opens with the four tabs and an empty tree
+- THEN "Paula" is active on the device and the main app opens on Home with the four app tabs (Home, Ask Telli, Notifications, Navigation) and an empty pods list
 - WHEN Paula creates a pod in the Passport category and names it "Paula's Passport"
 - THEN the pod opens with an empty Passport form
 - WHEN Paula fills in the required Passport fields and saves

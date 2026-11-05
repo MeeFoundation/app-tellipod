@@ -55,6 +55,9 @@ Starting state: as in the previous requirement.
 #### Scenario: Owner and member actions
 
 - WHEN Sam opens the actions for "Lake trip"
-- THEN Invite, Uninvite, Remove member, Promote, Demote and Delete for all members are absent from the list
+- THEN Delete pod for all members is absent from the list
+- WHEN Sam opens the members of "Lake trip"
+- THEN Invite and Uninvite are absent, and the actions for Paula and Lee offer no Remove member, Promote or Demote
 - WHEN Paula promotes Lee to owner
-- THEN Lee's actions list also offers Invite, Uninvite, Remove member, Promote, Demote and Delete for all members
+- THEN Lee's actions list for "Lake trip" also offers Delete pod for all members
+- AND Lee's members list offers Invite and Uninvite, and the actions for another member offer Remove member, Promote and Demote

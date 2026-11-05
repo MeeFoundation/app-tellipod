@@ -29,20 +29,20 @@ The statement SHALL be about the field, not a replacement of it.
 
 ### Requirement: Statements show under the member's own info
 
-A member's screen SHALL list, below the member's own info, the statements every other member made about that member, with one card for each author showing the author's name and relation, and each stated field with its value.
+A member's screen SHALL list, below the member's own info, the statements every other member made about that member, with one card for each author showing the author's name, and each stated field with its value.
 On the member's own screen the section is titled "Info about you — added by others".
 Every member of the pod SHALL see the statements on any member's screen.
 
 #### Scenario: Others' statements on your screen
 
 - WHEN Bob opens his own screen after Alice stated Email "bob.home@example.org" and Phone "+4244235355"
-- THEN a card "Alice, Mum" lists Email bob.home@example.org and Phone +4244235355 under Bob's own fields
+- THEN a card "Alice" lists Email bob.home@example.org and Phone +4244235355 under Bob's own fields
 - AND the section explains that only the person who added a detail can change it, and that the member can remove info that isn't right or merge it into their own
 
 #### Scenario: Another member sees the statements
 
 - WHEN Dave opens Bob's screen
-- THEN Dave sees the card "Alice, Mum" under Bob's own fields
+- THEN Dave sees the card "Alice" under Bob's own fields
 
 #### Scenario: Statements from several members
 
@@ -66,7 +66,7 @@ Only the member who made a statement SHALL be offered to change or delete it, on
 #### Scenario: Author changes a statement
 
 - WHEN Alice edits her statement for Bob's Email and saves "bob.p.home@example.org"
-- THEN the card "Alice, Mum" shows "bob.p.home@example.org"
+- THEN the card "Alice" shows "bob.p.home@example.org"
 
 #### Scenario: Author removes a statement
 

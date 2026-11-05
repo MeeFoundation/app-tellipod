@@ -14,20 +14,20 @@ What other members state about a member is in [info-statements](../info-statemen
 
 ### Requirement: A member's screen lists the info they share
 
-Opening a member of a pod SHALL show that member's own info as labelled fields, such as First name, Role, Email and Address, under a heading that counts them and says who can see them.
+Opening a member of a pod SHALL show that member's own info as labelled fields, such as First name, Email and Address, under a heading that counts them and says who can see them.
 Every member's screen SHALL have the same layout.
 
 #### Scenario: Opening your own screen
 
 - WHEN Bob opens his own entry in the pod "About Sofia"
 - THEN the screen is titled "Bob (You)" with the pod name under it
-- AND the heading reads "4 info shared in this pod" and "Everyone in About Sofia can see these."
-- AND First name Bob, Role Dad, Email bob.petrov@example.com and Address 318 Fillmore St, Apt 4B are listed
+- AND the heading reads "3 info shared in this pod" and "Everyone in About Sofia can see these."
+- AND First name Bob, Email bob.petrov@example.com and Address 318 Fillmore St, Apt 4B are listed
 
 #### Scenario: Opening another member's screen
 
 - WHEN Alice opens Bob's entry in "About Sofia"
-- THEN Bob's four fields are listed with the same values
+- THEN Bob's three fields are listed with the same values
 
 ### Requirement: Members change only their own info
 
