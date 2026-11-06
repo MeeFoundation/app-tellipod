@@ -1,18 +1,11 @@
 import { type FC, type ReactNode, useMemo, useState } from "react";
-import { Platform, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 import { cn } from "../cn";
 import { IconDefaultsProvider } from "../Icon/IconDefaults";
+import { hitSlopFor, MIN_TARGET } from "../touchTarget";
 import { useTabs } from "./TabsContext";
 import { LABEL, LOOKS, SIZES, TAB_ICON_PX, type TabState } from "./tabsStyles";
-
-// The smallest touch target of `code-practices/accessibility`: 44 pt on iOS and 48 dp on Android.
-const MIN_TARGET = Platform.select({ android: 48, default: 44 });
-
-// The extra touch area above and below a tab, so the area reaches the minimum. Tabs sit 1 px
-// apart, so the area grows vertically only.
-export const hitSlopFor = (height: number, minimum: number): number =>
-  Math.max(0, Math.ceil((minimum - height) / 2));
 
 export type TabProps = {
   readonly label: string;

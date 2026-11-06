@@ -14,7 +14,9 @@ const propOf = (
 describe("Icon glyphs", () => {
   it.each([
     "check-circle",
+    "chevron-right",
     "exclamation-circle",
+    "house",
     "info-circle",
     "search",
   ] as const)("%s renders at 16 px by default", async (name) => {

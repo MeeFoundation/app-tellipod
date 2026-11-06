@@ -1,5 +1,7 @@
 import CheckCircle from "bootstrap-icons/icons/check-circle.svg";
+import ChevronRight from "bootstrap-icons/icons/chevron-right.svg";
 import ExclamationCircle from "bootstrap-icons/icons/exclamation-circle.svg";
+import House from "bootstrap-icons/icons/house.svg";
 import InfoCircle from "bootstrap-icons/icons/info-circle.svg";
 import Search from "bootstrap-icons/icons/search.svg";
 import type { FC } from "react";
@@ -20,8 +22,10 @@ const Dot: FC<SvgProps> = (props) => (
 
 const RAW_GLYPHS = {
   "check-circle": CheckCircle,
+  "chevron-right": ChevronRight,
   dot: Dot,
   "exclamation-circle": ExclamationCircle,
+  house: House,
   "info-circle": InfoCircle,
   search: Search,
 } as const;

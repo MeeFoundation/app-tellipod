@@ -7,6 +7,13 @@ export type {
 } from "./Badge/Badge";
 export { Badge } from "./Badge/Badge";
 export type {
+  BreadcrumbProps,
+  BreadcrumbsProps,
+  BreadcrumbsSize,
+  BreadcrumbsVariant,
+} from "./Breadcrumbs/Breadcrumbs";
+export { Breadcrumb, Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
+export type {
   ButtonProps,
   ButtonSize,
   ButtonType,
