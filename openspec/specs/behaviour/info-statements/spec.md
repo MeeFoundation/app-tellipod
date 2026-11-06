@@ -49,15 +49,32 @@ Every member of the pod SHALL see the statements on any member's screen.
 - WHEN Alice and Dave both made a statement about Bob's Email
 - THEN Bob's screen lists a card for Alice and a card for Dave
 
-### Requirement: A statement that matches disappears
+### Requirement: A statement that matches is resolved for good
 
-A statement SHALL show only for a field whose member's own value differs from it, or that the member has not filled in.
-When the member's own value equals the statement, the statement SHALL no longer show.
+A statement SHALL show only while it is open.
+A statement becomes resolved when the member's own value equals it, whether the member took it with Add to info I share, typed the same value, or the value was equal from the start.
+A resolved statement SHALL no longer show, and SHALL NOT show again when the member later changes the field.
+Only the member a statement is about can bring their own value to match it, so only that member resolves it.
 
 #### Scenario: Statement equal to own info
 
 - WHEN Bob's own Email is "bob.home@example.org" and Alice's statement for Email is "bob.home@example.org"
 - THEN no statement for Email is listed
+
+#### Scenario: Field changed after a statement was resolved
+
+- WHEN Bob's Email became "bob.home@example.org" through Alice's statement, and Bob later changes it to "bob.new@example.org"
+- THEN Alice's earlier statement is not listed again
+
+### Requirement: A new statement replaces the author's earlier one
+
+A member SHALL have at most one open statement for a given field of a given member.
+A new statement by the same author for the same field SHALL replace the earlier one.
+
+#### Scenario: Author changes their mind
+
+- WHEN Alice stated Email "b@x.com" for Bob and then states "d@x.com"
+- THEN Bob's screen lists only "d@x.com" in the card "Alice"
 
 ### Requirement: Only the author changes a statement
 
@@ -96,6 +113,8 @@ Add to info I share SHALL set the member's own field to the stated value.
 
 ## Open questions
 
+- What happens to an open statement when the member changes the field to a third value, not the stated one: it stays open, closes as outdated, or stays marked "field changed after this statement".
+- Whether a resolved statement is deleted from the data or only hidden. A matter for the nodes; the behaviour above holds either way.
 - Whether the member a statement is about can dismiss it ("This isn't right, remove it" in the design). It is left out until decided: a member can delete only their own statements.
 - Whether a member may make a statement about a form, or only about another member's personal info. Only personal info is covered here. The product requirements do not separate member info from forms.
 - Whether anyone besides the author may delete a statement. The product requirements are not settled; now only the author.

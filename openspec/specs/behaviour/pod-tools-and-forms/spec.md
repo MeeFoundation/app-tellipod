@@ -54,6 +54,8 @@ Any member of the pod SHALL be able to add a form with Add Tool and becomes the 
 The form's owner and the pod's owner SHALL edit and delete it.
 Every other member SHALL see the form for reading.
 A form that Tidy adds at a member's request SHALL belong to that member.
+Ownership SHALL NOT pass to another member when that member edits the form.
+Members may add forms with the same name for the same subject, such as two Medications forms for Ginger.
 
 #### Scenario: Member adds a form
 
@@ -69,7 +71,7 @@ A form that Tidy adds at a member's request SHALL belong to that member.
 
 - WHEN Paula, the pod's owner, changes a value in the form Sam created
 - THEN the form shows the new value to every member
-- AND the form shows that Paula made the change
+- AND Sam is still the owner of the form and can still edit it
 
 #### Scenario: Tidy adds a form
 
@@ -81,8 +83,24 @@ A form that Tidy adds at a member's request SHALL belong to that member.
 - WHEN Sam opens his form and changes a value
 - THEN the form shows the new value to every member
 
+### Requirement: A form shows when it was changed by someone other than its owner
+
+A form SHALL remember who changed it last.
+When the last change was made by a member who is not the form's owner, every member who opens the form SHALL see that it was changed by that member.
+The mark SHALL stay until the form's owner changes it again.
+
+#### Scenario: Changed by the pod's owner
+
+- WHEN Paula, the pod's owner, changes a value in the form Sam created
+- THEN every member opening the form sees that it was changed by Paula
+
+#### Scenario: Owner changes it back
+
+- WHEN Sam changes the form again after Paula's change
+- THEN the form no longer shows a change by someone else
+
 ## Open questions
 
-- How a change by the pod's owner is shown (who changed what, and when).
-- Whether the form's owner changes when another member edits the form.
+- How a change by someone other than the owner is shown in detail (which value changed, and when), and whether the owner can acknowledge it or undo it.
+- What happens when a member adds a value that another author's form for the same subject already has, such as the same medication. Proposed: the app offers to confirm the existing entry instead of adding a duplicate, leaving the other author's entry untouched; the member can still add it as a separate entry.
 - Whether a member may make a statement about a form, or only about personal info (see [info-statements](../info-statements/spec.md)).
