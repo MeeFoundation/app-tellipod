@@ -7,7 +7,7 @@ The Icon is the kit's simple, single place for glyphs. It holds only the icons a
 
 ### Requirement: The Icon draws a named glyph
 
-An Icon SHALL accept a name, which for now is `check-circle`, `info-circle`, `search` or `exclamation-circle`, and draw the matching glyph from the design system's outline set.
+An Icon SHALL accept a name, which for now is `check-circle`, `info-circle`, `search`, `exclamation-circle`, `house` or `chevron-right`, and draw the matching glyph from the design system's outline set.
 An Icon SHALL accept a size in px and a text color class.
 The default size SHALL be 16 px and the default color SHALL be the `text/default/body` color.
 
@@ -25,6 +25,11 @@ The default size SHALL be 16 px and the default color SHALL be the `text/default
 
 - WHEN an Icon is rendered with the name `search` at 14 px
 - THEN it shows the outline search glyph at 14 px
+
+#### Scenario: Icons for a breadcrumb trail
+
+- WHEN an Icon is rendered with the name `house` at 16 px and another with the name `chevron-right` at 12 px
+- THEN they show the outline house and chevron-right glyphs at those sizes
 
 ### Requirement: An Icon in a Badge takes the Badge's look
 

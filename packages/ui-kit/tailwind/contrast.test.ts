@@ -393,3 +393,49 @@ describe("Tabs contrast", () => {
     ]);
   });
 });
+
+// Text and background pairs of the Breadcrumbs, from Figma "Breadcrumbs" (light mode).
+// A pressed link shows Hover and a focused link shows Focus. The line sits on the white screen,
+// or in the `outlined` box. Disabled links are exempt from contrast and use the plain-text color (text/gray/solid) faded.
+const BREADCRUMBS_PAIRS: readonly Pair[] = [
+  ...[
+    ["on the screen", surface.default.main],
+    ["in the outlined box", surface.gray.soft],
+  ].flatMap(([where, background]) => [
+    {
+      background: background ?? "",
+      name: `Default link ${where}`,
+      text: text.brand.solid,
+    },
+    {
+      background: background ?? "",
+      name: `Hover link ${where}`,
+      text: text.brand.solid_hover,
+    },
+    {
+      background: background ?? "",
+      name: `Plain text ${where}`,
+      text: text.gray.solid,
+    },
+  ]),
+  {
+    background: surface.brand.light,
+    name: "Focus link",
+    text: text.brand.solid_hover,
+  },
+];
+
+describe("Breadcrumbs contrast", () => {
+  it("lists the text pairs below 4.5:1 for the Breadcrumbs spec", () => {
+    // Update "Accessibility exceptions" in
+    // openspec/specs/components/ui-kit/breadcrumbs/spec.md when this list changes.
+    expect(
+      BREADCRUMBS_PAIRS.filter(
+        (pair) => contrastRatio(pair.text, pair.background) < MINIMUM,
+      ).map(
+        (pair) =>
+          `${pair.name}: ${contrastRatio(pair.text, pair.background).toFixed(2)}`,
+      ),
+    ).toEqual([]);
+  });
+});

@@ -4,7 +4,7 @@ import { Text } from "react-native";
 
 import { Icon } from "../Icon/Icon";
 import { useIconDefaults } from "../Icon/IconDefaults";
-import { hitSlopFor } from "./Tab";
+import { hitSlopFor } from "../touchTarget";
 import { Tab, Tabs, type TabsLayout, type TabsSize } from "./Tabs";
 
 const SIZES: readonly TabsSize[] = ["m", "l"];
