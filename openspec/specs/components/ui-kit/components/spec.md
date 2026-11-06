@@ -12,7 +12,9 @@ How the components in the UI kit relate to the components of the design system t
 
 ### Requirement: Components match the design system
 
-Each kit component SHALL have the name and variants of its design-system component.
+Each kit component SHALL have the name of its design-system component.
+It SHALL have exactly the variants of that component, or of the part of it that its spec says it implements.
+A spec that implements only part of a design-system component SHALL name the parts left out.
 
 #### Scenario: Kit component matches the design
 
@@ -23,6 +25,11 @@ Each kit component SHALL have the name and variants of its design-system compone
 
 - WHEN a screen needs a variant that is not in the design system
 - THEN the kit does not get it until the design system has it
+
+#### Scenario: A component implements part of a design component
+
+- WHEN the TextField is compared with the design-system Text Field
+- THEN it has the input variants, and its spec names Select, Multiselect, add-ons, the label tooltip and the strength meter as left out
 
 ### Requirement: The kit holds only components the app uses
 

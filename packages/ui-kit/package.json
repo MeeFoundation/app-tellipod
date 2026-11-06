@@ -1,0 +1,56 @@
+{
+  "name": "@tellipod/ui-kit",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bootstrap-icons": "catalog:",
+    "clsx": "catalog:",
+    "expo-linear-gradient": "catalog:",
+    "nativewind": "catalog:",
+    "react": "catalog:",
+    "react-native": "catalog:",
+    "react-native-svg": "catalog:",
+    "react-native-svg-transformer": "catalog:",
+    "tailwind-merge": "catalog:"
+  },
+  "peerDependencies": {
+    "@gorhom/bottom-sheet": "catalog:",
+    "expo-blur": "catalog:",
+    "react-native-gesture-handler": "catalog:",
+    "react-native-reanimated": "catalog:",
+    "react-native-safe-area-context": "catalog:"
+  },
+  "devDependencies": {
+    "@gorhom/bottom-sheet": "catalog:",
+    "@react-native/jest-preset": "catalog:",
+    "@storybook/react-native": "catalog:",
+    "@testing-library/react-native": "catalog:",
+    "@types/jest": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "expo": "catalog:",
+    "expo-blur": "catalog:",
+    "jest": "catalog:",
+    "jest-expo": "catalog:",
+    "react-native-gesture-handler": "catalog:",
+    "react-native-reanimated": "catalog:",
+    "react-native-safe-area-context": "catalog:",
+    "react-native-worklets": "catalog:",
+    "tailwindcss": "catalog:",
+    "test-renderer": "catalog:"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "moduleNameMapper": {
+      "\\.svg$": "<rootDir>/jest/svgMock.js"
+    }
+  }
+}

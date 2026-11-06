@@ -1,0 +1,48 @@
+// Source: Figma, Spacing (variable collection "Spacing"). Keys follow Figma, in px.
+
+export const spacing = {
+  0: "0px",
+  "0.5": "2px",
+  // Not in the Figma Spacing collection: the focus ring (outline-thickness) drawn outside a field.
+  "0.75": "3px",
+  1: "4px",
+  "1.5": "6px",
+  // Not in the Figma Spacing collection: the top gap of the Modal grabber.
+  "1.25": "5px",
+  2: "8px",
+  "2.5": "10px",
+  3: "12px",
+  "3.5": "14px",
+  4: "16px",
+  "4.5": "18px",
+  5: "20px",
+  6: "24px",
+  7: "28px",
+  // Not in the Figma Spacing collection: the height of the size S Button.
+  "7.5": "30px",
+  8: "32px",
+  9: "36px",
+  10: "40px",
+  11: "44px",
+  12: "48px",
+  14: "56px",
+  // Not in the Figma Spacing collection: the width of the Modal grabber.
+  15: "60px",
+  16: "64px",
+  20: "80px",
+  24: "96px",
+  28: "112px",
+  32: "128px",
+  36: "144px",
+  40: "160px",
+  44: "176px",
+  48: "192px",
+  52: "208px",
+  56: "224px",
+  60: "240px",
+  64: "256px",
+  72: "288px",
+  80: "320px",
+  96: "384px",
+  px: "1px",
+} as const;

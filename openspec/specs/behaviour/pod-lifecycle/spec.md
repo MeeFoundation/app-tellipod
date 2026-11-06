@@ -23,33 +23,33 @@ The app SHALL NOT pre-create pods for categories.
 
 ### Requirement: A templated pod starts with its declared tools
 
-Every pod SHALL hold the Contact Info form. Contact Info does not count as a tool for the naming rule in [create-and-name-pod](../create-and-name-pod/spec.md).
-A pod created from a category whose template declares tools SHALL start with Contact Info and one tool per declaration.
-A pod created from a category that declares none SHALL start with Contact Info only, so it has no tool.
+A pod created from a category whose template declares tools SHALL start with one tool per declaration, as suggested forms.
+A pod created from a category that declares none SHALL start with no tool.
+No pod holds a form by default.
 
-#### Scenario: Creating a Passport pod
+#### Scenario: Creating a pod in the Passport category
 
-- WHEN the user creates a pod from the Passport category
-- THEN the pod opens with its Passport form tool
+- WHEN the user creates a pod in the Passport category
+- THEN the pod opens with a Passport form, the form that category suggests
 
-#### Scenario: Creating an Immediate Family pod
+#### Scenario: Creating a pod in the Immediate Family category
 
-- WHEN the user creates a pod from the Immediate Family category
-- THEN the pod opens with Contact Info and offers Add Tool
+- WHEN the user creates a pod in the Immediate Family category
+- THEN the pod opens with no tool and offers Add Tool
 
 ### Requirement: A Custom pod has no category
 
-A pod created without a category SHALL be a Custom pod with a contact-info view of its members.
+A pod created without a category SHALL be a Custom pod. It has no suggested forms, and the user can still add any form to it.
 
 #### Scenario: Creating a pod without a category
 
 - WHEN the user creates a pod and picks no category
-- THEN the pod is Custom and shows its members' contact info
+- THEN the pod is Custom and has no suggested form
 
 ### Requirement: Any pod can gain tools
 
 Every pod SHALL offer Add Tool, holding any number of tools.
-The dialog lists every form type, preselects Contact Info and asks what the tool is about.
+The dialog lists every form type, preselects Contact Info and asks what the tool is about. A pod without a category offers the same choices as any other pod.
 Details of the dialog are in [pod-tools-and-forms](../pod-tools-and-forms/spec.md).
 
 #### Scenario: A form type from another category

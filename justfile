@@ -22,5 +22,9 @@ typecheck:
 knip:
     pnpm knip
 
+# Start the Storybook app (Metro)
+storybook:
+    pnpm --filter @tellipod/storybook start
+
 # Run every check
 check: lint typecheck knip

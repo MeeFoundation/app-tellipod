@@ -1,6 +1,6 @@
 # pod-access
 
-- Depends on: `../../shell/launch-and-auth/spec.md`
+- Depends on: `../../shell/launch-and-unlock/spec.md`
 - Realizes: [find-a-pod](../../../../behaviour/find-a-pod/spec.md)
 - Read when: adding an entry point to a pod, or changing how a link or invitation is resolved
 - Source: `pod-ontologies/app-behavior.md` (authoritative for pod behavior); Figma "Mee - Tellipod App v4.0.3"
@@ -32,10 +32,10 @@ A link without an identifier SHALL be passed to pod creation (see [pod-lifecycle
 - WHEN the pod for an identifier is absent from the local store
 - THEN the link renders unresolved and a tap on it triggers no navigation
 
-### Requirement: Invitations are processed after sign-in
+### Requirement: Invitations are processed once an identity is active
 
 The app SHALL hand the invitation payload to the data layer, wait for the received pod to arrive, create empty parent pods its category needs, and then navigate to the pod route.
-The onboarding step is bypassed (see `../../shell/launch-and-auth/spec.md`).
+The onboarding step is bypassed (see `../../shell/launch-and-unlock/spec.md`).
 
 #### Scenario: Missing parents
 
