@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "android": {
+      "package": "com.tellipod.app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.tellipod.app",
+      "supportsTablet": true
+    },
+    "name": "Tellipod",
+    "orientation": "portrait",
+    "plugins": ["expo-router"],
+    "scheme": "tellipod",
+    "slug": "tellipod",
+    "userInterfaceStyle": "light",
+    "version": "0.0.0"
+  }
+}

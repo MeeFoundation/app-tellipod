@@ -1,4 +1,5 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src", "*.ts", "*.tsx"]
+  "compilerOptions": { "types": ["jest"] },
+  "include": ["src", "*.ts", "*.tsx", "../../packages/ui-kit/src/svg.d.ts"]
 }

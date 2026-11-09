@@ -10,15 +10,18 @@ The app is organized in vertical slices, chosen over full Feature-Sliced Design 
 ```
 src/
 ├── app/        Expo Router routes; thin, import screens
+│   ├── _layout.tsx   fonts and root providers
+│   └── index.tsx     renders HelloScreen
 ├── screens/    screen components that combine UI from features
-├── features/   one slice per domain
+│   └── HelloScreen/  placeholder screen built from the UI kit
+├── features/   one slice per domain (created with the first domain)
 │   └── <domain>/
 │       ├── api/      data access for the domain
 │       ├── model/    domain types
 │       ├── ui/       components of the domain
 │       ├── @x/       exports for specific other slices
 │       └── index.ts  public surface
-└── shared/     code with no domain knowledge
+└── shared/     code with no domain knowledge (created with its first content)
 ```
 
 Shared UI components come from `packages/ui-kit`, not from `shared/`.
