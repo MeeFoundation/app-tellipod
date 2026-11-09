@@ -27,10 +27,10 @@ A pod created from a category whose template declares tools SHALL start with one
 A pod created from a category that declares none SHALL start with no tool.
 No pod holds a form by default.
 
-#### Scenario: Creating a pod in the Passport category
+#### Scenario: Creating a pod in the Vehicle category
 
-- WHEN the user creates a pod in the Passport category
-- THEN the pod opens with a Passport form, the form that category suggests
+- WHEN the user creates a pod in the Vehicle category
+- THEN the pod opens with a Vehicle form, the form that category suggests
 
 #### Scenario: Creating a pod in the Immediate Family category
 
@@ -49,13 +49,30 @@ A pod created without a category SHALL be a Custom pod. It has no suggested form
 ### Requirement: Any pod can gain tools
 
 Every pod SHALL offer Add Tool, holding any number of tools.
-The dialog lists every form type, preselects Contact Info and asks what the tool is about. A pod without a category offers the same choices as any other pod.
+The dialog lists every form type and asks what the tool is about. A pod without a category offers the same choices as any other pod.
 Details of the dialog are in [pod-tools-and-forms](../pod-tools-and-forms/spec.md).
 
 #### Scenario: A form type from another category
 
-- WHEN the user picks Passport in a pod of another category
-- THEN the pod gains a Passport form and stays in its own category
+- WHEN the user picks Vehicle in a pod of another category
+- THEN the pod gains a Vehicle form and stays in its own category
+
+### Requirement: A pod screen always has Info; other tools are optional
+
+The screen of a pod SHALL always show Info (the working name of this tab).
+Info holds the pod's forms, members and other information about the pod.
+Every other tool of a pod, such as Notes and Chat, SHALL be one the pod may or may not have, and the screen shows a tab only for each tool the pod has.
+For now every pod is created with Notes and Chat.
+
+#### Scenario: Looking at the tabs of a pod
+
+- WHEN the user looks at the screen of a pod
+- THEN the pod screen offers an Info tab and a tab for each tool the pod has
+
+#### Scenario: A pod without Chat
+
+- WHEN a pod has no Chat tool
+- THEN the pod screen shows no Chat tab and still shows Info
 
 ### Requirement: A link without a target creates a pod
 
@@ -84,4 +101,6 @@ A pod with one person and one service is a two-member pod for the naming rule in
 
 ## Open questions
 
+- Which tab a pod opens on (always the same one, the one used last, or depends on the pod).
+- Whether the user will choose at creation which tools a pod gets (for example checkboxes for Notes and Chat), and whether such tools can be added or removed later. Today every pod gets Notes and Chat.
 - Whether a member who lacks permission to create pods can create one by tapping a link without a target (see [members-and-roles](../members-and-roles/spec.md)).

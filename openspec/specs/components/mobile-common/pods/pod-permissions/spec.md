@@ -34,11 +34,10 @@ The result SHALL keep the pod's actions (Leave, Delete from this device, Delete 
 The policy SHALL include the target's author, the target member's kind and the pod's owner count:
 - Delete and Make private for an attachment: when the user is its author; Delete also for an owner;
 - Invite and Uninvite: when the user is an owner of the pod;
-- Edit and Delete for a form: when the user is the form's owner (the member who created it) or an owner of the pod;
+- Edit and Delete for a form: when the user is the form's owner (the member who created it, while still a member of the pod) or an owner of the pod;
 - Demote for an owner, the user included: when the pod has another owner;
 - Remove member and Leave for an owner: when the pod has another owner;
 - Promote for a member: when the member is a person, not a service;
-- Edit and Delete for a statement: when the user is its author; Copy value and Add to info I share for a statement: when the user is its subject (see [info-statements](../info-statements/spec.md)).
 
 #### Scenario: Only owner
 
@@ -68,7 +67,3 @@ When the node rejects an action the UI offered, the app SHALL show the node's re
 
 - WHEN the node rejects Remove member because the user's role changed
 - THEN the action list is recomputed with the new role
-
-## Open questions
-
-- Whether editing by another member changes the form's owner.

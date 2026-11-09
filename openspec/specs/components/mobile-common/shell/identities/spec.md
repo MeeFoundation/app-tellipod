@@ -15,7 +15,7 @@ How the app models several identities on one device, the active one, and the pat
 ### Requirement: The device keeps a list of identities and one active identity
 
 The app SHALL persist the list of identities on the device and which one is active.
-Every screen that shows pods or member info SHALL read them through the active identity, and SHALL NOT keep its own copy of who the user is.
+Every screen that shows pods SHALL read them through the active identity, and SHALL NOT keep its own copy of who the user is.
 
 #### Scenario: Two identities
 

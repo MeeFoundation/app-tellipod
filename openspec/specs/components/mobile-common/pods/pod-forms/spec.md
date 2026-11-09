@@ -44,10 +44,10 @@ A dependent dropdown SHALL filter its values by the current value of the field i
 
 ### Requirement: Add Tool request
 
-Add Tool SHALL submit the tool kind, for a Form the chosen template (default Contact Info), and the user's name for the tool as its topic.
+Add Tool SHALL submit the tool kind, for a Form the chosen template, and the user's name for the tool as its topic.
 The request SHALL carry a newly generated identifier.
 
-#### Scenario: Default form
+#### Scenario: Adding a form
 
-- WHEN the dialog is confirmed with the defaults
-- THEN the request holds kind Form, template Contact Info and a new identifier
+- WHEN the dialog is confirmed with the Vehicle form type
+- THEN the request holds kind Form, template Vehicle and a new identifier

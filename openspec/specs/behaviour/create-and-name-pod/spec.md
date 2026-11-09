@@ -16,10 +16,10 @@ What the pod holds at creation is in [pod-lifecycle](../pod-lifecycle/spec.md).
 The user SHALL be able to create a pod by choosing a category and giving it a name.
 The new pod opens with an empty tool for each tool its category declares, as suggested forms.
 
-#### Scenario: Creating a pod for passport details
+#### Scenario: Creating a pod for vehicle details
 
-- WHEN the user chooses the Passport category and names the pod "Paula's Passport"
-- THEN the pod "Paula's Passport" opens with an empty Passport form, the form its category suggests
+- WHEN the user chooses the Vehicle category and names the pod "Paula's Car"
+- THEN the pod "Paula's Car" opens with an empty Vehicle form, the form its category suggests
 
 ### Requirement: Create a pod without a category
 

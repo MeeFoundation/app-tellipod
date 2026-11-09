@@ -12,7 +12,8 @@ What the user sees and does in the note of a pod: writing, formatting, linking, 
 
 ### Requirement: One note per pod
 
-Each pod SHALL show one note that every member can read and edit.
+Each pod that has the Notes tool SHALL show one note that every member can read and edit.
+Notes is an optional tool of a pod (see [pod-lifecycle](../pod-lifecycle/spec.md)); for now every pod has it.
 
 #### Scenario: Opening a pod
 
@@ -54,7 +55,7 @@ A suggested pod becomes a pod link; a suggested tool, graph or attachment become
 
 #### Scenario: Linking to a pod
 
-- WHEN the user types `[[Pa` and picks "Paula's Passport"
+- WHEN the user types `[[Pa` and picks "Paula's Car"
 - THEN a link to that pod is inserted
 
 #### Scenario: Block link to a removed tool

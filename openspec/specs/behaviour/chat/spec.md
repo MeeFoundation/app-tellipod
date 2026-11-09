@@ -14,6 +14,7 @@ Who may see a message is in [pod-storage-and-sharing](../pod-storage-and-sharing
 ### Requirement: The group stream shows the pod's messages
 
 The chat SHALL show the group stream: the messages the pod has received.
+Chat is an optional tool of a pod (see [pod-lifecycle](../pod-lifecycle/spec.md)); for now every pod has it.
 
 #### Scenario: Opening chat
 

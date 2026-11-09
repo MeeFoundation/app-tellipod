@@ -109,10 +109,12 @@ The form's owner and the pod's owner SHALL be offered Edit and Delete for it.
 Every other member sees the form for reading.
 The form's owner and the pod's owner can be different people.
 Ownership of a form stays with its creator when someone else edits it.
+A member who disagrees with another member's form can ask its author to change it, or add a form of their own beside it.
+A form stays in the pod when its creator leaves; from then on only the pod's owner is offered Edit and Delete for it.
 
 #### Scenario: Member creates a form
 
-- WHEN Sam, who is not an owner of the pod, adds a Passport form
+- WHEN Sam, who is not an owner of the pod, adds a Vehicle form
 - THEN Sam is the owner of that form and is offered Edit and Delete for it
 
 #### Scenario: Someone else's form
@@ -120,28 +122,16 @@ Ownership of a form stays with its creator when someone else edits it.
 - WHEN Dave, a member who is not an owner, opens the form Sam created
 - THEN the values are shown for reading and Edit and Delete are absent
 
+#### Scenario: Creator leaves the pod
+
+- WHEN Sam leaves the pod
+- THEN the form Sam created stays in the pod for every member
+- AND only Paula, the pod's owner, is offered Edit and Delete for it
+
 #### Scenario: The pod's owner opens a member's form
 
 - WHEN Paula, the owner of the pod, opens the form Sam created
 - THEN Edit and Delete are offered
-
-### Requirement: Statements about a member
-
-Every member SHALL be offered to make a statement with a value for any other member's info field.
-A statement's author SHALL be offered Edit and Delete for it.
-The member a statement is about SHALL be offered Copy value and Add to info I share for it.
-Other members see it for reading.
-See [info-statements](../info-statements/spec.md).
-
-#### Scenario: Subject opens a statement
-
-- WHEN the member a statement is about opens it
-- THEN Copy value and Add to info I share are offered
-
-#### Scenario: Another member opens a statement
-
-- WHEN a member who is neither the author nor the subject opens a statement
-- THEN the value is shown for reading
 
 ### Requirement: The note is open to every member
 
@@ -156,6 +146,6 @@ Every member SHALL be offered reading, editing, deleting and exporting the note.
 
 - Whether a member may rename the pod for all members.
 - Whether any member may invite people, as the product requirements say ("any person who is a member of a pod can invite"). The app offers Invite only to owners for now; permissions are to be refined.
-- Whether the form's owner changes when another member edits the form.
+- What a form shows as its author after the author has left the pod, and whether a member who is invited back becomes the author again.
 - Whether an owner's actions for another owner offer Remove member, Promote and Demote, for example Lee acting on Paula after being promoted.
 - Whether Promote, Demote, Delete pod for all members and Delete for any attachment stay with the pod's owner now that the role is defined by inviting and removing members.

@@ -16,10 +16,10 @@ How the app computes a pod's displayed name and parent, and what it submits on c
 
 Creating a pod SHALL submit the chosen category (or none), the name, and one tool declaration per tool in the category's template. A pod without a category submits no tool declaration.
 
-#### Scenario: Passport category
+#### Scenario: Vehicle category
 
-- WHEN the user confirms creation in the Passport category
-- THEN the submitted request carries the category, the name and the Passport tool declaration
+- WHEN the user confirms creation in the Vehicle category
+- THEN the submitted request carries the category, the name and the Vehicle tool declaration
 
 ### Requirement: Display name comes from the naming mode
 
