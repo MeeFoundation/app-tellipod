@@ -2,7 +2,16 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "workspaces": {
     ".": {},
-    "apps/app-tellipod": {},
+    "apps/app-tellipod": {
+      "ignoreDependencies": [
+        "expo-font",
+        "expo-updates",
+        "react-native-css-interop",
+        "react-native-svg"
+      ],
+      "metro": false,
+      "entry": ["metro.config.js", "src/app/**/*.tsx"]
+    },
     "apps/storybook": {
       "ignoreDependencies": [
         "expo-font",

@@ -24,6 +24,8 @@ pnpm install
 
 | Command | What it does |
 | --- | --- |
+| `just app` | Start the Tellipod app (Metro); press `i` or `a` for a simulator |
+| `just storybook` | Start the Storybook app (Metro) |
 | `just lint` / `pnpm lint` | Lint and format check with Biome |
 | `just fix` / `pnpm lint:fix` | Lint and apply fixes |
 | `just typecheck` / `pnpm typecheck` | Type-check all workspaces |

@@ -2,7 +2,7 @@
 
 | Spec | Read when |
 | --- | --- |
-| [tokens-and-theming](tokens-and-theming/spec.md) | Using a color, size, spacing or type value in UI |
+| [tokens-and-theming](tokens-and-theming/spec.md) | Using a color, size, spacing or type value in UI, or browsing the color tokens |
 | [components](components/spec.md) | Building UI or adding a component |
 | [button](button/spec.md) | Using or changing the Button |
 | [badge](badge/spec.md) | Using or changing the Badge |
@@ -11,4 +11,4 @@
 | [breadcrumbs](breadcrumbs/spec.md) | Using or changing the Breadcrumbs |
 | [modal](modal/spec.md) | Using or changing the Modal |
 | [icon](icon/spec.md) | Using an icon in UI, adding an icon to the kit or changing where icon glyphs come from |
-| [storybook](storybook/spec.md) | Adding or changing a component story |
+| [storybook](storybook/spec.md) | Adding or changing a component story or a token story |
