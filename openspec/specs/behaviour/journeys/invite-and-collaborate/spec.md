@@ -1,6 +1,6 @@
 # journey: invite-and-collaborate
 
-- Depends on: `../../find-a-pod/spec.md`, `../../create-and-name-pod/spec.md`, `../../members-and-roles/spec.md`, `../../note/spec.md`, `../../chat/spec.md`, `../../pod-storage-and-sharing/spec.md`
+- Depends on: `../../find-a-pod/spec.md`, `../../create-and-name-pod/spec.md`, `../../pod-tags/spec.md`, `../../members-and-roles/spec.md`, `../../note/spec.md`, `../../chat/spec.md`, `../../pod-storage-and-sharing/spec.md`
 - Read when: changing invitations, shared content, private files or who sees a message
 - Source: `pod-ontologies/app-behavior.md` (Naming, Renaming, and Sharing; Pod Storage; Pod Contents)
 
@@ -9,7 +9,7 @@
 Paula invites Sam and Lee into a pod, and the three work in it together.
 The journey checks that what each member does reaches the right people and nobody else.
 
-Covers: find-a-pod (invitation), create-and-name-pod, members-and-roles, note, chat, pod-storage-and-sharing.
+Covers: find-a-pod (invitation), create-and-name-pod, pod-tags, members-and-roles, note, chat, pod-storage-and-sharing.
 
 ## Requirements
 
@@ -21,7 +21,9 @@ Starting state: Paula is the owner of a pod "Lake trip" with a note and no other
 #### Scenario: Sam joins from an invitation
 
 - WHEN Paula invites Sam and Sam follows the invitation link
-- THEN the app opens for Sam without onboarding and "Lake trip" appears in Sam's tree
+- THEN the app opens for Sam without onboarding, showing the invitation to "Lake trip"
+- WHEN Sam taps Accept
+- THEN "Lake trip" appears in Sam's list of pods and opens
 - WHEN Sam adds the line "Bring the tent" to the note
 - THEN Paula sees "Bring the tent" in her copy of the note
 
@@ -31,6 +33,20 @@ Starting state: Paula is the owner of a pod "Lake trip" with a note and no other
 - THEN Sam keeps seeing the name he had
 - WHEN Paula invites Lee, so the pod has three members
 - THEN a rename by Paula shows to Sam and Lee
+
+### Requirement: Each member tags the pod their own way
+
+The app SHALL support this path from start to finish, each step handing its result to the next.
+Starting state: Paula is the owner of "Lake trip" and has given it the user tag "Holiday".
+
+#### Scenario: Sam joins with a tag of his own
+
+- WHEN Sam follows the invitation to "Lake trip"
+- THEN the invitation screen shows suggested tags, and not Paula's tag "Holiday"
+- WHEN Sam deselects the suggestions, adds the user tag "Lake" and taps Accept
+- THEN "Lake trip" is in Sam's list with "Lake" and without "Holiday"
+- WHEN Sam searches for "Lake"
+- THEN "Lake trip" is listed
 
 ### Requirement: Private and direct content reaches only its audience
 

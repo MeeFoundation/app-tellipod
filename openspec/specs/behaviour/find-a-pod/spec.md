@@ -1,12 +1,12 @@
 # find-a-pod
 
-- Depends on: `../create-and-name-pod/spec.md`
+- Depends on: `../create-and-name-pod/spec.md`, `../pod-tags/spec.md`
 - Read when: changing search, the results, or any link or card that opens a pod
 - Source: Figma "Mee - Tellipod App v4.0.3", section "Search or Ask"; `pod-ontologies/app-behavior.md` (Finding Pods by Tag and by Property)
 
 ## Purpose
 
-How the user gets into a pod they already have: from Home, from search, from a link in a note, and from an invitation.
+How the user gets into a pod they already have: from Home, from search, from a link in a note, and from an invitation they accept.
 
 ## Requirements
 
@@ -37,17 +37,42 @@ While the field is empty, the screen SHALL list the user's recent searches, and 
 - WHEN the user taps "coffee" in the recent searches
 - THEN the results for "coffee" are shown
 
-### Requirement: Results in two sections
+### Requirement: Search finds pods by name and by tag
 
-Results SHALL be shown in two sections, Pods and Categories, with the matching text highlighted.
-A pod result shows the pod's name and its category path.
-A category result shows how many pods and subpods it has and expands to its subcategories.
+Search SHALL match the text against the names of the user's pods and against the user's own tags on them, category tags and user tags alike.
+Results SHALL be a flat list of pods, with the matching text highlighted.
+A pod result shows the pod's name and its tags, a category tag and a user tag in their own styles.
+Another member's tags on a shared pod SHALL NOT match.
 
 #### Scenario: Searching for "step"
 
 - WHEN the user types "step"
-- THEN "Step sister" is listed under Pods with "Step" highlighted, beside its category path
-- AND the matching categories are listed under Categories
+- THEN "Step sister" is listed with "Step" highlighted, beside its tags
+
+#### Scenario: Searching by a user tag
+
+- WHEN the user searches for "Ginger" and three pods carry the user tag "Ginger"
+- THEN all three pods are listed
+
+#### Scenario: Another member's tag
+
+- WHEN the user searches for "Cat", a tag only another member put on a shared pod
+- THEN that pod is not listed for the tag
+
+### Requirement: A category tag also finds narrower ones
+
+A search that matches a category tag SHALL also list the pods carrying a narrower category tag, at any depth.
+It SHALL NOT list pods carrying only a broader category tag.
+
+#### Scenario: Searching by a broader category
+
+- WHEN the user searches for the category tag State and has pods tagged Birth Certificate and Drivers License
+- THEN both pods are listed, though neither carries the tag State
+
+#### Scenario: Searching by a narrower category
+
+- WHEN the user searches for the category tag Birth Certificate and has a pod tagged State
+- THEN that pod is not listed
 
 #### Scenario: Opening a result
 
@@ -92,16 +117,24 @@ A link whose pod no longer exists SHALL be marked unresolved and leave the scree
 - WHEN the user taps a link whose pod no longer exists
 - THEN the link is marked unresolved and the note stays on screen
 
-### Requirement: An invitation opens its pod
+### Requirement: An invitation opens the invitation screen
 
-Following an invitation link SHALL open the app, or install it first, and show the received pod in the recipient's tree, filed under the empty parent pods its category needs.
+Following an invitation link SHALL open the app, or install it first, and show the invitation screen for the pod, with information about the pod, suggested tags, and Accept and Decline (see [pod-tags](../pod-tags/spec.md)).
+Accept SHALL add the pod to the list of pods and open it.
 Onboarding is skipped for the invitee (see [launch-and-unlock](../launch-and-unlock/spec.md)).
 
-#### Scenario: Invitation to a nested pod
+#### Scenario: Following an invitation
 
-- WHEN the recipient has no pod for the parent branch and follows the invitation
-- THEN the parent pods appear empty and the invited pod sits under them
+- WHEN the recipient follows the invitation to "Ginger Medical"
+- THEN the invitation screen opens, and "Ginger Medical" is not yet in the list of pods
+
+#### Scenario: Accepting the invitation
+
+- WHEN the recipient taps Accept
+- THEN "Ginger Medical" appears in the list of pods and its screen opens
 
 ## Open questions
 
+- How the user says a search is by tag and not by name, and how several tags combine in one search.
+- Whether Home or search groups results under headers for broader categories, and whether the mobile app has saved tag searches (persistent views).
 - Whether the user is told how a link is marked as unresolved.

@@ -41,4 +41,4 @@ Starting state: Paula has the pod "coffee" and a pod "Shopping" with an empty no
 - WHEN Paula renames "coffee" to "Espresso" and taps the link in "Shopping"
 - THEN the pod "Espresso" opens
 - WHEN Paula types `[[beans]]` in "Shopping" and taps it
-- THEN a pod "beans" appears at the root of the tree and opens with a blank note
+- THEN a pod "beans" with no tag appears in the list of pods and opens with a blank note

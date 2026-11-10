@@ -1,6 +1,6 @@
 # organize
 
-- Depends on: `../pod-lifecycle/spec.md`, `../chat/spec.md`, `../note/spec.md`
+- Depends on: `../pod-lifecycle/spec.md`, `../pod-tags/spec.md`, `../chat/spec.md`, `../note/spec.md`
 - Read when: building or changing the Organize action
 - Source: `pod-ontologies/app-behavior.md` (Organize, Auto File, Divide and Conquer, Tidy)
 
@@ -21,30 +21,33 @@ Selecting a pod and tapping Organize SHALL offer Auto File, Divide and Conquer a
 
 ### Requirement: Auto File needs consent
 
-Auto File SHALL be offered for a Custom pod, which has no category.
-It SHALL suggest a category and place, and SHALL move the pod when the user accepts.
+Auto File SHALL be offered for any pod, whether or not it already has tags.
+It SHALL suggest one or more tags for the pod, and SHALL change the pod's tags only when the user accepts.
+Accepting SHALL work as if the user had edited the tags by hand (see [pod-tags](../pod-tags/spec.md)): a suggested category tag replaces the pod's category tag, and the user tags the pod already has stay unless the user removes them.
 
 #### Scenario: A note about a cat
 
-- WHEN the user runs Auto File on a Custom pod whose note is about caring for a cat
-- THEN the app suggests filing it under Pods > Pets
-- AND the pod moves there when the user accepts
+- WHEN the user runs Auto File on a pod with no tag whose note is about caring for a cat
+- THEN the app suggests the category tag Pets
+- AND the pod carries Pets when the user accepts
 
-#### Scenario: Pod with a category
+#### Scenario: Pod that already has a tag
 
-- WHEN the user opens Organize on a pod that has a category
-- THEN Auto File is absent from the list and Divide and Conquer and Tidy remain
+- WHEN the user opens Organize on a pod that already has the category tag Pets
+- THEN Auto File is in the list
+- WHEN Auto File suggests the category tag Pets Medical and the user accepts
+- THEN the pod carries Pets Medical instead of Pets
 
 ### Requirement: Divide and Conquer leaves a link
 
 Divide and Conquer SHALL move a chunk of the note out and leave a link where it was.
-A chunk that fits a new categorized pod SHALL become that pod, filed by its category, and the link SHALL be a pod link.
+A chunk that fits a new pod of its own SHALL become that pod, carrying the category tag its content calls for, and the link SHALL be a pod link.
 A chunk structured enough to stay SHALL become a form tool in the same pod, and the link SHALL be a block link.
 
 #### Scenario: Credit card details in a note
 
 - WHEN the note holds a card's name, number and expiry and the user runs Divide and Conquer
-- THEN the chunk is replaced by a link "Paula's Credit Card" that opens a Banking & Payments pod whose form holds the parsed fields
+- THEN the chunk is replaced by a link "Paula's Credit Card" that opens a new pod tagged Banking & Payments whose form holds the parsed fields
 
 #### Scenario: Follow-up question
 
@@ -70,5 +73,6 @@ Tidy SHALL be absent from the list when the note holds nothing to turn into a fo
 ## Open questions
 
 - What the user sees while a suggestion is being produced, and how a declined suggestion is shown.
+- Whether the app suggests user tags too, beside category tags, when it creates a pod or runs Auto File.
 - Whether the note text stays after Tidy turns it into a form.
 - What the link shows if the pod or form it points to is later deleted.

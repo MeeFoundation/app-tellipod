@@ -20,7 +20,7 @@ Every screen that shows pods SHALL read them through the active identity, and SH
 #### Scenario: Two identities
 
 - WHEN the device holds "Alice" and "Alice Work" and "Alice Work" is active
-- THEN the pod tree, member lists and requests all use "Alice Work"
+- THEN the list of pods, member lists and requests all use "Alice Work"
 
 ### Requirement: Switching changes the active identity
 
@@ -31,7 +31,7 @@ Identities on a device SHALL be kept apart: no screen, request or key of one ide
 #### Scenario: Switch
 
 - WHEN the user picks "Alice" in the switch while "Alice Work" is active
-- THEN the active identity is "Alice" and the pod tree shows the pods of "Alice"
+- THEN the active identity is "Alice" and the list of pods shows the pods of "Alice"
 
 ### Requirement: Create, link and restore add an identity
 

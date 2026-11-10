@@ -12,7 +12,8 @@ Small, one behavior per scenario, from the user's side.
 | [identities](identities/spec.md) | Changing several identities, several devices, the identity switch or unlinking a device |
 | [navigation](navigation/spec.md) | Adding or changing a tab, or what a tab shows |
 | [find-a-pod](find-a-pod/spec.md) | Changing search, its results, or any link or card that opens a pod |
-| [create-and-name-pod](create-and-name-pod/spec.md) | Creating, renaming, moving or receiving a pod |
+| [create-and-name-pod](create-and-name-pod/spec.md) | Creating, renaming, tagging or receiving a pod |
+| [pod-tags](pod-tags/spec.md) | Changing category tags, user tags, or the tags suggested on the invitation screen |
 | [pod-lifecycle](pod-lifecycle/spec.md) | Changing what a newly created pod contains or how a pod gains a tool |
 | [pod-tools-and-forms](pod-tools-and-forms/spec.md) | Changing Add Tool or what the user fills in on a form |
 | [note](note/spec.md) | Changing what the user can do in a pod's note |
@@ -30,5 +31,5 @@ Longer scenarios that chain use cases for one persona and one goal, to check the
 | --- | --- |
 | [first-pod](journeys/first-pod/spec.md) | Changing any step between the first launch and the first filled-in pod |
 | [invite-and-collaborate](journeys/invite-and-collaborate/spec.md) | Changing invitations, shared content, private files or who sees a message |
-| [capture-and-organize](journeys/capture-and-organize/spec.md) | Changing Organize, the links it leaves, or how a Custom pod is filed |
+| [capture-and-organize](journeys/capture-and-organize/spec.md) | Changing Organize, the links it leaves, or how a pod gets its tags |
 | [search-to-new-pod](journeys/search-to-new-pod/spec.md) | Changing search, "Make a ... Pod", or how links create pods |

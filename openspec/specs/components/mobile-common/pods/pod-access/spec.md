@@ -7,13 +7,13 @@
 
 ## Purpose
 
-How the app turns a link, a card tap or an invitation into an open pod.
+How the app turns a link, a card tap or an accepted invitation into an open pod.
 
 ## Requirements
 
 ### Requirement: One pod route
 
-Every entry point (card, search result, note link, invitation) SHALL navigate to the same pod route, parameterized by the pod's stable identifier.
+Every entry point (card, search result, note link, accepted invitation) SHALL navigate to the same pod route, parameterized by the pod's stable identifier.
 
 #### Scenario: Card and result
 
@@ -34,10 +34,23 @@ A link without an identifier SHALL be passed to pod creation (see [pod-lifecycle
 
 ### Requirement: Invitations are processed once an identity is active
 
-The app SHALL hand the invitation payload to the data layer, wait for the received pod to arrive, create empty parent pods its category needs, and then navigate to the pod route.
+The app SHALL hand the invitation payload to the data layer, open the invitation screen for the pod identifier the payload holds, and request suggested tags for it (see [pod-tag-suggestions](../pod-tag-suggestions/spec.md)).
+The app SHALL NOT add the pod to the list of pods before the user taps Accept.
+Accept SHALL submit the acceptance with the chosen tags, wait for the pod to arrive, and then navigate to the pod route.
+Decline SHALL discard the invitation and SHALL NOT add a pod.
 The onboarding step is bypassed (see `../../shell/launch-and-unlock/spec.md`).
 
-#### Scenario: Missing parents
+#### Scenario: Invitation followed
 
-- WHEN the received pod's category path has two levels the user does not have
-- THEN two empty parent pods are created, the pod is filed under them and the pod route opens
+- WHEN an invitation payload is handed to the data layer
+- THEN the invitation screen opens and no pod is added to the list
+
+#### Scenario: Accept
+
+- WHEN the user taps Accept on the invitation screen
+- THEN the acceptance is submitted with the chosen tags, and when the pod has arrived the pod route opens
+
+#### Scenario: Decline
+
+- WHEN the user taps Decline
+- THEN the invitation is discarded and the list of pods is unchanged

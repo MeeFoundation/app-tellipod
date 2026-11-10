@@ -1,6 +1,6 @@
 # pod-tools-and-forms
 
-- Depends on: `../pod-lifecycle/spec.md`
+- Depends on: `../pod-lifecycle/spec.md`, `../pod-tags/spec.md`
 - Read when: changing Add Tool, or what the user sees and fills in on a form
 - Source: `pod-ontologies/app-behavior.md` (UI Implementation, Adding a Tool)
 
@@ -19,6 +19,21 @@ The dialog asks which tool to add, and for a Form also which form type, and what
 
 - WHEN the user taps Add Tool, picks the Vehicle form type and names the subject "Sophia's car"
 - THEN the pod gains a Vehicle form about Sophia's car
+
+### Requirement: Forms that fit the pod's tags come first
+
+The Add Tool dialog SHALL list first the form types that fit the pod's tags, and then every other form type.
+Every form type stays available, whatever the tags are.
+
+#### Scenario: A pod tagged Vehicle
+
+- WHEN the user taps Add Tool in a pod tagged with the category tag Vehicle
+- THEN Vehicle is first in the list of form types, followed by the others
+
+#### Scenario: A pod with no tag
+
+- WHEN the user taps Add Tool in a pod with no tag
+- THEN every form type is listed in the usual order
 
 ### Requirement: Required fields guide the user
 
