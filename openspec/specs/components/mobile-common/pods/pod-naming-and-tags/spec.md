@@ -4,11 +4,11 @@
 - Realizes: [create-and-name-pod](../../../../behaviour/create-and-name-pod/spec.md), [pod-tags](../../../../behaviour/pod-tags/spec.md)
 - Read when: creating, renaming, tagging or receiving a pod in code
 - Source: `pod-ontologies/app-behavior.md` (Naming, Renaming, and Sharing; Joining a Pod; Finding Pods by Tag)
-- Scope: how names travel between members is decided by the node. The app shows the names it receives.
+- Scope: how the original name travels between members is decided by the node. The app shows the name it receives and keeps aliases to itself.
 
 ## Purpose
 
-How the app computes a pod's displayed name and what it submits on create, rename and tag change.
+How the app computes a pod's displayed name and what it submits on create, original-name change and tag change.
 
 ## Requirements
 
@@ -36,38 +36,52 @@ When a tag set would hold two category tags, the app SHALL keep the one added la
 - WHEN the user adds the category tag Pets Medical to a tag set that holds the category tag Pets
 - THEN the tag set holds Pets Medical and no other category tag, and its user tags are unchanged
 
-### Requirement: Display name comes from the naming mode
+### Requirement: Display name is the alias or the original name
 
-The app SHALL compute the displayed name from the pod's naming mode:
-- shared, when the pod has one member, three or more members, or two members and a tool: the name received for the pod;
-- personal, when it has two members and no tool: the name this user set, or the other member's given name when none is set.
+The app SHALL display a pod under the alias this user set, and under the pod's original name when no alias is set.
+The original name is the one received for the pod and is the same for every member.
+An empty or whitespace-only alias SHALL count as no alias.
 
-#### Scenario: Mode switch
+#### Scenario: Alias set
 
-- WHEN a tool is added to a two-member pod
-- THEN the displayed name is computed in shared mode from then on
+- WHEN the user has the alias "Japan 2027" for a pod whose original name is "Trip to Tokyo"
+- THEN the displayed name is "Japan 2027"
 
-### Requirement: A rename is stored by naming mode
+#### Scenario: Alias cleared
 
-A rename in shared mode SHALL be submitted to the node as a pod change; in personal mode it SHALL be stored for this user only.
+- WHEN the user clears the alias
+- THEN the displayed name is "Trip to Tokyo"
 
-#### Scenario: Rename in personal mode
+#### Scenario: Original name changes
 
-- WHEN the user renames a two-member pod that has no tool
-- THEN the new name is stored for this user only and no pod change is submitted
+- WHEN the original name changes to "Tokyo, April" and the user has no alias
+- THEN the displayed name is "Tokyo, April"
+- AND with an alias set, the displayed name is unchanged
 
-### Requirement: Duplicate suffix is a display concern
+### Requirement: Original name change is submitted, alias is stored locally
 
-The app SHALL derive a distinguishing number from the other pods when two names are equal, and SHALL render it without changing the stored name.
+A change of the original name SHALL be submitted to the node as a pod change, and only for a user who is the pod's owner.
+An alias SHALL be stored for this identity only, keyed by the pod's identifier, and SHALL NOT be included in any change submitted for the other members.
+A pod received through an invitation SHALL be stored with the alias typed on the invitation screen, and with no alias when the field was empty.
 
-#### Scenario: Equal names
+#### Scenario: Owner changes the original name
 
-- WHEN two pods are named "Coffee"
-- THEN the second renders as "Coffee" with a number and stores "Coffee"
+- WHEN the pod's owner changes the original name
+- THEN a pod change with the new name is submitted
+
+#### Scenario: Member sets an alias
+
+- WHEN a member sets an alias
+- THEN the alias is stored for this identity only and no pod change is submitted
+
+#### Scenario: Member is not offered the original name change
+
+- WHEN a user who is not an owner opens the pod's actions
+- THEN no change of the original name is offered
 
 ### Requirement: Rename and tag changes are separate requests
 
-A rename request SHALL NOT carry tags, and a tag change SHALL NOT carry a name or a tool.
+An original-name change request SHALL NOT carry tags, and a tag change SHALL NOT carry a name or a tool.
 A tag change SHALL NOT remove a tool.
 
 #### Scenario: Tag change
@@ -94,3 +108,7 @@ A pod received through an invitation SHALL be stored with the tag set the user c
 
 - WHEN the user taps Decline
 - THEN no pod and no tag set is stored
+
+## Open questions
+
+- Duplicate names are undecided; see the open questions of [create-and-name-pod](../../../../behaviour/create-and-name-pod/spec.md). Until decided, the app adds no distinguishing number.

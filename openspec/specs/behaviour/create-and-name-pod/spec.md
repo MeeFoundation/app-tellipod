@@ -37,47 +37,69 @@ It opens empty. The user can tag it later and can add any form to it with Add To
 - WHEN the user taps Add Tool in a pod that has no tag
 - THEN every form type is offered and the chosen form is added
 
-### Requirement: A rename shows to the members who share the name
+### Requirement: A pod has an original name and an alias
 
-A pod with one member, three or more members, or two members and a tool has one shared name: a rename SHALL show to every member.
-A pod with two members and no tool has a name each member keeps for themselves: a rename SHALL show only to the person who made it.
+A pod SHALL have an original name and MAY have an alias.
+The original name belongs to the pod: every member sees it, it is what an invitee sees on the invitation, and it is the same for everyone.
+The alias belongs to one member: it is the name that member gave the pod for their own organization, and no other member sees it.
+The app SHALL show a pod in the list under its alias when the user has set one, and under its original name otherwise.
 
-#### Scenario: Three members
+#### Scenario: Organizer with several identical trips
 
-- WHEN a member renames a pod that has three members
-- THEN each member sees the new name
+- WHEN Paula, who runs trips to Japan, names two pods "Trip to Tokyo" and gives them the aliases "Trip to Tokyo (Bob and Alice, 12 March)" and "Trip to Tokyo (Carol, 3 April)"
+- THEN her list shows the two aliases
+- AND each client sees only "Trip to Tokyo"
 
-#### Scenario: Two members and a tool
+#### Scenario: No alias
 
-- WHEN a member renames a two-member pod that has a tool
-- THEN both members see the new name
+- WHEN the user has set no alias for a pod
+- THEN the pod is shown under its original name
 
-#### Scenario: Two members and no tool
+### Requirement: Only the pod's owner changes the original name
 
-- WHEN a member renames a two-member pod that has no tool
-- THEN the other member keeps seeing the name they had
+The pod's owner SHALL be able to change the original name, and a change SHALL show to every member, including those who have an alias (they keep seeing the alias in their list).
+A member who is not an owner SHALL NOT be offered a change of the original name.
+Any member SHALL be able to set, change or clear their own alias, and doing so SHALL NOT affect other members.
+Clearing the alias returns the pod to its original name in that member's list.
 
-### Requirement: A received two-member pod carries the sender's given name
+#### Scenario: Owner renames the pod
 
-A two-member pod without a tool that the user receives SHALL appear under the sender's given name.
+- WHEN Paula, the pod's owner, changes the original name from "Trip to Tokyo" to "Tokyo, April"
+- THEN every member sees "Tokyo, April" as the original name
+- AND a member with the alias "Tokyo with Carol" keeps seeing that alias in their list
 
-#### Scenario: First receipt
+#### Scenario: Member sets an alias
 
-- WHEN Alice sends Bob a pod she named "Bob"
-- THEN Bob sees the pod as "Alice"
+- WHEN Bob, a member who is not an owner, sets the alias "Japan 2027" for the pod
+- THEN Bob's list shows "Japan 2027"
+- AND no other member's view changes
 
-### Requirement: Duplicate names get a number
+#### Scenario: Member cannot change the original name
 
-A pod with the same name as another pod SHALL be shown with a distinguishing number, when creating, renaming or receiving it.
+- WHEN Bob, a member who is not an owner, opens the actions for the pod
+- THEN the change of the original name is not offered, and setting an alias is
 
-#### Scenario: Duplicate name
+### Requirement: The invitee names the pod on acceptance
 
-- WHEN the user creates a pod named "Coffee" while another pod is named "Coffee"
-- THEN the new pod is shown as "Coffee" with a number added, and the user continues without a prompt
+The invitation screen SHALL show the pod's original name and a field for the name the user wants to give the pod.
+The user MAY type an alias or leave the field empty.
+When the field is empty, the pod SHALL be shown under its original name, and a later change of the original name SHALL show to this user.
+When the user typed an alias, the pod SHALL be shown under it, and a later change of the original name SHALL NOT replace it.
+
+#### Scenario: Accepting with an alias
+
+- WHEN Bob accepts the invitation to "Trip to Tokyo" and types "Japan 2027" in the name field
+- THEN the pod is in his list as "Japan 2027"
+
+#### Scenario: Accepting with an empty name field
+
+- WHEN Bob accepts the invitation to "Trip to Tokyo" and leaves the name field empty
+- THEN the pod is in his list as "Trip to Tokyo"
+- AND when the owner changes the original name to "Tokyo, April", Bob's list shows "Tokyo, April"
 
 ### Requirement: Renaming leaves the tags
 
-A pod SHALL keep its tags when it is renamed.
+A pod SHALL keep its tags when its original name or alias changes.
 
 #### Scenario: Renamed pod
 
@@ -86,7 +108,7 @@ A pod SHALL keep its tags when it is renamed.
 
 ### Requirement: A pod is received by accepting its invitation
 
-A pod the user is invited into SHALL appear in the list of pods only when the user accepts the invitation, carrying the tags chosen on the invitation screen (see [pod-tags](../pod-tags/spec.md)).
+A pod the user is invited into SHALL appear in the list of pods only when the user accepts the invitation, carrying the tags chosen and the name given on the invitation screen (see [pod-tags](../pod-tags/spec.md)).
 
 #### Scenario: Accepted invitation
 
@@ -97,3 +119,7 @@ A pod the user is invited into SHALL appear in the list of pods only when the us
 
 - WHEN the user declines the invitation to "Ginger Medical"
 - THEN the pod is not in the list
+
+## Open questions
+
+- What to do with duplicate names. The previous rule adds a number to the end when two pods in an account share a name. A duplicate can arise on the inviter's side, on the invitee's side, or on both, and a name can be unique on one side and not on the other. It is not decided whether the number applies to the original name or the alias, which side checks for a duplicate, whether the number is stored or only shown, and what the user sees when the name changes on the other side and now collides.

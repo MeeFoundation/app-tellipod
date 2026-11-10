@@ -36,7 +36,7 @@ A link without an identifier SHALL be passed to pod creation (see [pod-lifecycle
 
 The app SHALL hand the invitation payload to the data layer, open the invitation screen for the pod identifier the payload holds, and request suggested tags for it (see [pod-tag-suggestions](../pod-tag-suggestions/spec.md)).
 The app SHALL NOT add the pod to the list of pods before the user taps Accept.
-Accept SHALL submit the acceptance with the chosen tags, wait for the pod to arrive, and then navigate to the pod route.
+Accept SHALL submit the acceptance with the chosen tags and the alias typed in the name field (none when the field is empty), wait for the pod to arrive, and then navigate to the pod route.
 Decline SHALL discard the invitation and SHALL NOT add a pod.
 The onboarding step is bypassed (see `../../shell/launch-and-unlock/spec.md`).
 
@@ -48,7 +48,7 @@ The onboarding step is bypassed (see `../../shell/launch-and-unlock/spec.md`).
 #### Scenario: Accept
 
 - WHEN the user taps Accept on the invitation screen
-- THEN the acceptance is submitted with the chosen tags, and when the pod has arrived the pod route opens
+- THEN the acceptance is submitted with the chosen tags and the alias, and when the pod has arrived the pod route opens
 
 #### Scenario: Decline
 

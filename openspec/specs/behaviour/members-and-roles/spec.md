@@ -24,7 +24,8 @@ The actions of the pod itself and the actions on the pod's members are offered i
 | Leave the pod | pod's actions | yes | yes |
 | Delete the pod from this device | pod's actions | yes | yes |
 | Delete the pod for all members | pod's actions, set apart from the rest | yes | no |
-| Rename the pod for all members | pod's actions | yes | undecided |
+| Change the pod's original name | pod's actions | yes | no |
+| Set the pod's alias for oneself | pod's actions | yes | yes |
 | Invite a member | members list | yes | no |
 | Uninvite someone | members list | yes | no |
 | Remove a member | a member's actions | yes | no |
@@ -144,7 +145,6 @@ Every member SHALL be offered reading, editing, deleting and exporting the note.
 
 ## Open questions
 
-- Whether a member may rename the pod for all members.
 - Whether any member may invite people, as the product requirements say ("any person who is a member of a pod can invite"). The app offers Invite only to owners for now; permissions are to be refined.
 - What a form shows as its author after the author has left the pod, and whether a member who is invited back becomes the author again.
 - Whether an owner's actions for another owner offer Remove member, Promote and Demote, for example Lee acting on Paula after being promoted.

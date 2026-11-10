@@ -70,10 +70,10 @@ Changing a tag SHALL NOT remove any tool of the pod.
 ### Requirement: An invitation shows suggested tags before the user joins
 
 A pod the user is invited into SHALL NOT be in their list until they accept.
-The app SHALL show an invitation screen with information about the pod, a list of suggested tags for it, and the buttons Accept and Decline.
+The app SHALL show an invitation screen with information about the pod, a field for the name the user gives the pod (see [create-and-name-pod](../create-and-name-pod/spec.md)), a list of suggested tags for it, and the buttons Accept and Decline.
 Some suggested tags can be already selected, and the rest are listed first among the tags available.
 Before accepting, the user SHALL be able to select or deselect suggested tags and add any other tags, or choose none.
-Accept SHALL add the pod to the user's list carrying the chosen tags, and open it.
+Accept SHALL add the pod to the user's list carrying the chosen tags and the given name, and open it.
 Decline SHALL add nothing, and the invitee SHALL disappear from the sender's pending invitees.
 The sender's own tags SHALL NOT be shown on the screen as the sender's tags.
 While the suggested tags are coming over the network, the screen SHALL be in a loading state, and Accept and Decline become available when the tags have arrived.

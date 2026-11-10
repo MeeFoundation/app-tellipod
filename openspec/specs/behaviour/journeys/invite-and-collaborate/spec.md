@@ -27,12 +27,14 @@ Starting state: Paula is the owner of a pod "Lake trip" with a note and no other
 - WHEN Sam adds the line "Bring the tent" to the note
 - THEN Paula sees "Bring the tent" in her copy of the note
 
-#### Scenario: Naming changes with the third member
+#### Scenario: Original name and alias
 
-- WHEN Paula renames the two-member pod "Lake trip" before it has a tool
-- THEN Sam keeps seeing the name he had
-- WHEN Paula invites Lee, so the pod has three members
-- THEN a rename by Paula shows to Sam and Lee
+- WHEN Sam accepts the invitation to "Lake trip" and leaves the name field empty
+- THEN Sam's list shows "Lake trip"
+- WHEN Paula, the owner, changes the original name to "Lake trip 2027"
+- THEN Sam's list shows "Lake trip 2027"
+- WHEN Sam sets the alias "Weekend away"
+- THEN Sam's list shows "Weekend away" and Paula still sees "Lake trip 2027"
 
 ### Requirement: Each member tags the pod their own way
 

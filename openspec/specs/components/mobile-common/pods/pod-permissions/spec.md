@@ -17,7 +17,7 @@ How the UI derives its action list from the user's role.
 The app SHALL compute the offered actions in one function from the user's role and the target (pod, member, attachment, form, the form's owner, pod owner count, whether the target member is a person or a service).
 Screens SHALL read the result and SHALL NOT check roles themselves.
 The role-by-action table is in [members-and-roles](../../../../behaviour/members-and-roles/spec.md).
-The result SHALL keep the pod's actions (Leave, Delete from this device, Delete pod for all members, Rename) apart from the members-list actions (Invite, Uninvite) and the actions for a member (Remove member, Promote, Demote).
+The result SHALL keep the pod's actions (Leave, Delete from this device, Delete pod for all members, Change original name, Set alias) apart from the members-list actions (Invite, Uninvite) and the actions for a member (Remove member, Promote, Demote).
 
 #### Scenario: Member role, pod actions
 

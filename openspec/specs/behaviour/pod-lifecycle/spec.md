@@ -90,8 +90,6 @@ An invited service SHALL count as a member.
 - WHEN the user invites a backup service into a single-member pod
 - THEN the pod shows two members
 
-A pod with one person and one service is a two-member pod for the naming rule in [create-and-name-pod](../create-and-name-pod/spec.md).
-
 ## Open questions
 
 - Which tab a pod opens on (always the same one, the one used last, or depends on the pod).
