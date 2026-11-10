@@ -1,6 +1,7 @@
 # find-a-pod
 
 - Depends on: `../create-and-name-pod/spec.md`, `../pod-tags/spec.md`
+- Related: `../connected-pods/spec.md` (what a non-member sees on a pod link)
 - Read when: changing search, the results, or any link or card that opens a pod
 - Source: Figma "Mee - Tellipod App v4.0.3", section "Search or Ask"; `pod-ontologies/app-behavior.md` (Finding Pods by Tag and by Property)
 
@@ -105,6 +106,7 @@ When nothing matches, the screen SHALL say "No matches for" and the entered text
 ### Requirement: A link in a note opens its pod
 
 A pod link in a note SHALL open the pod it points to, whatever its display text says.
+What a non-member sees, for a connected pod link and for a plain pod link, is in [connected-pods](../connected-pods/spec.md).
 A link whose pod no longer exists SHALL be marked unresolved and leave the screen as it is.
 
 #### Scenario: Renamed target

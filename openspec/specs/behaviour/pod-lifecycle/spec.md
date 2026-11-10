@@ -1,7 +1,7 @@
 # pod-lifecycle
 
 - Depends on: none
-- Related: `../create-and-name-pod/spec.md`, `../pod-tools-and-forms/spec.md`, `../pod-tags/spec.md` (these depend on this spec)
+- Related: `../create-and-name-pod/spec.md`, `../pod-tools-and-forms/spec.md`, `../pod-tags/spec.md`, `../connected-pods/spec.md` (these depend on this spec)
 - Read when: changing what a newly created pod contains or how a pod gains a tool
 - Source: `pod-ontologies/app-behavior.md` (Lazy Instantiation, Wikilink-Triggered Pod Creation, Adding a Tool, Number of Members)
 
@@ -9,6 +9,7 @@
 
 What a pod holds when it is created and how it grows afterwards: tools added by hand, pods created from a link, and members.
 Pods are a flat set: no pod sits inside another.
+A pod can point at pods it is connected to (see [connected-pods](../connected-pods/spec.md)), which is a reference and not nesting.
 
 ## Requirements
 
@@ -69,12 +70,12 @@ For now every pod is created with Notes and Chat; a later creation screen is exp
 
 ### Requirement: A link without a target creates a pod
 
-Tapping a wikilink that has no target yet SHALL create a single-member pod with no tag, named after the link text, attach it to the link and open it with a blank note.
+Tapping a wikilink that has no target yet SHALL create a single-member pod with no tag, named after the link text, attach it to the link, connect it to the host pod, the pod where the link was typed (see [connected-pods](../connected-pods/spec.md)), and open it with a blank note.
 
 #### Scenario: Tapping [[foo]]
 
 - WHEN the user taps a link `[[foo]]` that has no target
-- THEN a pod named "foo" with no tag appears in the list of pods, the link opens it from now on, and its note is blank
+- THEN a pod named "foo" with no tag appears in the list of pods and in the Connected pods list of the host pod, the link opens it from now on, and its note is blank
 
 #### Scenario: Link to a pod the user does not have
 

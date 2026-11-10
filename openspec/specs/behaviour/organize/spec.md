@@ -41,8 +41,8 @@ Accepting SHALL work as if the user had edited the tags by hand (see [pod-tags](
 ### Requirement: Divide and Conquer leaves a link
 
 Divide and Conquer SHALL move a chunk of the note out and leave a link where it was.
-A chunk that fits a new pod of its own SHALL become that pod, carrying the category tag its content calls for, and the link SHALL be a pod link.
-A chunk structured enough to stay SHALL become a form tool in the same pod, and the link SHALL be a block link.
+A chunk that fits a new pod of its own SHALL become that pod, carrying the category tag its content calls for, and the link SHALL be a connected pod link: the new pod is connected to the pod of the note (see [connected-pods](../connected-pods/spec.md)).
+A chunk structured enough to stay SHALL become a form tool in the same pod, and the link SHALL be an internal link.
 
 #### Scenario: Credit card details in a note
 

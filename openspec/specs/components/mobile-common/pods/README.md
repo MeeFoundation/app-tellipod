@@ -9,4 +9,5 @@
 | [pod-forms](pod-forms/spec.md) | Rendering or adding a tool or form |
 | [pod-chat](pod-chat/spec.md) | Building or changing chat |
 | [note-editor](note-editor/spec.md) | Building or changing the note |
+| [pod-connections](pod-connections/spec.md) | Building the Connect dialog, the Connected pods and Connected to lists, Disconnect, or the connection list in a confirmation |
 | [pod-search](pod-search/spec.md) | Building or changing search |

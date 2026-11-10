@@ -1,6 +1,7 @@
 # note
 
 - Depends on: `../find-a-pod/spec.md`
+- Related: `../connected-pods/spec.md` (what `[[` offers and does with a pod)
 - Read when: changing what the user can do in a pod's note
 - Source: `pod-ontologies/app-behavior.md`, Note Area
 
@@ -50,22 +51,55 @@ The note SHALL offer find and replace, and undo and redo.
 
 ### Requirement: Links
 
-Typing `[[` SHALL suggest the user's pods, and the tools, graphs and attachments of the same pod.
-A suggested pod becomes a pod link; a suggested tool, graph or attachment becomes a block link.
+A link in the note is either an internal link or a connected pod link (words in [connected-pods](../connected-pods/spec.md)).
+Typing `[[` SHALL suggest, as the user types:
 
-#### Scenario: Linking to a pod
+- things of the same pod: forms, attachments, tools and graphs, which become internal links;
+- the pods already connected to this pod, which become connected pod links at once, for every member;
+- the pods the user owns that are not connected yet, which open the Connect dialog and become connected pod links after the user confirms;
+- the pods the user is a member of but does not own and that are not connected, which become plain pod links at once and connect nothing;
+- "Create pod" with the typed text as its name (see [connected-pods](../connected-pods/spec.md)).
 
-- WHEN the user types `[[Pa` and picks "Paula's Car"
-- THEN a link to that pod is inserted
+Deleting a connected pod link from the note leaves the connection in place.
 
-#### Scenario: Block link to a removed tool
+#### Scenario: Linking to a connected pod
 
-- WHEN the user taps a block link whose tool was removed
+- WHEN Carol, a member of "About Sofia", types `[[Sofia's` and picks "Sofia's Passport", which is connected
+- THEN a connected pod link to "Sofia's Passport" is inserted
+
+#### Scenario: Linking to a pod the user owns
+
+- WHEN the user, who owns "Paula's Car" that is not connected, types `[[Pa` and picks it
+- THEN the Connect dialog opens
+
+#### Scenario: Linking to a pod the user only belongs to
+
+- WHEN Carol, a member but not an owner of "Visa", types `[[Vi` in the note of "About Sofia" and picks "Visa", which is not connected
+- THEN a plain pod link to "Visa" is inserted, no dialog opens and "Visa" is not connected
+
+#### Scenario: Confirming the connection
+
+- WHEN the user confirms the Connect dialog for "Paula's Car"
+- THEN a link to "Paula's Car" is inserted
+
+#### Scenario: Linking to a form
+
+- WHEN the user types `[[Vis` and picks the form "Visa"
+- THEN an internal link to the form is inserted
+
+#### Scenario: Offering to create a pod
+
+- WHEN the user types `[[beans`
+- THEN the suggestions end with Create pod "beans"
+
+#### Scenario: Internal link to a removed tool
+
+- WHEN the user taps an internal link whose tool was removed
 - THEN the link is marked unresolved and the note stays on screen
 
 ### Requirement: Export
 
-The user SHALL be able to export the note as Markdown: a resolved pod link as `[[id|text]]`, an unresolved one as `[[text]]`, a block link as plain text.
+The user SHALL be able to export the note as Markdown: a resolved pod link as `[[id|text]]`, an unresolved one as `[[text]]`, an internal link as plain text.
 
 #### Scenario: Exporting a note
 

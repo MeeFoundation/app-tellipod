@@ -1,6 +1,7 @@
 # members-and-roles
 
 - Depends on: `../pod-lifecycle/spec.md`
+- Related: `../connected-pods/spec.md`, `../connection-lifecycle/spec.md` (roles that decide Connect pod and Disconnect)
 - Read when: showing, hiding or disabling an action in a pod by the user's role
 - Source: `pod-ontologies/app-behavior.md`, Permissions
 
@@ -55,6 +56,28 @@ Delete the pod for all members removes the pod itself from every member's device
 - WHEN an owner opens the members of a pod
 - THEN Invite and Uninvite are offered
 - AND the actions for another member offer Remove member, Promote and Demote
+
+### Requirement: Connected pods follow the roles of both pods
+
+Connections are not in the table above because the role that counts is the one in the connected pod, not only in the pod the user is looking at:
+
+- Connect pod is offered to every member of the host pod who is a person, and only for pods the user owns;
+- Disconnect is offered to an owner of the host pod and to an owner of the connected pod;
+- the Connected to list is shown only to owners of the pod;
+- Leave, Remove member, Demote and Delete pod for all members show the connections they end before the user confirms.
+
+The details are in [connected-pods](../connected-pods/spec.md) and [connection-lifecycle](../connection-lifecycle/spec.md).
+
+#### Scenario: Member connects a pod they own
+
+- WHEN Alice is a member, not an owner, of "About Sofia" and the owner of "Sofia's Passport"
+- THEN Connect pod in "About Sofia" offers "Sofia's Passport"
+
+#### Scenario: Owner of the host pod without owning the connected pod
+
+- WHEN Paula, an owner of "About Sofia", is only a member of "Sofia's Passport"
+- THEN Connect pod does not offer "Sofia's Passport"
+- AND Disconnect is offered for it in the Connected pods list
 
 ### Requirement: The only owner stays an owner
 
@@ -148,4 +171,5 @@ Every member SHALL be offered reading, editing, deleting and exporting the note.
 - Whether any member may invite people, as the product requirements say ("any person who is a member of a pod can invite"). The app offers Invite only to owners for now; permissions are to be refined.
 - What a form shows as its author after the author has left the pod, and whether a member who is invited back becomes the author again.
 - Whether an owner's actions for another owner offer Remove member, Promote and Demote, for example Lee acting on Paula after being promoted.
+- Whether Delete from this device ends the user's membership (see [connection-lifecycle](../connection-lifecycle/spec.md)).
 - Whether Promote, Demote, Delete pod for all members and Delete for any attachment stay with the pod's owner now that the role is defined by inviting and removing members.

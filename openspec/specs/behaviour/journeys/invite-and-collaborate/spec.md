@@ -65,6 +65,19 @@ Starting state: "Lake trip" has the members Paula, Sam and Lee, and Paula is the
 - WHEN Paula drags the receipt into the attachments
 - THEN Sam and Lee receive the receipt, and Sam's link now opens it
 
+### Requirement: What a member added stays when they leave
+
+The app SHALL support this path from start to finish, each step handing its result to the next.
+Starting state: "Lake trip" has the members Paula, Sam and Lee, and Paula is the only owner.
+
+#### Scenario: Sam leaves and his form stays
+
+- WHEN Sam adds a Vehicle form about the rental car and a line to the note
+- THEN Paula and Lee see both
+- WHEN Sam leaves "Lake trip"
+- THEN the form and the line stay in the pod for Paula and Lee
+- AND only Paula is offered Edit and Delete for Sam's form
+
 ### Requirement: Role limits show in the actions
 
 The app SHALL support this path from start to finish, each step handing its result to the next.
