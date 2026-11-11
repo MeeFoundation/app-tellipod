@@ -99,17 +99,35 @@ Disconnecting a pod SHALL NOT remove its link from the note (see [Opening a pod 
 - WHEN Alice deletes the connected pod link "Sofia's Passport" from the note
 - THEN "Sofia's Passport" is still in the Connected pods list
 
-### Requirement: A new pod from the note
+### Requirement: A new pod from the note is created and connected
 
 Typing `[[` followed by text SHALL always offer to create a pod with that text as its name, as one entry in the list of suggestions, apart from the entries for pods that already have that name.
 The user chooses between an existing pod and a new one.
-A link written out by hand and tapped without picking an entry has no target, and creates a pod.
-A pod created this way SHALL be owned by the user, connected to the pod of the note without the Connect dialog (the user has just named it, and nobody else has access to it), and opened when the link is tapped (see [pod-lifecycle](../pod-lifecycle/spec.md)).
+Picking Create pod SHALL do two steps in a row: create the pod, then open the Connect dialog for it, the same dialog as for any pod (the checkbox lets the user invite everyone from the host pod at once).
+The pod SHALL be owned by the user. Once the user confirms the dialog, it is connected to the pod of the note and a connected pod link to it is inserted.
+Dismissing the dialog in any way other than confirming counts as cancelling. Cancelling the dialog does not undo the creation, as with Divide and Conquer: the pod stays, owned by the user and not connected, and a plain pod link to it is inserted. The user can connect it later like any pod they own.
+Only an existing pod can be connected; the connection itself is always made by the Connect dialog.
 
-#### Scenario: A pod created from a link
+A link written out by hand and not picked from the suggestions has no target.
+Tapping it SHALL NOT create a pod and SHALL NOT connect anything: the link is marked unresolved and the note stays on screen.
+So typing a link by hand never makes a duplicate of an existing pod. Choosing Create pod is a deliberate act, and it is offered even when a pod with that name exists.
 
-- WHEN Alice types `[[Visa]]` in the note of "About Sofia", where no pod is named "Visa", and taps the link
-- THEN a pod "Visa" owned by Alice is created, connected to "About Sofia", and opens
+#### Scenario: Creating a pod from the suggestions
+
+- WHEN Alice types `[[Visa` in the note of "About Sofia", where no pod is named "Visa", and picks Create pod "Visa"
+- THEN a pod "Visa" owned by Alice is created and the Connect dialog opens
+- WHEN Alice confirms
+- THEN "Visa" is in the Connected pods list of "About Sofia" and a connected pod link to it is in the note
+
+#### Scenario: Cancelling after creating
+
+- WHEN Alice cancels the Connect dialog opened by Create pod "Visa"
+- THEN the pod "Visa" exists and is owned by Alice, a plain pod link to it is in the note, and it is not in the Connected pods list
+
+#### Scenario: A link typed by hand
+
+- WHEN Carol types `[[Sofia's Passport]]` by hand in the note of "About Sofia" without picking a suggestion, and taps it
+- THEN no pod is created, nothing is connected, the link is marked unresolved and the note stays on screen
 
 ### Requirement: The Connect dialog
 
@@ -269,13 +287,13 @@ A plain pod link SHALL NOT connect anything.
 Main questions:
 
 - Request access inside the app, and a shortcut from the private pod screen to a chat with the person who connected the pod. For now the screen only names that person; the user contacts them on their own.
+- Whether a link typed by hand auto-resolves when its text exactly matches one pod the user can see, instead of staying unresolved. Today the only way to link an existing pod is to pick it from the suggestions.
 - Which three owners the private pod screen names when there are more than three (for example the longest-standing owners).
 - Whether the checkbox becomes a rule (today it stays a one-time action): members of the host pod enter the connected pod automatically, including people who join later. If it does:
   - whether it is transitive, so that A to B and B to C gives the members of A access to C;
   - whether a member's access through the rule is marked with its source ("joined via About Sofia");
   - whether leaving the host pod revokes it. Revoking cannot take back data the member already has on their device, and forms they added stay (see [members-and-roles](../members-and-roles/spec.md)).
 - What happens to a connected pod link copied into another pod: whether it stays a connected pod link of the new host, or becomes a plain pod link.
-- Who becomes the owner of a pod made from `[[beans]]` when a member other than the author taps the link, and what happens when two members tap it at the same moment.
 - Abuse. For now the team assumes members are honest, so inviting a large host pod through the checkbox, or connecting a pod only to expose its name, is not limited.
 
 Smaller questions:

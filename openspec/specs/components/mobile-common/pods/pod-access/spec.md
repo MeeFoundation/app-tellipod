@@ -28,12 +28,17 @@ A link that does not resolve SHALL render in the unresolved state and have no na
 A pod link SHALL resolve when the user is a member of the pod, or when the pod is connected to the pod that holds the link.
 The name of a connected pod the user is not a member of SHALL come from the connection, so the app knows the pod without holding it.
 A connected pod link whose pod the user is not a member of SHALL navigate to the private pod screen; a plain pod link to a pod the user is not a member of SHALL render unresolved (see [connected-pods](../../../../behaviour/connected-pods/spec.md)).
-A link without an identifier SHALL be passed to pod creation (see [pod-lifecycle](../../../../behaviour/pod-lifecycle/spec.md)).
+A link without an identifier SHALL render unresolved and SHALL NOT start pod creation; pods are created only from the Create pod entry (see [pod-lifecycle](../../../../behaviour/pod-lifecycle/spec.md)).
 
 #### Scenario: Deleted target
 
 - WHEN the pod for an identifier is absent from the local store and is not connected to the pod that holds the link
 - THEN the link renders unresolved and a tap on it triggers no navigation
+
+#### Scenario: Link without an identifier
+
+- WHEN a link typed by hand has no identifier and the user taps it
+- THEN the link renders unresolved, no pod is created and a tap triggers no navigation
 
 #### Scenario: Connected pod, user not a member
 

@@ -84,11 +84,12 @@ Starting state: "About Sofia" has the members Alice, Bob, Carol, Lee and the ser
 The app SHALL support this path from start to finish, each step handing its result to the next.
 Starting state: Carol is a member of "About Sofia", and no pod is named "Visa".
 
-#### Scenario: Carol creates a pod from a link
+#### Scenario: Carol creates a pod and connects it
 
-- WHEN Carol types `[[Visa]]` in the note of "About Sofia" and taps it
-- THEN a pod "Visa" owned by Carol opens
-- AND "About Sofia" shows Connected pods 1 with "Visa"
+- WHEN Carol types `[[Visa` in the note of "About Sofia" and picks Create pod "Visa"
+- THEN a pod "Visa" owned by Carol is created and the Connect dialog opens
+- WHEN Carol confirms
+- THEN "About Sofia" shows Connected pods 1 with "Visa" and a connected pod link to it is in the note
 - WHEN Bob, a member of "About Sofia", taps "Visa" in the Connected pods list
 - THEN the private pod screen says "Visa" is private, that it was connected by Carol, and that he can reach out to Carol to ask for access
 - WHEN Carol leaves "About Sofia"

@@ -43,8 +43,9 @@ Starting state: Paula owns the pod "coffee" and a pod "Shopping" with an empty n
 - WHEN Paula renames "coffee" to "Espresso" and taps the link in "Shopping"
 - THEN the pod "Espresso" opens
 
-#### Scenario: A new link creates a pod
+#### Scenario: Create pod makes a pod and connects it
 
-- WHEN Paula types `[[beans]]` in "Shopping" and taps it
-- THEN a pod "beans" with no tag appears in the list of pods and in the Connected pods list of "Shopping"
-- AND "beans" opens with a blank note
+- WHEN Paula types `[[beans` in "Shopping" and picks Create pod "beans"
+- THEN a pod "beans" with no tag is created and the Connect dialog opens
+- WHEN Paula confirms
+- THEN "beans" is in the list of pods and in the Connected pods list of "Shopping", and a link to it is in the note

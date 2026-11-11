@@ -37,7 +37,9 @@ Typing `[[` SHALL open an autocomplete fed by:
 - the pods connected to the open pod (connected pod links, inserted at once);
 - the pods the user owns that are not connected (a connected pod link, inserted after the Connect dialog is confirmed);
 - the pods the user is a member of but does not own and that are not connected (a plain pod link, inserted at once);
-- a Create pod entry holding the typed text, apart from the entries for pods with that name.
+- a Create pod entry holding the typed text, apart from the entries for pods with that name; it requests a new pod owned by the user, then requests the Connect dialog for it; the link is inserted as a connected pod link after confirmation and as a plain pod link after cancelling.
+
+A link typed by hand and not picked from the autocomplete SHALL render unresolved and SHALL NOT request a pod.
 
 A pod link SHALL carry the identifier of its pod. Whether it is a connected pod link or a plain pod link SHALL follow the connection as it is now (see [connected-pods](../../../../behaviour/connected-pods/spec.md)).
 Resolution of a link is in [pod-access](../pod-access/spec.md).

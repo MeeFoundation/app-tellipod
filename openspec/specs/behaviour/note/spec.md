@@ -58,7 +58,9 @@ Typing `[[` SHALL suggest, as the user types:
 - the pods already connected to this pod, which become connected pod links at once, for every member;
 - the pods the user owns that are not connected yet, which open the Connect dialog and become connected pod links after the user confirms;
 - the pods the user is a member of but does not own and that are not connected, which become plain pod links at once and connect nothing;
-- "Create pod" with the typed text as its name (see [connected-pods](../connected-pods/spec.md)).
+- "Create pod" with the typed text as its name, which creates a pod owned by the user and then opens the Connect dialog for it (see [connected-pods](../connected-pods/spec.md)).
+
+A link typed by hand and not picked from the suggestions creates nothing and is shown as unresolved.
 
 Deleting a connected pod link from the note leaves the connection in place.
 
@@ -91,6 +93,12 @@ Deleting a connected pod link from the note leaves the connection in place.
 
 - WHEN the user types `[[beans`
 - THEN the suggestions end with Create pod "beans"
+
+#### Scenario: Picking Create pod
+
+- WHEN the user picks Create pod "beans"
+- THEN a pod "beans" owned by the user is created and the Connect dialog opens
+- AND after the user confirms, a connected pod link to it is inserted; if the user cancels, a plain pod link is inserted and the pod stays unconnected
 
 #### Scenario: Internal link to a removed tool
 
