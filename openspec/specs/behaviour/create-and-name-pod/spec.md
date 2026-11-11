@@ -14,7 +14,7 @@ What the pod holds at creation is in [pod-lifecycle](../pod-lifecycle/spec.md).
 ### Requirement: Create a pod with a name and tags
 
 The user SHALL be able to create a pod by giving it a name and, optionally, tags.
-Category tags and user tags are added the same way, and a second category tag replaces the first (see [pod-tags](../pod-tags/spec.md)).
+Category tags and user tags are added the same way, and a pod may carry several category tags (see [pod-tags](../pod-tags/spec.md)).
 The new pod opens with no form, whatever its tags.
 
 #### Scenario: Creating a pod for vehicle details

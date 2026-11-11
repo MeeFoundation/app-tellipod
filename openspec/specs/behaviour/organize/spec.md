@@ -23,7 +23,7 @@ Selecting a pod and tapping Organize SHALL offer Auto File, Divide and Conquer a
 
 Auto File SHALL be offered for any pod, whether or not it already has tags.
 It SHALL suggest one or more tags for the pod, and SHALL change the pod's tags only when the user accepts.
-Accepting SHALL work as if the user had edited the tags by hand (see [pod-tags](../pod-tags/spec.md)): a suggested category tag replaces the pod's category tag, and the user tags the pod already has stay unless the user removes them.
+Accepting SHALL work as if the user had edited the tags by hand (see [pod-tags](../pod-tags/spec.md)): a suggested category tag is added to the pod's category tags, and the tags the pod already has stay unless the user removes them.
 
 #### Scenario: A note about a cat
 
@@ -35,8 +35,16 @@ Accepting SHALL work as if the user had edited the tags by hand (see [pod-tags](
 
 - WHEN the user opens Organize on a pod that already has the category tag Pets
 - THEN Auto File is in the list
-- WHEN Auto File suggests the category tag Pets Medical and the user accepts
-- THEN the pod carries Pets Medical instead of Pets
+
+#### Scenario: Accepting a second category tag
+
+- WHEN Auto File suggests the category tag Medical for a pod that carries the category tag Pets and the user accepts
+- THEN the pod carries both Pets and Medical
+
+#### Scenario: Accepting a narrower tag beside a broader one
+
+- WHEN Auto File suggests the category tag Pets Medical for a pod that carries only the category tag Pets and the user accepts
+- THEN the pod carries both Pets and Pets Medical
 
 ### Requirement: Divide and Conquer leaves a link
 

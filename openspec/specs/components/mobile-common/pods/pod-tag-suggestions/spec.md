@@ -47,7 +47,7 @@ It SHALL render the list in the order given, with preselected tags marked as sel
 The app SHALL let the user select and deselect any suggested tag and add any other tag, and SHALL submit the selected tags with the acceptance when the user taps Accept.
 Accept with an empty selection SHALL submit an empty tag set.
 Decline SHALL submit no acceptance and no tag.
-When the selection holds two category tags, the later one replaces the earlier (see [pod-naming-and-tags](../pod-naming-and-tags/spec.md)).
+The selection MAY hold several category tags (see [pod-naming-and-tags](../pod-naming-and-tags/spec.md)).
 
 #### Scenario: Accept as suggested
 

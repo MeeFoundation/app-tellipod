@@ -14,7 +14,7 @@ How the app computes a pod's displayed name and what it submits on create, origi
 
 ### Requirement: Create submits name and tags
 
-Creating a pod SHALL submit the name and the chosen tags: at most one category tag and any number of user tags.
+Creating a pod SHALL submit the name and the chosen tags: any number of category tags and any number of user tags.
 It SHALL NOT submit a form declaration: a new pod has no form, and tags do not add one.
 
 #### Scenario: Vehicle category tag
@@ -27,14 +27,19 @@ It SHALL NOT submit a form declaration: a new pod has no form, and tags do not a
 - WHEN the user confirms creation with a name and no tag
 - THEN the submitted request carries the name and an empty tag set
 
-### Requirement: A tag set holds at most one category tag
+### Requirement: A tag set holds several category tags
 
-When a tag set would hold two category tags, the app SHALL keep the one added last and drop the other.
+A tag set SHALL hold any number of category tags; adding a tag the set already holds SHALL leave the set unchanged.
+
+#### Scenario: Tag already in the set
+
+- WHEN the user adds the category tag Pets to a tag set that already holds it
+- THEN the tag set is unchanged
 
 #### Scenario: Second category tag
 
 - WHEN the user adds the category tag Pets Medical to a tag set that holds the category tag Pets
-- THEN the tag set holds Pets Medical and no other category tag, and its user tags are unchanged
+- THEN the tag set holds both Pets and Pets Medical, and its user tags are unchanged
 
 ### Requirement: Display name is the alias or the original name
 
