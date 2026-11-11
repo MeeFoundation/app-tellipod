@@ -1,6 +1,6 @@
 # journey: search-to-new-pod
 
-- Depends on: `../../find-a-pod/spec.md`, `../../create-and-name-pod/spec.md`, `../../pod-lifecycle/spec.md`, `../../note/spec.md`
+- Depends on: `../../find-a-pod/spec.md`, `../../create-and-name-pod/spec.md`, `../../pod-lifecycle/spec.md`, `../../note/spec.md`, `../../connected-pods/spec.md`
 - Read when: changing search, "Make a ... Pod", or how links create pods
 - Source: Figma "Mee - Tellipod App v4.0.3", section "Search or Ask"; `pod-ontologies/app-behavior.md`
 
@@ -9,7 +9,7 @@
 Paula looks for something that does not exist yet, creates it from the search, and links to it from another pod.
 The journey checks that the name typed in search is the name of the pod, and that a link reaches it later.
 
-Covers: find-a-pod, create-and-name-pod, pod-lifecycle, note.
+Covers: find-a-pod, create-and-name-pod, pod-lifecycle, note, connected-pods.
 
 ## Requirements
 
@@ -32,13 +32,20 @@ Starting state: Paula has pods but none matching "coffee".
 ### Requirement: A link reaches the pod, and a new link creates one
 
 The app SHALL support this path from start to finish, each step handing its result to the next.
-Starting state: Paula has the pod "coffee" and a pod "Shopping" with an empty note.
+Starting state: Paula owns the pod "coffee" and a pod "Shopping" with an empty note.
 
 #### Scenario: Linking from a note
 
 - WHEN Paula types `[[` in "Shopping" and picks "coffee"
-- THEN a link to "coffee" is in the note
+- THEN the Connect dialog opens
+- WHEN Paula confirms
+- THEN a link to "coffee" is in the note, and "coffee" is in the Connected pods list of "Shopping"
 - WHEN Paula renames "coffee" to "Espresso" and taps the link in "Shopping"
 - THEN the pod "Espresso" opens
-- WHEN Paula types `[[beans]]` in "Shopping" and taps it
-- THEN a pod "beans" with no tag appears in the list of pods and opens with a blank note
+
+#### Scenario: Create pod makes a pod and connects it
+
+- WHEN Paula types `[[beans` in "Shopping" and picks Create pod "beans"
+- THEN a pod "beans" with no tag is created and the Connect dialog opens
+- WHEN Paula confirms
+- THEN "beans" is in the list of pods and in the Connected pods list of "Shopping", and a link to it is in the note

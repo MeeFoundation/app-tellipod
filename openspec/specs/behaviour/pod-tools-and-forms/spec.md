@@ -30,6 +30,11 @@ Every form type stays available, whatever the tags are.
 - WHEN the user taps Add Tool in a pod tagged with the category tag Vehicle
 - THEN Vehicle is first in the list of form types, followed by the others
 
+#### Scenario: A pod with several category tags
+
+- WHEN the user taps Add Tool in a pod tagged with the category tags Vehicle and Pets
+- THEN the form types that fit Vehicle or Pets come first, followed by the others
+
 #### Scenario: A pod with no tag
 
 - WHEN the user taps Add Tool in a pod with no tag
@@ -110,3 +115,4 @@ Members may add forms with the same name for the same subject, such as two Vehic
 
 - What happens when a member adds a value that another author's form for the same subject already has, such as the same value in a field. Proposed: the app offers to confirm the existing entry instead of adding a duplicate, leaving the other author's entry untouched; the member can still add it as a separate entry.
 - What a form shows as its author after the author has left the pod.
+- How Add Tool orders the form types when a pod has several category tags: by the order the tags were added, or with no guaranteed order between the groups.

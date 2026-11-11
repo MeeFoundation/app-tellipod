@@ -35,7 +35,9 @@ Starting state: Paula has a pod "Notes" with no tag whose note holds a paragraph
 #### Scenario: Divide and Conquer then follow the link
 
 - WHEN Paula selects "Notes", taps Organize and runs Divide and Conquer
-- THEN the paragraph is replaced in the note by the link "Paula's Credit Card"
+- THEN the paragraph is replaced in the note by the link "Paula's Credit Card" and the Connect dialog opens for the new pod, with no checkbox because nobody else is in "Notes"
+- WHEN Paula confirms the dialog
+- THEN the new pod is connected to "Notes"
 - WHEN Paula taps the link
 - THEN a new pod tagged Banking & Payments opens, and its form holds the name, number and expiry
 - WHEN Paula returns to "Notes"

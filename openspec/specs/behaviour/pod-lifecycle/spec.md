@@ -1,7 +1,7 @@
 # pod-lifecycle
 
 - Depends on: none
-- Related: `../create-and-name-pod/spec.md`, `../pod-tools-and-forms/spec.md`, `../pod-tags/spec.md` (these depend on this spec)
+- Related: `../create-and-name-pod/spec.md`, `../pod-tools-and-forms/spec.md`, `../pod-tags/spec.md`, `../connected-pods/spec.md` (these depend on this spec)
 - Read when: changing what a newly created pod contains or how a pod gains a tool
 - Source: `pod-ontologies/app-behavior.md` (Lazy Instantiation, Wikilink-Triggered Pod Creation, Adding a Tool, Number of Members)
 
@@ -9,6 +9,7 @@
 
 What a pod holds when it is created and how it grows afterwards: tools added by hand, pods created from a link, and members.
 Pods are a flat set: no pod sits inside another.
+A pod can point at pods it is connected to (see [connected-pods](../connected-pods/spec.md)), which is a reference and not nesting.
 
 ## Requirements
 
@@ -67,14 +68,26 @@ For now every pod is created with Notes and Chat; a later creation screen is exp
 - WHEN a pod has no Chat tool
 - THEN the pod screen shows no Chat tab and still shows Info
 
-### Requirement: A link without a target creates a pod
+### Requirement: A pod is created from the Create pod suggestion, not from a link
 
-Tapping a wikilink that has no target yet SHALL create a single-member pod with no tag, named after the link text, attach it to the link and open it with a blank note.
+Picking Create pod "foo" in the suggestions of `[[` SHALL create a single-member pod with no tag, named after the typed text and owned by the user, and then open the Connect dialog for it (see [connected-pods](../connected-pods/spec.md)).
+The pod SHALL NOT be opened.
+Tapping a wikilink that has no target SHALL NOT create a pod.
 
-#### Scenario: Tapping [[foo]]
+#### Scenario: Picking Create pod
+
+- WHEN the user types `[[foo`, picks Create pod "foo" and confirms the Connect dialog
+- THEN a pod named "foo" with no tag appears in the list of pods and in the Connected pods list of the host pod, and a connected pod link to it is in the note
+
+#### Scenario: Create pod fails
+
+- WHEN the user picks Create pod "foo" and creating the pod fails (for example offline)
+- THEN the Connect dialog does not open, nothing is inserted in the note, the typed `[[foo` stays as the user typed it, and the user sees an error
+
+#### Scenario: Tapping [[foo]] typed by hand
 
 - WHEN the user taps a link `[[foo]]` that has no target
-- THEN a pod named "foo" with no tag appears in the list of pods, the link opens it from now on, and its note is blank
+- THEN no pod is created and the link is marked unresolved
 
 #### Scenario: Link to a pod the user does not have
 
@@ -94,4 +107,5 @@ An invited service SHALL count as a member.
 
 - Which tab a pod opens on (always the same one, the one used last, or depends on the pod).
 - Whether the user will choose at creation which tools a pod gets (for example checkboxes for Notes and Chat), and whether such tools can be added or removed later. Today every pod gets Notes and Chat.
-- Whether a member who lacks permission to create pods can create one by tapping a link without a target (see [members-and-roles](../members-and-roles/spec.md)).
+- The wording of the error when Create pod fails, and whether the user can retry in place.
+- Whether a member who lacks permission to create pods can create one with Create pod in `[[` (see [members-and-roles](../members-and-roles/spec.md)).

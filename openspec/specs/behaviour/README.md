@@ -19,6 +19,8 @@ Small, one behavior per scenario, from the user's side.
 | [note](note/spec.md) | Changing what the user can do in a pod's note |
 | [chat](chat/spec.md) | Changing what the user sees or does in a pod's chat |
 | [member-info](member-info/spec.md) | Changing the member screen or where a member's info form is shown |
+| [connected-pods](connected-pods/spec.md) | Connecting pods, the Connect dialog, the Connected pods list, a link to a connected pod, or what `[[` offers |
+| [connection-lifecycle](connection-lifecycle/spec.md) | When a connection ends, who may disconnect, the Connected to list, or what the user is told before leaving, removing or demoting someone |
 | [members-and-roles](members-and-roles/spec.md) | Showing, hiding or disabling a pod action by role |
 | [organize](organize/spec.md) | Building or changing the Organize action |
 | [pod-storage-and-sharing](pod-storage-and-sharing/spec.md) | Deciding whether a piece of pod content stays on the device or reaches other members |
@@ -32,4 +34,5 @@ Longer scenarios that chain use cases for one persona and one goal, to check the
 | [first-pod](journeys/first-pod/spec.md) | Changing any step between the first launch and the first filled-in pod |
 | [invite-and-collaborate](journeys/invite-and-collaborate/spec.md) | Changing invitations, shared content, private files or who sees a message |
 | [capture-and-organize](journeys/capture-and-organize/spec.md) | Changing Organize, the links it leaves, or how a pod gets its tags |
+| [connect-pods](journeys/connect-pods/spec.md) | Changing how pods are connected, who is invited with them, or what ends a connection |
 | [search-to-new-pod](journeys/search-to-new-pod/spec.md) | Changing search, "Make a ... Pod", or how links create pods |

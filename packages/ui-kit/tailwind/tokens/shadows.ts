@@ -17,6 +17,10 @@ export const boxShadow = {
     "0 25px 21px -5px rgba(2, 6, 23, 0.1), 0 2px 25px -5px rgba(2, 6, 23, 0.15)",
   // Figma effect style button/skeuomorphic/rest (inner shadow).
   "button-rest": "inset 0 2px 0 0 rgba(255, 255, 255, 0.25)",
+  // Figma effect style Box shadow/1st Level: a 1 px ring at alpha/dark/5 and a 20 px blur at
+  // alpha/always/dark/5, the surface of Card-Cell and Card-Category.
+  "level-1":
+    "0 0 0 1px rgba(2, 6, 23, 0.05), 0 1px 20px 1px rgba(2, 6, 23, 0.05)",
   none: "none",
   // Figma effect styles outline/*, the focus ring. NativeWind has no ring utilities, so it is a shadow.
   "outline-brand": "0 0 0 3px rgba(79, 134, 142, 0.4)",

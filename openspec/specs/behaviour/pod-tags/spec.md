@@ -24,8 +24,8 @@ The tags on a pod are the user's own, so two members of one pod can tag it diffe
 
 ### Requirement: Two kinds of tag
 
-A pod SHALL be able to carry one category tag at most, and any number of user tags.
-A category tag names a concept from the shared taxonomy of categories, such as Pets or Immediate Family; its place in the taxonomy gives it a broader and narrower meaning, which search uses.
+A pod SHALL be able to carry any number of category tags and any number of user tags.
+A category tag names a concept from the shared taxonomy of categories, such as Pets or Immediate Family; a pod can sit in several places of the taxonomy tree at once, for example Pets and Medical, and a narrower tag may be added beside a broader one it already carries, such as Pets Medical beside Pets. The place of each in the taxonomy gives it a broader and narrower meaning, which search uses.
 A user tag is a free-text label the user chooses for their own convenience, such as "Ginger".
 A pod SHALL be allowed to carry no tag at all.
 A tag SHALL NOT change the pod's content: it only decides where the pod shows up in search and which form types Add Tool lists first.
@@ -43,23 +43,35 @@ A tag SHALL NOT change the pod's content: it only decides where the pod shows up
 ### Requirement: One field adds both kinds of tag
 
 The user SHALL add category tags and user tags in the same way, in the same place, and the app SHALL show the two kinds in different styles.
-Adding a second category tag to a pod SHALL replace its first, because a pod has at most one.
+Adding a second category tag to a pod SHALL keep the first: the pod carries both.
+Adding a tag the pod already carries SHALL leave its tags unchanged.
 
 #### Scenario: Two category tags at creation
 
 - WHEN the user adds the category tag Vehicle and then the category tag Pets to a pod being created
-- THEN the pod is created with the category tag Pets and no Vehicle tag
+- THEN the pod is created with both category tags, Vehicle and Pets
 
-#### Scenario: Replacing the category tag
+#### Scenario: Adding a second category tag
+
+- WHEN Paula adds the category tag Medical to a pod that carries the category tag Pets
+- THEN the pod shows Pets and Medical as its category tags
+- AND the pod's forms, note, members and user tags stay as they were
+- AND a search for Pets or for Medical finds the pod, and Add Tool lists first the form types that fit either
+
+#### Scenario: Adding a narrower tag beside a broader one
 
 - WHEN Paula adds the category tag Pets Medical to a pod that carries the category tag Pets
-- THEN the pod shows Pets Medical as its category tag instead of Pets
-- AND the pod's forms, note, members and user tags stay as they were
-- AND a search for Pets Medical finds the pod, and Add Tool lists first the form types that fit Pets Medical
+- THEN the pod carries both Pets and Pets Medical
+- AND a search for Pets finds the pod once
+
+#### Scenario: Adding a tag the pod already has
+
+- WHEN Paula adds the category tag Pets to a pod that already carries it
+- THEN the pod's tags are unchanged
 
 ### Requirement: Tags can be changed at any time
 
-The user SHALL be able to add and remove tags of a pod, and change its category tag, whenever they like.
+The user SHALL be able to add and remove tags of a pod, and its category tags, whenever they like.
 Changing a tag SHALL NOT remove any tool of the pod.
 
 #### Scenario: Removing a tag
@@ -76,8 +88,10 @@ Before accepting, the user SHALL be able to select or deselect suggested tags an
 Accept SHALL add the pod to the user's list carrying the chosen tags and the given name, and open it.
 Decline SHALL add nothing, and the invitee SHALL disappear from the sender's pending invitees.
 The sender's own tags SHALL NOT be shown on the screen as the sender's tags.
-While the suggested tags are coming over the network, the screen SHALL be in a loading state, and Accept and Decline become available when the tags have arrived.
-When the suggestions cannot be fetched, the screen SHALL leave the loading state with no suggested tags, and the user can still accept with tags of their own or none.
+Accept and Decline SHALL be available at any time, and SHALL NOT wait for the suggested tags.
+While the suggested tags are coming over the network, only the tag section SHALL show a loading indicator (an inline spinner with "Suggested tags loading…"); the rest of the screen works as usual.
+If the user taps Accept before the suggested tags have arrived, the pod SHALL be accepted without suggested tags, with only the tags the user added themselves, possibly none, and tags that arrive later SHALL NOT be applied.
+When the suggestions cannot be fetched, the tag section SHALL show nothing, with no error message, and the pod SHALL be treated as a pod without suggested tags; the user can still accept with tags of their own or none.
 
 #### Scenario: Accepting the suggestion
 
@@ -105,14 +119,19 @@ When the suggestions cannot be fetched, the screen SHALL leave the loading state
 #### Scenario: Suggestions still loading
 
 - WHEN Paula follows the invitation and the suggested tags have not arrived yet
-- THEN the invitation screen is in its loading state, and "Ginger Medical" is not in her list
+- THEN the invitation screen shows Accept and Decline enabled, and a spinner "Suggested tags loading…" in the tag section, and "Ginger Medical" is not in her list
 - WHEN the suggested tags arrive
-- THEN the screen shows them with Accept and Decline
+- THEN the spinner is replaced by the tags
+
+#### Scenario: Accepting before the tags arrive
+
+- WHEN Paula taps Accept while the spinner is still shown
+- THEN "Ginger Medical" is in her list with no tag and opens, and suggested tags arriving afterwards are not applied
 
 #### Scenario: Suggestions cannot be fetched
 
 - WHEN the request for the suggested tags fails
-- THEN the screen shows no suggested tags, and Paula can accept with tags of her own or none
+- THEN the spinner disappears, the tag section shows nothing and no error is shown, and Paula can accept with tags of her own or none
 
 ## Open questions
 
@@ -121,5 +140,7 @@ When the suggestions cannot be fetched, the screen SHALL leave the loading state
 - Whether the user can rename or delete a user tag everywhere at once, and how duplicates and letter case are treated.
 - Which information about the pod the invitation screen shows, and whether the sender is told that the invitee declined.
 - Whether a declined invitation can be opened again from the same link.
-- What the loading state looks like, how long the app waits before treating the request as failed, and what the screen shows when the device is offline.
-- Whether a pod's colour or icon follows its category tag.
+- How long the app waits before treating the request as failed, and whether the tag section shows anything different when the device is offline.
+- Whether a search for a narrower category, such as Pets Medical, finds a pod that carries only the broader one, such as Pets, and the reverse.
+- Whether a user tag with the same text as a category tag counts as a tag the pod already carries.
+- Whether a pod's colour or icon follows its category tags, and which one drives it when the pod has several.
