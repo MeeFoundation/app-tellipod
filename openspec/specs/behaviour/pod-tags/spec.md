@@ -76,8 +76,10 @@ Before accepting, the user SHALL be able to select or deselect suggested tags an
 Accept SHALL add the pod to the user's list carrying the chosen tags and the given name, and open it.
 Decline SHALL add nothing, and the invitee SHALL disappear from the sender's pending invitees.
 The sender's own tags SHALL NOT be shown on the screen as the sender's tags.
-While the suggested tags are coming over the network, the screen SHALL be in a loading state, and Accept and Decline become available when the tags have arrived.
-When the suggestions cannot be fetched, the screen SHALL leave the loading state with no suggested tags, and the user can still accept with tags of their own or none.
+Accept and Decline SHALL be available at any time, and SHALL NOT wait for the suggested tags.
+While the suggested tags are coming over the network, only the tag section SHALL show a loading indicator (an inline spinner with "Suggested tags loading…"); the rest of the screen works as usual.
+If the user taps Accept before the suggested tags have arrived, the pod SHALL be accepted without suggested tags, with only the tags the user added themselves, possibly none, and tags that arrive later SHALL NOT be applied.
+When the suggestions cannot be fetched, the tag section SHALL show nothing, with no error message, and the pod SHALL be treated as a pod without suggested tags; the user can still accept with tags of their own or none.
 
 #### Scenario: Accepting the suggestion
 
@@ -105,14 +107,19 @@ When the suggestions cannot be fetched, the screen SHALL leave the loading state
 #### Scenario: Suggestions still loading
 
 - WHEN Paula follows the invitation and the suggested tags have not arrived yet
-- THEN the invitation screen is in its loading state, and "Ginger Medical" is not in her list
+- THEN the invitation screen shows Accept and Decline enabled, and a spinner "Suggested tags loading…" in the tag section, and "Ginger Medical" is not in her list
 - WHEN the suggested tags arrive
-- THEN the screen shows them with Accept and Decline
+- THEN the spinner is replaced by the tags
+
+#### Scenario: Accepting before the tags arrive
+
+- WHEN Paula taps Accept while the spinner is still shown
+- THEN "Ginger Medical" is in her list with no tag and opens, and suggested tags arriving afterwards are not applied
 
 #### Scenario: Suggestions cannot be fetched
 
 - WHEN the request for the suggested tags fails
-- THEN the screen shows no suggested tags, and Paula can accept with tags of her own or none
+- THEN the spinner disappears, the tag section shows nothing and no error is shown, and Paula can accept with tags of her own or none
 
 ## Open questions
 
@@ -121,5 +128,5 @@ When the suggestions cannot be fetched, the screen SHALL leave the loading state
 - Whether the user can rename or delete a user tag everywhere at once, and how duplicates and letter case are treated.
 - Which information about the pod the invitation screen shows, and whether the sender is told that the invitee declined.
 - Whether a declined invitation can be opened again from the same link.
-- What the loading state looks like, how long the app waits before treating the request as failed, and what the screen shows when the device is offline.
+- How long the app waits before treating the request as failed, and whether the tag section shows anything different when the device is offline.
 - Whether a pod's colour or icon follows its category tag.

@@ -12,24 +12,25 @@ How the app asks the node for suggested tags for an invited pod and how it prese
 
 ## Screen states
 
-loading → offered | none; then accepted | declined
+Tag section: loading → offered | none (the rest of the screen is always active); then accepted | declined
 
 ## Requirements
 
 ### Requirement: The invitation screen triggers a suggestion request
 
 When the invitation screen opens, the app SHALL request suggested tags from the node, the request carrying the pod's identifier from the invitation.
-The screen SHALL be in a loading state until the response arrives or the request fails, and SHALL enable Accept and Decline only then.
+The tag section SHALL show a loading indicator ("Suggested tags loading…") until the response arrives or the request fails.
+Accept and Decline SHALL be enabled from the moment the screen opens and SHALL NOT depend on the request.
 
 #### Scenario: Screen opens
 
 - WHEN the invitation screen opens for the pod with identifier P
-- THEN a suggestion request carrying P is sent and the screen is loading, with Accept and Decline not yet enabled
+- THEN a suggestion request carrying P is sent, the tag section shows the loading indicator, and Accept and Decline are enabled
 
 #### Scenario: Response arrives
 
 - WHEN the response arrives while the screen is loading
-- THEN the screen leaves the loading state, shows the tags and enables Accept and Decline
+- THEN the loading indicator is replaced by the tags
 
 ### Requirement: The response is a list of tags with a preselection flag
 
@@ -63,14 +64,23 @@ When the selection holds two category tags, the later one replaces the earlier (
 - WHEN the user taps Decline
 - THEN no acceptance is submitted and the screen closes
 
-### Requirement: A failed request does not block joining
+### Requirement: Accepting does not wait for the suggestions
 
-A failed request, a timeout or an empty response SHALL end the loading state with no suggested tags, and Accept SHALL still submit the acceptance with the tags the user chose, possibly none.
+If the user taps Accept while the request is pending, the app SHALL submit the acceptance at once with the tags the user added themselves, possibly none, and SHALL ignore and, if possible, cancel the pending request.
+
+#### Scenario: Accept while loading
+
+- WHEN the user taps Accept while the loading indicator is shown
+- THEN the acceptance carries an empty tag set and a response arriving later changes nothing
+
+### Requirement: A failed request is silent
+
+A failed request, a timeout or an empty response SHALL end the loading indicator with no suggested tags and no error message, and Accept SHALL still submit the acceptance with the tags the user chose, possibly none.
 
 #### Scenario: Request fails
 
 - WHEN the suggestion request fails
-- THEN the loading state ends, the screen shows no suggested tags and Accept still joins the pod with an empty tag set
+- THEN the loading indicator disappears, the tag section shows nothing and no error is shown, and Accept still joins the pod with an empty tag set
 
 ## Open questions
 
