@@ -118,11 +118,13 @@ The dialog SHALL say that the name of the connected pod will be visible to every
 The dialog SHALL offer a checkbox, off by default, "Invite everyone from <host pod>" with the number of people it would invite.
 When there is nobody to invite, the dialog SHALL show no checkbox.
 
-The checkbox:
+The checkbox is a one-time, standalone action based on who is in the host pod right now. There is no dynamic membership: connecting does not tie the two pods' membership together.
+It:
 
-- invites the people who are members of the host pod at that moment and are neither members of the connected pod nor already invited to it, counting only people whose invitation is still open;
+- invites every person who is a member of the host pod at that moment and is not yet in the connected pod; someone with a pending invitation is skipped, while someone whose earlier invitation was declined or expired is invited again;
+- invites them with the role of member;
 - does not invite services or the user themselves;
-- does not invite people who join the host pod later;
+- does not invite people who join the host pod later, and does not remove anyone when people leave the host pod or when the pod is disconnected;
 - sends an ordinary invitation, so a person becomes a member only by accepting it (see [find-a-pod](../find-a-pod/spec.md)).
 
 #### Scenario: Connecting without invitations
@@ -146,6 +148,16 @@ The checkbox:
 
 - WHEN Carol already has an open invitation to "Sofia's Passport" and Alice connects it
 - THEN the checkbox does not count Carol and Carol receives no second invitation
+
+#### Scenario: A person whose invitation was declined or expired
+
+- WHEN Carol's earlier invitation to "Sofia's Passport" was declined or has expired and Alice connects it with the checkbox on
+- THEN the checkbox counts Carol and Carol receives a new invitation
+
+#### Scenario: Invited as a member
+
+- WHEN Alice connects "Sofia's Passport" with the checkbox on and Carol accepts
+- THEN Carol is a member of "Sofia's Passport" with the role of member
 
 #### Scenario: Nobody to invite
 
@@ -257,7 +269,7 @@ Main questions:
 
 - Request access inside the app, and a shortcut from the private pod screen to a chat with the person who connected the pod. For now the screen only names that person; the user contacts them on their own.
 - Which three owners the private pod screen names when there are more than three (for example the longest-standing owners).
-- Whether the checkbox becomes a rule: members of the host pod enter the connected pod automatically, including people who join later. If it does:
+- Whether the checkbox becomes a rule (today it stays a one-time action): members of the host pod enter the connected pod automatically, including people who join later. If it does:
   - whether it is transitive, so that A to B and B to C gives the members of A access to C;
   - whether a member's access through the rule is marked with its source ("joined via About Sofia");
   - whether leaving the host pod revokes it. Revoking cannot take back data the member already has on their device, and forms they added stay (see [members-and-roles](../members-and-roles/spec.md)).

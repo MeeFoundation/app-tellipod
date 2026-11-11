@@ -42,6 +42,27 @@ Alice owns "Sofia's Passport", where Bob is the only other member.
 - THEN "Sofia's Passport" is no longer in the Connected pods list of "About Sofia"
 - AND Alice and Bob are still members of "Sofia's Passport" and the link in the note stays as text
 
+### Requirement: A pod is connected without invitations
+
+The app SHALL support this path from start to finish, each step handing its result to the next.
+Starting state: the same as in the first journey; "About Sofia" has the members Alice, Bob, Carol, Paula and the service BackupBot, and Alice owns "Sofia's Passport", where Bob is the only other member.
+
+#### Scenario: Alice connects the pod and leaves the checkbox off
+
+- WHEN Alice types `[[Sofia's Pa` in the note of "About Sofia" and picks "Sofia's Passport"
+- THEN the Connect dialog offers "Invite everyone from About Sofia (2)", off by default
+- WHEN Alice confirms without turning the checkbox on
+- THEN the note holds a connected pod link, and the Info of "About Sofia" shows Connected pods 1
+- AND nobody receives an invitation to "Sofia's Passport"
+
+#### Scenario: The others see the pod but cannot open it
+
+- WHEN Carol taps "Sofia's Passport" in the Connected pods list
+- THEN the private pod screen says "Sofia's Passport" is private, that it was connected by Alice, and that she can reach out to Alice to ask for access
+- WHEN Alice later invites Carol from the members of "Sofia's Passport"
+- THEN Carol receives an ordinary invitation, and the connection is unchanged
+- AND Carol becomes a member of "Sofia's Passport" only after she accepts
+
 ### Requirement: A second owner keeps the connection
 
 The app SHALL support this path from start to finish, each step handing its result to the next.
