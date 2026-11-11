@@ -23,6 +23,15 @@ export { Button } from "./Button/Button";
 export { FilledButton } from "./Button/FilledButton";
 export { LinkButton } from "./Button/LinkButton";
 export { OutlinedButton } from "./Button/OutlinedButton";
+export type {
+  CardProps,
+  ExpandableCardProps,
+  NavigableCardProps,
+} from "./Card/Card";
+export { Card } from "./Card/Card";
+export type { CellInfoProps } from "./CellInfo/CellInfo";
+export { CellInfo } from "./CellInfo/CellInfo";
+export { Divider } from "./Divider/Divider";
 export type { IconName, IconProps } from "./Icon/Icon";
 export { Icon } from "./Icon/Icon";
 export type { ModalProps } from "./Modal/Modal";

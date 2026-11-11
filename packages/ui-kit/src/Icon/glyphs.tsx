@@ -1,8 +1,16 @@
 import CheckCircle from "bootstrap-icons/icons/check-circle.svg";
+import ChevronDown from "bootstrap-icons/icons/chevron-down.svg";
 import ChevronRight from "bootstrap-icons/icons/chevron-right.svg";
+import Diagram3 from "bootstrap-icons/icons/diagram-3.svg";
 import ExclamationCircle from "bootstrap-icons/icons/exclamation-circle.svg";
+import FolderPlus from "bootstrap-icons/icons/folder-plus.svg";
 import House from "bootstrap-icons/icons/house.svg";
 import InfoCircle from "bootstrap-icons/icons/info-circle.svg";
+import Paperclip from "bootstrap-icons/icons/paperclip.svg";
+import Pencil from "bootstrap-icons/icons/pencil.svg";
+import People from "bootstrap-icons/icons/people.svg";
+import PersonVcard from "bootstrap-icons/icons/person-vcard.svg";
+import Plus from "bootstrap-icons/icons/plus.svg";
 import Search from "bootstrap-icons/icons/search.svg";
 import type { FC } from "react";
 import Svg, { Circle, type SvgProps } from "react-native-svg";
@@ -22,11 +30,19 @@ const Dot: FC<SvgProps> = (props) => (
 
 const RAW_GLYPHS = {
   "check-circle": CheckCircle,
+  "chevron-down": ChevronDown,
   "chevron-right": ChevronRight,
+  "diagram-3": Diagram3,
   dot: Dot,
   "exclamation-circle": ExclamationCircle,
+  "folder-plus": FolderPlus,
   house: House,
   "info-circle": InfoCircle,
+  paperclip: Paperclip,
+  pencil: Pencil,
+  people: People,
+  "person-vcard": PersonVcard,
+  plus: Plus,
   search: Search,
 } as const;
 

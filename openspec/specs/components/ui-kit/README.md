@@ -9,6 +9,9 @@
 | [text-field](text-field/spec.md) | Using or changing the TextField |
 | [tabs](tabs/spec.md) | Using or changing the Tabs |
 | [breadcrumbs](breadcrumbs/spec.md) | Using or changing the Breadcrumbs |
+| [card](card/spec.md) | Using or changing the Card |
+| [cell-info](cell-info/spec.md) | Using or changing the CellInfo |
+| [divider](divider/spec.md) | Using or changing the Divider |
 | [modal](modal/spec.md) | Using or changing the Modal |
 | [icon](icon/spec.md) | Using an icon in UI, adding an icon to the kit or changing where icon glyphs come from |
 | [storybook](storybook/spec.md) | Adding or changing a component story or a token story |

@@ -439,3 +439,48 @@ describe("Breadcrumbs contrast", () => {
     ).toEqual([]);
   });
 });
+
+// Text and background token pairs of the Card and CellInfo, from Figma "Tellipod App" Info tab.
+// The Card icon (text/brand/solid) sits on surface/gray/light in a circle and is a non-text part.
+const CARD_PAIRS: readonly Pair[] = [
+  {
+    background: surface.default.main,
+    name: "Card title",
+    text: text.default.title,
+  },
+  {
+    background: surface.default.main,
+    name: "CellInfo label",
+    text: text.default.subtle,
+  },
+  {
+    background: surface.default.main,
+    name: "CellInfo value",
+    text: text.default.body,
+  },
+];
+
+const CARD_ICON_PAIR: Pair = {
+  background: surface.gray.light,
+  name: "Card icon in its circle",
+  text: text.brand.solid,
+};
+
+describe("Card contrast", () => {
+  const failingText = (pairs: readonly Pair[], minimum: number) =>
+    pairs
+      .filter((pair) => contrastRatio(pair.text, pair.background) < minimum)
+      .map(
+        (pair) =>
+          `${pair.name}: ${contrastRatio(pair.text, pair.background).toFixed(2)}`,
+      );
+
+  it("lists the text pairs below 4.5:1 for the Card and CellInfo specs", () => {
+    // Update "Accessibility exceptions" in the card and cell-info specs when this list changes.
+    expect(failingText(CARD_PAIRS, MINIMUM)).toEqual([]);
+  });
+
+  it("lists the non-text parts below 3:1 for the Card spec", () => {
+    expect(failingText([CARD_ICON_PAIR], 3)).toEqual([]);
+  });
+});

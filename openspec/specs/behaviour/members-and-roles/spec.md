@@ -59,7 +59,7 @@ Delete the pod for all members removes the pod itself from every member's device
 
 ### Requirement: Connected pods follow the roles of both pods
 
-Connections are not in the table above because the role that counts is the one in the connected pod, not only in the pod the user is looking at:
+The app SHALL follow the roles of both pods for connections, because the role that counts is the one in the connected pod, not only in the pod the user is looking at, so connections are not in the table above:
 
 - Connect pod is offered to every member of the host pod who is a person, and only for pods the user owns;
 - Disconnect is offered to an owner of the host pod and to an owner of the connected pod;

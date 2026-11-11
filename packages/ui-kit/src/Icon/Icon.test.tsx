@@ -14,10 +14,18 @@ const propOf = (
 describe("Icon glyphs", () => {
   it.each([
     "check-circle",
+    "chevron-down",
     "chevron-right",
+    "diagram-3",
     "exclamation-circle",
+    "folder-plus",
     "house",
     "info-circle",
+    "paperclip",
+    "pencil",
+    "people",
+    "person-vcard",
+    "plus",
     "search",
   ] as const)("%s renders at 16 px by default", async (name) => {
     await render(<Icon name={name} />);
