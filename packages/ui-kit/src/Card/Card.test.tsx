@@ -108,6 +108,18 @@ describe("expandable Card", () => {
     expect(screen.queryByText("Body rows")).toBeNull();
   });
 
+  it("puts an 8 px vertical gap between the rows of the body", async () => {
+    await render(
+      <Card defaultExpanded icon="person-vcard" title="Contact info">
+        <Body />
+        <Body />
+      </Card>,
+    );
+    expect(
+      String(screen.getByTestId("card-body").props["className"]),
+    ).toContain("gap-2");
+  });
+
   it("shows no body area without children", async () => {
     await render(
       <Card

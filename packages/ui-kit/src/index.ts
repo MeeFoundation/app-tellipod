@@ -1,3 +1,5 @@
+export type { AvatarProps, AvatarSize } from "./Avatar/Avatar";
+export { Avatar } from "./Avatar/Avatar";
 export type {
   BadgeProps,
   BadgeShape,
@@ -29,6 +31,10 @@ export type {
   NavigableCardProps,
 } from "./Card/Card";
 export { Card } from "./Card/Card";
+export type { CardCategoryProps } from "./CardCategory/CardCategory";
+export { CardCategory } from "./CardCategory/CardCategory";
+export type { CardCellProps } from "./CardCell/CardCell";
+export { CardCell } from "./CardCell/CardCell";
 export type { CellInfoProps } from "./CellInfo/CellInfo";
 export { CellInfo } from "./CellInfo/CellInfo";
 export { Divider } from "./Divider/Divider";

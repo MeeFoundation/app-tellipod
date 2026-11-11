@@ -9,6 +9,7 @@ import InfoCircle from "bootstrap-icons/icons/info-circle.svg";
 import Paperclip from "bootstrap-icons/icons/paperclip.svg";
 import Pencil from "bootstrap-icons/icons/pencil.svg";
 import People from "bootstrap-icons/icons/people.svg";
+import Person from "bootstrap-icons/icons/person.svg";
 import PersonVcard from "bootstrap-icons/icons/person-vcard.svg";
 import Plus from "bootstrap-icons/icons/plus.svg";
 import Search from "bootstrap-icons/icons/search.svg";
@@ -41,6 +42,7 @@ const RAW_GLYPHS = {
   paperclip: Paperclip,
   pencil: Pencil,
   people: People,
+  person: Person,
   "person-vcard": PersonVcard,
   plus: Plus,
   search: Search,

@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { Pressable, Text, View } from "react-native";
 
+import { CardSurface } from "../CardSurface/CardSurface";
 import { Icon } from "../Icon/Icon";
 import { hitSlopFor, MIN_TARGET } from "../touchTarget";
 
@@ -23,8 +24,8 @@ export const CellInfo: FC<CellInfoProps> = ({
   onEdit,
   testID = "cell-info",
 }) => (
-  <View
-    className="w-full flex-row items-center gap-3 py-3 pr-2"
+  <CardSurface
+    className="w-full flex-row items-center gap-3 py-3 pr-2 pl-3"
     testID={testID}
   >
     <View
@@ -50,5 +51,5 @@ export const CellInfo: FC<CellInfoProps> = ({
         <Icon name="pencil" size={PENCIL_PX} />
       </Pressable>
     )}
-  </View>
+  </CardSurface>
 );

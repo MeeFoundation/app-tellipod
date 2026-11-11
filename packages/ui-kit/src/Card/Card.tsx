@@ -184,7 +184,7 @@ const ExpandableCard: FC<ExpandableCardProps> = ({
             testID={`${testID}-content`}
           >
             {hasBody ? (
-              <View className="px-3" testID={`${testID}-body`}>
+              <View className="gap-2 px-3" testID={`${testID}-body`}>
                 {children}
               </View>
             ) : null}

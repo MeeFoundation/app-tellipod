@@ -484,3 +484,65 @@ describe("Card contrast", () => {
     expect(failingText([CARD_ICON_PAIR], 3)).toEqual([]);
   });
 });
+
+// Text and background pairs of the Avatar, CardCell and CardCategory, from Figma "Avatar" and
+// the Home screen (light mode). The initials are text; the icons are non-text parts.
+const AVATAR_TEXT_PAIRS: readonly Pair[] = [
+  {
+    background: surface.brand.light,
+    name: "Avatar initials",
+    text: surface.brand.main,
+  },
+  {
+    background: surface.default.main,
+    name: "CardCell title",
+    text: text.default.title,
+  },
+  {
+    background: surface.default.main,
+    name: "CardCell second line",
+    text: text.default.subtle,
+  },
+  {
+    background: surface.default.main,
+    name: "CardCategory title",
+    text: text.default.title,
+  },
+  {
+    background: surface.default.main,
+    name: "CardCategory line",
+    text: text.default.subtle,
+  },
+];
+
+const AVATAR_NON_TEXT_PAIRS: readonly Pair[] = [
+  {
+    background: surface.brand.light,
+    name: "Avatar icon",
+    text: surface.brand.main,
+  },
+  {
+    background: surface.gray.light,
+    name: "CardCategory icon in its circle",
+    text: text.brand.solid,
+  },
+];
+
+describe("Avatar and card contrast", () => {
+  const ratio = (pair: Pair) => contrastRatio(pair.text, pair.background);
+  const failing = (pairs: readonly Pair[], minimum: number) =>
+    pairs
+      .filter((pair) => ratio(pair) < minimum)
+      .map((pair) => `${pair.name}: ${ratio(pair).toFixed(2)}`);
+
+  it("lists the text pairs below 4.5:1 for the Avatar and card specs", () => {
+    // Update "Accessibility exceptions" in the avatar spec when this list changes.
+    expect(failing(AVATAR_TEXT_PAIRS, MINIMUM)).toEqual([
+      "Avatar initials: 3.38",
+    ]);
+  });
+
+  it("lists the non-text parts below 3:1 for the Avatar and card specs", () => {
+    expect(failing(AVATAR_NON_TEXT_PAIRS, NON_TEXT_MINIMUM)).toEqual([]);
+  });
+});

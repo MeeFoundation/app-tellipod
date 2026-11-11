@@ -49,4 +49,11 @@ describe("CellInfo", () => {
     ).toEqual({ bottom: slop, left: slop, right: slop, top: slop });
     expect(16 + 2 * slop).toBeGreaterThanOrEqual(MIN_TARGET);
   });
+
+  it("has a border and a shadow of its own", async () => {
+    await render(<CellInfo label="First name" value="Sofia" />);
+    const outer = String(screen.getByTestId("cell-info").props["className"]);
+    expect(outer).toContain("border-stroke-gray-light");
+    expect(outer).toContain("shadow-level-1");
+  });
 });

@@ -7,7 +7,7 @@ The Icon is the kit's simple, single place for glyphs. It holds only the icons a
 
 ### Requirement: The Icon draws a named glyph
 
-An Icon SHALL accept a name, which for now is `check-circle`, `info-circle`, `search`, `exclamation-circle`, `house`, `chevron-right`, `chevron-down`, `pencil`, `plus`, `folder-plus`, `paperclip`, `diagram-3`, `people` or `person-vcard`, and draw the matching glyph from the design system's outline set.
+An Icon SHALL accept a name, which for now is `check-circle`, `info-circle`, `search`, `exclamation-circle`, `house`, `chevron-right`, `chevron-down`, `pencil`, `plus`, `folder-plus`, `paperclip`, `diagram-3`, `people`, `person` or `person-vcard`, and draw the matching glyph from the design system's outline set.
 An Icon SHALL accept a size in px and a text color class.
 The default size SHALL be 16 px and the default color SHALL be the `text/default/body` color.
 
@@ -46,6 +46,10 @@ The default size SHALL be 16 px and the default color SHALL be the `text/default
 - WHEN Icons are rendered with the names `paperclip`, `diagram-3` and `people`
 - THEN they show the outline paperclip, diagram-3 and people glyphs
 
+#### Scenario: An icon for an avatar
+
+- WHEN an Icon is rendered with the name `person` at 20 px
+- THEN it shows the outline person glyph at 20 px
 
 ### Requirement: An Icon in a Badge takes the Badge's look
 

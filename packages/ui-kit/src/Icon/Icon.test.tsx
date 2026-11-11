@@ -24,6 +24,7 @@ describe("Icon glyphs", () => {
     "paperclip",
     "pencil",
     "people",
+    "person",
     "person-vcard",
     "plus",
     "search",

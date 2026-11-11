@@ -107,6 +107,15 @@ A Card SHALL change state without animation when the system setting reduces moti
 - WHEN the user has turned on Reduce Motion and expands the "Contact info" Card
 - THEN the body shows at its full height at once
 
+### Requirement: The body spaces its rows
+
+The body of a Card SHALL put an 8 px vertical gap between its children, such as the `CellInfo` rows.
+
+#### Scenario: Contact info rows
+
+- WHEN the expanded "Contact info" Card shows the rows "First name", "Last name" and "Date of birth"
+- THEN the rows show one under the other with an 8 px gap between them
+
 ### Requirement: The Card has grouped stories
 
 The stories of `UI/Card` SHALL cover the expandable and navigable modes, a body with a footer and the expanded and collapsed states, in a few stories.

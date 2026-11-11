@@ -119,6 +119,10 @@ export const colors = {
       strong: brand[500],
       strong_hover: brand[600],
     },
+    // Figma stroke/default/main: the white border of a dot on an Avatar.
+    default: {
+      main: white,
+    },
     error: {
       accent: error[300],
       light: error[200],

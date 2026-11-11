@@ -18,7 +18,7 @@ export const Default: Story = {};
 // Rows with and without the edit action.
 export const Actions: Story = {
   render: () => (
-    <View className="px-4">
+    <View className="gap-2 px-4">
       <CellInfo label="Last name" onEdit={() => undefined} value="Walker" />
       <CellInfo label="Date of birth" value="April 8, 2018" />
     </View>
