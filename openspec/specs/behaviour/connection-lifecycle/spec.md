@@ -35,6 +35,15 @@ Ending a connection SHALL NOT remove anyone from either pod, and SHALL NOT delet
 
 - WHEN Alice and Lee are owners of "Sofia's Passport" and members of "About Sofia", and Alice leaves "About Sofia"
 - THEN "Sofia's Passport" is still in the Connected pods list of "About Sofia"
+- WHEN Carol, a member of "About Sofia" who is not a member of "Sofia's Passport", taps that entry
+- THEN the private pod screen says the pod is connected through Lee, not Alice
+
+#### Scenario: The one who connected loses ownership but stays in the host
+
+- WHEN Alice connected "Sofia's Passport" and Lee is also an owner of it and a member of "About Sofia", and Paula demotes Alice in "Sofia's Passport", and Alice is still a member of "About Sofia"
+- THEN "Sofia's Passport" is still in the Connected pods list of "About Sofia"
+- WHEN Carol, a member of "About Sofia" who is not a member of "Sofia's Passport", taps that entry
+- THEN the private pod screen says the pod is connected through Lee, not Alice
 
 #### Scenario: The last owner of the connected pod leaves the host
 

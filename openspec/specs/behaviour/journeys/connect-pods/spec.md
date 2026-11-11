@@ -32,7 +32,7 @@ Alice owns "Sofia's Passport", where Bob is the only other member.
 - WHEN Bob taps "Sofia's Passport" in the Connected pods list
 - THEN the pod opens
 - WHEN Dave joins "About Sofia", without an invitation to "Sofia's Passport", and taps its link in the note
-- THEN a screen says he is not a member of "Sofia's Passport" and can ask a member to invite him
+- THEN the private pod screen says "Sofia's Passport" is private, that it was connected by Alice, and that he can reach out to Alice to ask for access
 
 #### Scenario: Alice leaves the shared pod
 
@@ -69,6 +69,6 @@ Starting state: Carol is a member of "About Sofia", and no pod is named "Visa".
 - THEN a pod "Visa" owned by Carol opens
 - AND "About Sofia" shows Connected pods 1 with "Visa"
 - WHEN Bob, a member of "About Sofia", taps "Visa" in the Connected pods list
-- THEN a screen says he is not a member of "Visa" and can ask a member to invite him
+- THEN the private pod screen says "Visa" is private, that it was connected by Carol, and that he can reach out to Carol to ask for access
 - WHEN Carol leaves "About Sofia"
 - THEN the confirmation lists "Visa" as a pod that will be disconnected

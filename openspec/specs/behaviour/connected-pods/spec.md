@@ -210,9 +210,18 @@ Tapping a pod in the Connected pods list, a connected pod link in a note, or a p
 
 | What the user taps | The user is a member | The user is not a member |
 | --- | --- | --- |
-| entry of the Connected pods list | the pod opens | a screen says they are not a member and can ask one of its members to invite them |
+| entry of the Connected pods list | the pod opens | the private pod screen: the pod is private, it was connected by a named person, reach out to them to ask for access |
 | connected pod link | the pod opens | the same screen |
 | plain pod link | the pod opens | the link is marked unresolved and the note stays on screen; the app does not say whether such a pod exists |
+
+The private pod screen SHALL name the person who connected the pod and say that the user can reach out to that person to ask for access.
+That person SHALL be named only while they are still a member of the host pod and still an owner of the connected pod.
+Otherwise the screen SHALL name the current owners of the connected pod who are members of the host pod, and say that the pod is connected through them; it never names someone who has left or lost ownership.
+When there are more than three such owners, the screen SHALL name three of them and say how many others there are ("and 2 others").
+The connection lasts only while such an owner exists, so there is always at least one person to name.
+The name is visible to every member of the host pod, the same as the connected pod's name (names are shown by design).
+It SHALL NOT offer a Request access action and SHALL NOT redirect to a chat: the user contacts the person any way they like, for example in the host pod, where the person is usually a member.
+There are no hidden pods: the screen is shown for every connected pod the user is not a member of, and the app never says that a pod may not exist.
 
 A plain pod link is any pod link that is not a connected pod link: one left in the note after Disconnect, one written before connections existed, or one imported from Markdown.
 A plain pod link SHALL NOT connect anything.
@@ -225,7 +234,7 @@ A plain pod link SHALL NOT connect anything.
 #### Scenario: A non-member taps the entry
 
 - WHEN Carol, who is not a member of "Sofia's Passport", taps its entry in "About Sofia"
-- THEN a screen says she is not a member of "Sofia's Passport" and can ask a member to invite her
+- THEN the private pod screen says "Sofia's Passport" is private, that it was connected by Alice, and that she can reach out to Alice to ask for access
 
 #### Scenario: A non-member taps a connected pod link
 
@@ -246,7 +255,8 @@ A plain pod link SHALL NOT connect anything.
 
 Main questions:
 
-- Whether the screen for a non-member offers Request access, who receives the request (every owner or any one) and what the requester sees after a refusal. For now the screen only tells the user to ask a member for an invitation. Whether the screen is needed at all is open.
+- Request access inside the app, and a shortcut from the private pod screen to a chat with the person who connected the pod. For now the screen only names that person; the user contacts them on their own.
+- Which three owners the private pod screen names when there are more than three (for example the longest-standing owners).
 - Whether the checkbox becomes a rule: members of the host pod enter the connected pod automatically, including people who join later. If it does:
   - whether it is transitive, so that A to B and B to C gives the members of A access to C;
   - whether a member's access through the rule is marked with its source ("joined via About Sofia");

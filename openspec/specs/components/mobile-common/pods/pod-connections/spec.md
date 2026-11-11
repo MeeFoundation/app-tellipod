@@ -15,8 +15,10 @@ How the app shows connections and sends the actions that create or end them.
 ### Requirement: Connections come from the node
 
 The app SHALL read the Connected pods list, the Connected to list and the number shown in each Info row from the node, and SHALL NOT keep a list of its own.
-Each entry SHALL carry the pod identifier, the original name and the avatar, so that a pod the user is not a member of can be shown without being held on the device.
+Each entry SHALL carry the pod identifier, the original name, the avatar, and the identifier and name of the person who connected the pod, so that a pod the user is not a member of can be shown without being held on the device.
 The name for a member SHALL be the user's alias when there is one (see [pod-naming-and-tags](../pod-naming-and-tags/spec.md)).
+The person SHALL be worked out by the node from the current state: the person who connected the pod while they are still a member of the host pod and an owner of the connected pod, otherwise the current owners of the connected pod who are members of the host pod.
+The app SHALL show the current name of each such person and SHALL NOT keep a name of its own; the identifier lets a later version link the screen to that person.
 
 #### Scenario: Pod the device does not hold
 
@@ -75,4 +77,4 @@ A tap on an entry or on a connected pod link SHALL use the pod route (see [pod-a
 #### Scenario: Entry of a pod the user is not in
 
 - WHEN the user taps an entry of a pod they are not a member of
-- THEN the route opens the screen for non-members
+- THEN the route opens the private pod screen, which shows the name of the person who connected the pod
