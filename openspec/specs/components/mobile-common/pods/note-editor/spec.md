@@ -31,19 +31,39 @@ Markdown shortcuts (`#`, `**`, `-`, `[[`) SHALL be input rules of the editor, ap
 
 ### Requirement: Link autocomplete
 
-Typing `[[` SHALL open an autocomplete fed by the user's pods (pod links) and by the tools, graphs and attachments of the open pod (block links).
+Typing `[[` SHALL open an autocomplete fed by:
+
+- the forms, attachments, tools and graphs of the open pod (internal links);
+- the pods connected to the open pod (connected pod links, inserted at once);
+- the pods the user owns that are not connected (a connected pod link, inserted after the Connect dialog is confirmed);
+- the pods the user is a member of but does not own and that are not connected (a plain pod link, inserted at once);
+- a Create pod entry holding the typed text, apart from the entries for pods with that name; it requests a new pod owned by the user, then requests the Connect dialog for it; the link is inserted as a connected pod link after confirmation and as a plain pod link after cancelling.
+
+A link typed by hand and not picked from the autocomplete SHALL render unresolved and SHALL NOT request a pod.
+
+A pod link SHALL carry the identifier of its pod. Whether it is a connected pod link or a plain pod link SHALL follow the connection as it is now (see [connected-pods](../../../../behaviour/connected-pods/spec.md)).
 Resolution of a link is in [pod-access](../pod-access/spec.md).
 
-#### Scenario: Block link target removed
+#### Scenario: Pod not yet connected
 
-- WHEN a block link's target is absent from the pod
+- WHEN the user picks a pod they own that is not connected
+- THEN the editor requests the Connect dialog and inserts nothing until it is confirmed
+
+#### Scenario: Pod the user only belongs to
+
+- WHEN the user picks a pod they are a member of but do not own, and which is not connected
+- THEN the editor inserts a plain pod link and requests no dialog
+
+#### Scenario: Internal link target removed
+
+- WHEN an internal link's target is absent from the pod
 - THEN the link renders unresolved and has no navigation handler
 
 ### Requirement: Markdown export
 
-Export SHALL serialize a resolved pod link as `[[id|text]]`, an unresolved one as `[[text]]` and a block link as its text.
+Export SHALL serialize a resolved pod link (connected or not) as `[[id|text]]`, an unresolved one as `[[text]]` and an internal link as its text.
 
 #### Scenario: Mixed links
 
-- WHEN a note holds one resolved pod link and one block link
-- THEN the output holds `[[id|text]]` and the block link's text
+- WHEN a note holds one resolved pod link and one internal link
+- THEN the output holds `[[id|text]]` and the internal link's text

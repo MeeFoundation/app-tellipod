@@ -6,7 +6,7 @@
 
 ## Purpose
 
-The Breadcrumbs is the kit's single line that shows where something sits in a hierarchy, such as a pod's position in the ontology, and lets the user go up to a parent.
+The Breadcrumbs is the kit's single line that shows where something sits in a hierarchy, such as the place of one of a pod's category tags in the ontology (pods themselves are flat), and lets the user go up to a broader category.
 It is not a web breadcrumb: it has no hover and is built for touch.
 It implements the design-system Breadcrumbs with its sizes, styles and link states, and styles every variant from tokens.
 It does not implement a separator other than the chevron, a hover look as such, or an expanded state of the collapsed item "...", because the design does not show them or no screen uses them yet.

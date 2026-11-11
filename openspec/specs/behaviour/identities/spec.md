@@ -7,7 +7,7 @@
 ## Purpose
 
 How a user holds one or more identities on one or more devices, and how they switch between identities and unlink a device.
-An identity is who the user is in a pod: it has its own name, pods and member info.
+An identity is the user's digital identity, much like an account.
 Two identities on a device, such as "Alice" and "Alice Work", are entirely separate: the app treats them as two different people, with nothing linking them, and a pod or another member cannot tell they share a device.
 Switching identity does not ask for the unlock again: the unlock is per app, not per identity (see [launch-and-unlock](../launch-and-unlock/spec.md)).
 

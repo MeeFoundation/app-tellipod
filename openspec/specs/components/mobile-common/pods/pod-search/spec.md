@@ -1,10 +1,10 @@
 # pod-search
 
-- Depends on: `../pod-naming-and-filing/spec.md`
+- Depends on: `../pod-naming-and-tags/spec.md`
 - Realizes: [find-a-pod](../../../../behaviour/find-a-pod/spec.md)
 - Read when: building or changing the search screen and its query flow
 - Source: Figma "Mee - Tellipod App v4.0.3", section "Search or Ask"; `pod-ontologies/app-behavior.md`, Finding Pods by Tag and by Property
-- Scope: what a query matches and which tags are hidden is decided by the data layer. The app sends the text and renders what comes back.
+- Scope: what a query matches (names, the user's tags, and narrower category tags under a broader one) and that another member's tags never match is decided by the data layer. The app sends the text and renders what comes back.
 
 ## Purpose
 
@@ -36,12 +36,17 @@ The screen SHALL render only the response for the current text; a response for e
 
 ### Requirement: Result rendering
 
-The screen SHALL render the Pods and Categories sections from the response, highlight the matched range given in it, and render a category's counts and expandable subcategories.
+The screen SHALL render the pods of the response as one flat list, highlight the matched range given in it, and render each pod's tags, a category tag and a user tag in different styles.
 
 #### Scenario: Highlight
 
 - WHEN a response gives the match range 0–4 for "Step sister"
 - THEN "Step" renders highlighted
+
+#### Scenario: Tags on a result
+
+- WHEN a response gives the pod "Ginger Medical" the category tag Pets Medical and the user tag "Ginger"
+- THEN the result shows both tags, each in the style of its kind
 
 ### Requirement: Recent searches are recorded on use
 

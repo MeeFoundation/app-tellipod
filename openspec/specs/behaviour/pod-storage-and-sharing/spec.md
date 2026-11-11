@@ -1,8 +1,8 @@
 # pod-storage-and-sharing
 
-- Depends on: `../members-and-roles/spec.md`, `../chat/spec.md`
+- Depends on: `../members-and-roles/spec.md`, `../chat/spec.md`, `../pod-tags/spec.md`
 - Read when: deciding whether a piece of pod content stays on the device or reaches other members
-- Source: `pod-ontologies/app-behavior.md` (Pod Storage, Pod Contents, Deriving and Checking a Pod Id)
+- Source: `pod-ontologies/app-behavior.md` (Pod Storage, Pod Contents, Deriving and Checking a Pod Id, Joining a Pod)
 
 ## Purpose
 
@@ -22,7 +22,7 @@ Delivery to other members and syncing between the user's own devices are decided
 
 ### Requirement: Shared content reaches every member
 
-A change to a pod's shared content SHALL appear in every member's copy: its name (except for a bare two-member pod), note, attachments, member info, statements and tools, and group stream.
+A change to a pod's shared content SHALL appear in every member's copy: its original name (not a member's alias), note, attachments, member info and tools, and group stream.
 
 #### Scenario: A member edits the note
 
@@ -54,6 +54,15 @@ A direct message between two members SHALL reach those two.
 - WHEN one member sends a direct message to another
 - THEN the third member's chat shows the group stream alone
 
+### Requirement: Tags stay with their member
+
+The tags a user puts on a pod SHALL stay in that user's own copy and be shown to that user alone.
+
+#### Scenario: Two members, two tags
+
+- WHEN Paula puts the user tag "Ginger" on a pod she shares with Sam
+- THEN Sam does not see "Ginger" on the pod
+
 ### Requirement: A link to a private file opens for its owner
 
 A link in the note to one of the user's own private files SHALL open the file in the user's copy and be marked unresolved in every other member's copy.
@@ -65,12 +74,12 @@ A link in the note to one of the user's own private files SHALL open the file in
 
 ### Requirement: A received pod is checked
 
-The app SHALL add a received pod to the tree when its founding event passes the id and signature check.
+The app SHALL add a received pod to the list of pods when the user accepts its invitation and its founding event passes the id and signature check.
 
 #### Scenario: Received pod fails the check
 
-- WHEN a pod arrives and its founding event fails the check
-- THEN the tree lists the same pods as before, without the received pod
+- WHEN the user accepts an invitation and the pod's founding event fails the check
+- THEN the list of pods is the same as before, without the received pod
 
 ## Open questions
 

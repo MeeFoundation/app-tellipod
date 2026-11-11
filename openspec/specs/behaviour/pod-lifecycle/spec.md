@@ -1,75 +1,98 @@
 # pod-lifecycle
 
 - Depends on: none
-- Related: `../create-and-name-pod/spec.md`, `../pod-tools-and-forms/spec.md` (these depend on this spec)
+- Related: `../create-and-name-pod/spec.md`, `../pod-tools-and-forms/spec.md`, `../pod-tags/spec.md`, `../connected-pods/spec.md` (these depend on this spec)
 - Read when: changing what a newly created pod contains or how a pod gains a tool
 - Source: `pod-ontologies/app-behavior.md` (Lazy Instantiation, Wikilink-Triggered Pod Creation, Adding a Tool, Number of Members)
 
 ## Purpose
 
-What a pod holds when it is created and how it grows afterwards: templated and Custom pods, tools added by hand, pods created from a link, and members.
+What a pod holds when it is created and how it grows afterwards: tools added by hand, pods created from a link, and members.
+Pods are a flat set: no pod sits inside another.
+A pod can point at pods it is connected to (see [connected-pods](../connected-pods/spec.md)), which is a reference and not nesting.
 
 ## Requirements
 
-### Requirement: Pods appear when the user creates or receives them
+### Requirement: Pods appear when the user creates them or accepts an invitation
 
-The tree SHALL hold the pods the user created or received.
-The app SHALL NOT pre-create pods for categories.
+The list of pods SHALL hold the pods the user created and the pods whose invitation the user accepted.
+The app SHALL NOT pre-create pods.
 
 #### Scenario: First launch
 
 - WHEN the user opens the app for the first time
-- THEN the tree is empty and fills as the user creates or receives pods
+- THEN the list of pods is empty and fills as the user creates pods or accepts invitations
 
-### Requirement: A templated pod starts with its declared tools
+### Requirement: A new pod starts with no form
 
-A pod created from a category whose template declares tools SHALL start with one tool per declaration, as suggested forms.
-A pod created from a category that declares none SHALL start with no tool.
-No pod holds a form by default.
+A pod SHALL start with no form, whatever its tags, and offers Add Tool.
+Whatever tags the user gives a pod when creating it, the tags decide only which form types Add Tool lists first (see [pod-tools-and-forms](../pod-tools-and-forms/spec.md)).
+A pod needs no tag: the user can create a pod with none, and tag it later (see [pod-tags](../pod-tags/spec.md)).
 
-#### Scenario: Creating a pod in the Passport category
+#### Scenario: Creating a pod tagged Vehicle
 
-- WHEN the user creates a pod in the Passport category
-- THEN the pod opens with a Passport form, the form that category suggests
+- WHEN the user creates a pod with the category tag Vehicle
+- THEN the pod opens with no form and offers Add Tool
 
-#### Scenario: Creating a pod in the Immediate Family category
+#### Scenario: Creating a pod without a tag
 
-- WHEN the user creates a pod in the Immediate Family category
-- THEN the pod opens with no tool and offers Add Tool
-
-### Requirement: A Custom pod has no category
-
-A pod created without a category SHALL be a Custom pod. It has no suggested forms, and the user can still add any form to it.
-
-#### Scenario: Creating a pod without a category
-
-- WHEN the user creates a pod and picks no category
-- THEN the pod is Custom and has no suggested form
+- WHEN the user creates a pod and adds no tag
+- THEN the pod opens with no form and offers Add Tool
 
 ### Requirement: Any pod can gain tools
 
 Every pod SHALL offer Add Tool, holding any number of tools.
-The dialog lists every form type, preselects Contact Info and asks what the tool is about. A pod without a category offers the same choices as any other pod.
+The dialog lists every form type and asks what the tool is about. A pod without a tag offers the same choices as any other pod.
 Details of the dialog are in [pod-tools-and-forms](../pod-tools-and-forms/spec.md).
 
-#### Scenario: A form type from another category
+#### Scenario: A form type unrelated to the tags
 
-- WHEN the user picks Passport in a pod of another category
-- THEN the pod gains a Passport form and stays in its own category
+- WHEN the user picks Vehicle in a pod tagged Pets
+- THEN the pod gains a Vehicle form and keeps its tags
 
-### Requirement: A link without a target creates a pod
+### Requirement: A pod screen always has Info; other tools are optional
 
-Tapping a wikilink that has no target yet SHALL create a single-member Custom pod named after the link text at the root of the tree, attach it to the link and open it with a blank note.
+The screen of a pod SHALL always show Info (the working name of this tab).
+Info holds the pod's forms, members, tags and other information about the pod.
+Every other tool of a pod, such as Notes and Chat, SHALL be one the pod may or may not have, and the screen shows a tab only for each tool the pod has.
+Notes and Chat are tools, not forms.
+For now every pod is created with Notes and Chat; a later creation screen is expected to let the user choose which of them the pod gets.
 
-#### Scenario: Tapping [[foo]]
+#### Scenario: Looking at the tabs of a pod
+
+- WHEN the user looks at the screen of a pod
+- THEN the pod screen offers an Info tab and a tab for each tool the pod has
+
+#### Scenario: A pod without Chat
+
+- WHEN a pod has no Chat tool
+- THEN the pod screen shows no Chat tab and still shows Info
+
+### Requirement: A pod is created from the Create pod suggestion, not from a link
+
+Picking Create pod "foo" in the suggestions of `[[` SHALL create a single-member pod with no tag, named after the typed text and owned by the user, and then open the Connect dialog for it (see [connected-pods](../connected-pods/spec.md)).
+The pod SHALL NOT be opened.
+Tapping a wikilink that has no target SHALL NOT create a pod.
+
+#### Scenario: Picking Create pod
+
+- WHEN the user types `[[foo`, picks Create pod "foo" and confirms the Connect dialog
+- THEN a pod named "foo" with no tag appears in the list of pods and in the Connected pods list of the host pod, and a connected pod link to it is in the note
+
+#### Scenario: Create pod fails
+
+- WHEN the user picks Create pod "foo" and creating the pod fails (for example offline)
+- THEN the Connect dialog does not open, nothing is inserted in the note, the typed `[[foo` stays as the user typed it, and the user sees an error
+
+#### Scenario: Tapping [[foo]] typed by hand
 
 - WHEN the user taps a link `[[foo]]` that has no target
-- THEN a pod named "foo" appears at the root, the link opens it from now on, and its note is blank
+- THEN no pod is created and the link is marked unresolved
 
-#### Scenario: Link to a pod from another tree
+#### Scenario: Link to a pod the user does not have
 
-- WHEN the user taps a link that carries the id of a pod absent from their tree
-- THEN the link is shown as unresolved and the tree lists the same pods as before
+- WHEN the user taps a link that carries the id of a pod absent from their pods
+- THEN the link is shown as unresolved and the list of pods is the same as before
 
 ### Requirement: Members are people or services
 
@@ -80,8 +103,9 @@ An invited service SHALL count as a member.
 - WHEN the user invites a backup service into a single-member pod
 - THEN the pod shows two members
 
-A pod with one person and one service is a two-member pod for the naming rule in [create-and-name-pod](../create-and-name-pod/spec.md).
-
 ## Open questions
 
-- Whether a member who lacks permission to create pods can create one by tapping a link without a target (see [members-and-roles](../members-and-roles/spec.md)).
+- Which tab a pod opens on (always the same one, the one used last, or depends on the pod).
+- Whether the user will choose at creation which tools a pod gets (for example checkboxes for Notes and Chat), and whether such tools can be added or removed later. Today every pod gets Notes and Chat.
+- The wording of the error when Create pod fails, and whether the user can retry in place.
+- Whether a member who lacks permission to create pods can create one with Create pod in `[[` (see [members-and-roles](../members-and-roles/spec.md)).

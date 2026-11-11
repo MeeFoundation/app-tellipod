@@ -1,6 +1,6 @@
 # pod-tools-and-forms
 
-- Depends on: `../pod-lifecycle/spec.md`
+- Depends on: `../pod-lifecycle/spec.md`, `../pod-tags/spec.md`
 - Read when: changing Add Tool, or what the user sees and fills in on a form
 - Source: `pod-ontologies/app-behavior.md` (UI Implementation, Adding a Tool)
 
@@ -13,12 +13,32 @@ How the user adds a tool to a pod and fills in a form.
 ### Requirement: Add Tool
 
 Every pod SHALL offer Add Tool.
-The dialog asks which tool to add, and for a Form also which form type, with Contact Info preselected, and what the tool is about.
+The dialog asks which tool to add, and for a Form also which form type, and what the tool is about.
 
 #### Scenario: Adding a form by hand
 
-- WHEN the user taps Add Tool, keeps Contact Info and names the subject "Sophia"
-- THEN the pod gains a Contact Info form about Sophia
+- WHEN the user taps Add Tool, picks the Vehicle form type and names the subject "Sophia's car"
+- THEN the pod gains a Vehicle form about Sophia's car
+
+### Requirement: Forms that fit the pod's tags come first
+
+The Add Tool dialog SHALL list first the form types that fit the pod's tags, and then every other form type.
+Every form type stays available, whatever the tags are.
+
+#### Scenario: A pod tagged Vehicle
+
+- WHEN the user taps Add Tool in a pod tagged with the category tag Vehicle
+- THEN Vehicle is first in the list of form types, followed by the others
+
+#### Scenario: A pod with several category tags
+
+- WHEN the user taps Add Tool in a pod tagged with the category tags Vehicle and Pets
+- THEN the form types that fit Vehicle or Pets come first, followed by the others
+
+#### Scenario: A pod with no tag
+
+- WHEN the user taps Add Tool in a pod with no tag
+- THEN every form type is listed in the usual order
 
 ### Requirement: Required fields guide the user
 
@@ -33,10 +53,10 @@ A required field SHALL be marked as required, and the form SHALL save once every
 
 A field that allows several values SHALL let the user add another value.
 
-#### Scenario: Two phone numbers
+#### Scenario: Two values
 
-- WHEN the user adds a second phone number to a Contact Info form
-- THEN both numbers are listed in the form
+- WHEN the user adds a second value to a field that allows several values
+- THEN both values are listed in the form
 
 ### Requirement: Dropdowns offer the valid choices
 
@@ -55,11 +75,13 @@ The form's owner and the pod's owner SHALL edit and delete it.
 Every other member SHALL see the form for reading.
 A form that Tidy adds at a member's request SHALL belong to that member.
 Ownership SHALL NOT pass to another member when that member edits the form.
-Members may add forms with the same name for the same subject, such as two Medications forms for Ginger.
+A form SHALL stay in the pod when its owner leaves; from then on only the pod's owner edits and deletes it.
+A member who disagrees with another member's form cannot change it, and may add a form of their own beside it.
+Members may add forms with the same name for the same subject, such as two Vehicle forms for Sophia's car.
 
 #### Scenario: Member adds a form
 
-- WHEN Sam, a member who is not the pod's owner, adds a Contact Info form about Sophia
+- WHEN Sam, a member who is not the pod's owner, adds a Vehicle form about Sophia's car
 - THEN the form is listed in the pod for every member and Sam can edit it
 
 #### Scenario: Another member reads a form
@@ -75,32 +97,22 @@ Members may add forms with the same name for the same subject, such as two Medic
 
 #### Scenario: Tidy adds a form
 
-- WHEN Sam asks Tidy to add a Contact Info form
+- WHEN Sam asks Tidy to add a Vehicle form
 - THEN Sam is the owner of the form
+
+#### Scenario: Form's owner leaves
+
+- WHEN Sam leaves the pod
+- THEN the form Sam created is still listed for every member
+- AND only Paula, the pod's owner, can edit or delete it
 
 #### Scenario: Owner of the form edits it
 
 - WHEN Sam opens his form and changes a value
 - THEN the form shows the new value to every member
 
-### Requirement: A form shows when it was changed by someone other than its owner
-
-A form SHALL remember who changed it last.
-When the last change was made by a member who is not the form's owner, every member who opens the form SHALL see that it was changed by that member.
-The mark SHALL stay until the form's owner changes it again.
-
-#### Scenario: Changed by the pod's owner
-
-- WHEN Paula, the pod's owner, changes a value in the form Sam created
-- THEN every member opening the form sees that it was changed by Paula
-
-#### Scenario: Owner changes it back
-
-- WHEN Sam changes the form again after Paula's change
-- THEN the form no longer shows a change by someone else
-
 ## Open questions
 
-- How a change by someone other than the owner is shown in detail (which value changed, and when), and whether the owner can acknowledge it or undo it.
-- What happens when a member adds a value that another author's form for the same subject already has, such as the same medication. Proposed: the app offers to confirm the existing entry instead of adding a duplicate, leaving the other author's entry untouched; the member can still add it as a separate entry.
-- Whether a member may make a statement about a form, or only about personal info (see [info-statements](../info-statements/spec.md)).
+- What happens when a member adds a value that another author's form for the same subject already has, such as the same value in a field. Proposed: the app offers to confirm the existing entry instead of adding a duplicate, leaving the other author's entry untouched; the member can still add it as a separate entry.
+- What a form shows as its author after the author has left the pod.
+- How Add Tool orders the form types when a pod has several category tags: by the order the tags were added, or with no guaranteed order between the groups.

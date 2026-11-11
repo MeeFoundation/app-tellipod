@@ -1,6 +1,7 @@
 # members-and-roles
 
 - Depends on: `../pod-lifecycle/spec.md`
+- Related: `../connected-pods/spec.md`, `../connection-lifecycle/spec.md` (roles that decide Connect pod and Disconnect)
 - Read when: showing, hiding or disabling an action in a pod by the user's role
 - Source: `pod-ontologies/app-behavior.md`, Permissions
 
@@ -24,7 +25,8 @@ The actions of the pod itself and the actions on the pod's members are offered i
 | Leave the pod | pod's actions | yes | yes |
 | Delete the pod from this device | pod's actions | yes | yes |
 | Delete the pod for all members | pod's actions, set apart from the rest | yes | no |
-| Rename the pod for all members | pod's actions | yes | undecided |
+| Change the pod's original name | pod's actions | yes | no |
+| Set the pod's alias for oneself | pod's actions | yes | yes |
 | Invite a member | members list | yes | no |
 | Uninvite someone | members list | yes | no |
 | Remove a member | a member's actions | yes | no |
@@ -54,6 +56,28 @@ Delete the pod for all members removes the pod itself from every member's device
 - WHEN an owner opens the members of a pod
 - THEN Invite and Uninvite are offered
 - AND the actions for another member offer Remove member, Promote and Demote
+
+### Requirement: Connected pods follow the roles of both pods
+
+The app SHALL follow the roles of both pods for connections, because the role that counts is the one in the connected pod, not only in the pod the user is looking at, so connections are not in the table above:
+
+- Connect pod is offered to every member of the host pod who is a person, and only for pods the user owns;
+- Disconnect is offered to an owner of the host pod and to an owner of the connected pod;
+- the Connected to list is shown only to owners of the pod;
+- Leave, Remove member, Demote and Delete pod for all members show the connections they end before the user confirms.
+
+The details are in [connected-pods](../connected-pods/spec.md) and [connection-lifecycle](../connection-lifecycle/spec.md).
+
+#### Scenario: Member connects a pod they own
+
+- WHEN Alice is a member, not an owner, of "About Sofia" and the owner of "Sofia's Passport"
+- THEN Connect pod in "About Sofia" offers "Sofia's Passport"
+
+#### Scenario: Owner of the host pod without owning the connected pod
+
+- WHEN Paula, an owner of "About Sofia", is only a member of "Sofia's Passport"
+- THEN Connect pod does not offer "Sofia's Passport"
+- AND Disconnect is offered for it in the Connected pods list
 
 ### Requirement: The only owner stays an owner
 
@@ -109,10 +133,12 @@ The form's owner and the pod's owner SHALL be offered Edit and Delete for it.
 Every other member sees the form for reading.
 The form's owner and the pod's owner can be different people.
 Ownership of a form stays with its creator when someone else edits it.
+A member who disagrees with another member's form can ask its author to change it, or add a form of their own beside it.
+A form stays in the pod when its creator leaves; from then on only the pod's owner is offered Edit and Delete for it.
 
 #### Scenario: Member creates a form
 
-- WHEN Sam, who is not an owner of the pod, adds a Passport form
+- WHEN Sam, who is not an owner of the pod, adds a Vehicle form
 - THEN Sam is the owner of that form and is offered Edit and Delete for it
 
 #### Scenario: Someone else's form
@@ -120,28 +146,16 @@ Ownership of a form stays with its creator when someone else edits it.
 - WHEN Dave, a member who is not an owner, opens the form Sam created
 - THEN the values are shown for reading and Edit and Delete are absent
 
+#### Scenario: Creator leaves the pod
+
+- WHEN Sam leaves the pod
+- THEN the form Sam created stays in the pod for every member
+- AND only Paula, the pod's owner, is offered Edit and Delete for it
+
 #### Scenario: The pod's owner opens a member's form
 
 - WHEN Paula, the owner of the pod, opens the form Sam created
 - THEN Edit and Delete are offered
-
-### Requirement: Statements about a member
-
-Every member SHALL be offered to make a statement with a value for any other member's info field.
-A statement's author SHALL be offered Edit and Delete for it.
-The member a statement is about SHALL be offered Copy value and Add to info I share for it.
-Other members see it for reading.
-See [info-statements](../info-statements/spec.md).
-
-#### Scenario: Subject opens a statement
-
-- WHEN the member a statement is about opens it
-- THEN Copy value and Add to info I share are offered
-
-#### Scenario: Another member opens a statement
-
-- WHEN a member who is neither the author nor the subject opens a statement
-- THEN the value is shown for reading
 
 ### Requirement: The note is open to every member
 
@@ -154,8 +168,8 @@ Every member SHALL be offered reading, editing, deleting and exporting the note.
 
 ## Open questions
 
-- Whether a member may rename the pod for all members.
 - Whether any member may invite people, as the product requirements say ("any person who is a member of a pod can invite"). The app offers Invite only to owners for now; permissions are to be refined.
-- Whether the form's owner changes when another member edits the form.
+- What a form shows as its author after the author has left the pod, and whether a member who is invited back becomes the author again.
 - Whether an owner's actions for another owner offer Remove member, Promote and Demote, for example Lee acting on Paula after being promoted.
+- Whether Delete from this device ends the user's membership (see [connection-lifecycle](../connection-lifecycle/spec.md)).
 - Whether Promote, Demote, Delete pod for all members and Delete for any attachment stay with the pod's owner now that the role is defined by inviting and removing members.

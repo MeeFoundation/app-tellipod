@@ -15,12 +15,12 @@ How the app models several identities on one device, the active one, and the pat
 ### Requirement: The device keeps a list of identities and one active identity
 
 The app SHALL persist the list of identities on the device and which one is active.
-Every screen that shows pods or member info SHALL read them through the active identity, and SHALL NOT keep its own copy of who the user is.
+Every screen that shows pods SHALL read them through the active identity, and SHALL NOT keep its own copy of who the user is.
 
 #### Scenario: Two identities
 
 - WHEN the device holds "Alice" and "Alice Work" and "Alice Work" is active
-- THEN the pod tree, member lists and requests all use "Alice Work"
+- THEN the list of pods, member lists and requests all use "Alice Work"
 
 ### Requirement: Switching changes the active identity
 
@@ -31,7 +31,7 @@ Identities on a device SHALL be kept apart: no screen, request or key of one ide
 #### Scenario: Switch
 
 - WHEN the user picks "Alice" in the switch while "Alice Work" is active
-- THEN the active identity is "Alice" and the pod tree shows the pods of "Alice"
+- THEN the active identity is "Alice" and the list of pods shows the pods of "Alice"
 
 ### Requirement: Create, link and restore add an identity
 

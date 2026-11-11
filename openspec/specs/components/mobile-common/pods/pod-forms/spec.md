@@ -42,12 +42,22 @@ A dependent dropdown SHALL filter its values by the current value of the field i
 - WHEN the make field changes
 - THEN the model dropdown is refiltered and a model no longer valid is cleared
 
+### Requirement: Add Tool lists the fitting form types first
+
+The dialog SHALL list the form types the node reports as fitting the pod's tags first, in the order given, followed by the other form types.
+When no form type fits or no tag is set, the dialog SHALL list every form type in its usual order.
+
+#### Scenario: Vehicle first
+
+- WHEN the node reports Vehicle as fitting a pod's tags and the user opens Add Tool
+- THEN Vehicle is first in the list, and the other form types follow
+
 ### Requirement: Add Tool request
 
-Add Tool SHALL submit the tool kind, for a Form the chosen template (default Contact Info), and the user's name for the tool as its topic.
+Add Tool SHALL submit the tool kind, for a Form the chosen template, and the user's name for the tool as its topic.
 The request SHALL carry a newly generated identifier.
 
-#### Scenario: Default form
+#### Scenario: Adding a form
 
-- WHEN the dialog is confirmed with the defaults
-- THEN the request holds kind Form, template Contact Info and a new identifier
+- WHEN the dialog is confirmed with the Vehicle form type
+- THEN the request holds kind Form, template Vehicle and a new identifier

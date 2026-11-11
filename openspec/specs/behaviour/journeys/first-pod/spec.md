@@ -1,15 +1,15 @@
 # journey: first-pod
 
-- Depends on: `../../launch-and-unlock/spec.md`, `../../identities/spec.md`, `../../navigation/spec.md`, `../../create-and-name-pod/spec.md`, `../../pod-lifecycle/spec.md`, `../../pod-tools-and-forms/spec.md`, `../../note/spec.md`
+- Depends on: `../../launch-and-unlock/spec.md`, `../../identities/spec.md`, `../../navigation/spec.md`, `../../create-and-name-pod/spec.md`, `../../pod-tags/spec.md`, `../../pod-lifecycle/spec.md`, `../../pod-tools-and-forms/spec.md`, `../../note/spec.md`
 - Read when: changing any step between the first launch and the first filled-in pod
 - Source: Figma file "Mee - Tellipod App v4.0.3", page "App"; `pod-ontologies/app-behavior.md`
 
 ## Purpose
 
-Paula installs the app and ends with a pod holding her passport details and a note.
-The journey checks that onboarding, creation, a templated form and the note hand over to one another.
+Paula installs the app and ends with a pod holding her vehicle details and a note.
+The journey checks that onboarding, creation with a tag, a form added by hand from the types the tag lists first, and the note hand over to one another.
 
-Covers: launch-and-unlock, identities, navigation, create-and-name-pod, pod-lifecycle, pod-tools-and-forms, note.
+Covers: launch-and-unlock, identities, navigation, create-and-name-pod, pod-tags, pod-lifecycle, pod-tools-and-forms, note.
 
 ## Requirements
 
@@ -18,18 +18,20 @@ Covers: launch-and-unlock, identities, navigation, create-and-name-pod, pod-life
 The app SHALL support this path from start to finish, each step handing its result to the next.
 Starting state: Paula has just installed the app, has Face ID enrolled, holds no identity and no pods.
 
-#### Scenario: From the store to a pod with passport details
+#### Scenario: From the store to a pod with vehicle details
 
 - WHEN Paula opens the app for the first time
 - THEN the splash screen is followed by welcome and onboarding, and then the identity choice
 - WHEN Paula picks Create identity and names it "Paula"
 - THEN "Paula" is active on the device and the main app opens on Home with the four app tabs (Home, Ask Telli, Notifications, Navigation) and an empty pods list
-- WHEN Paula creates a pod in the Passport category and names it "Paula's Passport"
-- THEN the pod opens with an empty Passport form
-- WHEN Paula fills in the required Passport fields and saves
-- THEN the Passport form shows her values
+- WHEN Paula creates a pod named "Paula's Car" with the category tag Vehicle
+- THEN the pod opens with the tag Vehicle and no form
+- WHEN Paula taps Add Tool
+- THEN Vehicle is first in the list of form types, and Paula adds it
+- WHEN Paula fills in the Vehicle form and saves
+- THEN the Vehicle form shows her values
 - WHEN Paula writes "Renew before March" in the note and leaves the pod
-- THEN the pod card "Paula's Passport" is on Home, and reopening the pod shows the note and the Passport values
+- THEN the pod card "Paula's Car" is on Home, and reopening the pod shows the note and the Vehicle values
 
 ### Requirement: A returning user finds the pod again
 
@@ -40,5 +42,5 @@ Starting state: the end of the journey above, with the app closed.
 
 - WHEN Paula opens the app
 - THEN the splash screen is followed by the unlock, without onboarding
-- WHEN Paula unlocks with Face ID and taps the card "Paula's Passport"
-- THEN the pod opens with her note and Passport values as she left them
+- WHEN Paula unlocks with Face ID and taps the card "Paula's Car"
+- THEN the pod opens with her note and Vehicle values as she left them

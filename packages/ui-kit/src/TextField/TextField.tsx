@@ -22,6 +22,7 @@ import {
 import { cn } from "../cn";
 import { Icon } from "../Icon/Icon";
 import { IconDefaultsProvider } from "../Icon/IconDefaults";
+import { useReduceMotion } from "../useReduceMotion";
 import {
   EDGE_LABEL_LEFT,
   EDGE_LABEL_PADDING,
@@ -38,7 +39,6 @@ import {
   toneOf,
   VALUE_CLASSES,
 } from "./textFieldStyles";
-import { useReduceMotion } from "./useReduceMotion";
 
 export type { TextFieldSize, TextFieldVariant } from "./textFieldStyles";
 
