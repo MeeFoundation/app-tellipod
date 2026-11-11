@@ -117,6 +117,7 @@ Connecting a pod SHALL open a dialog, the same whether it was started from Info 
 The dialog SHALL say that the name of the connected pod will be visible to everyone in the host pod and in the text of its link to anyone who reads the note, and that connecting gives no one access to it.
 The dialog SHALL offer a checkbox, off by default, "Invite everyone from <host pod>" with the number of people it would invite.
 When there is nobody to invite, the dialog SHALL show no checkbox.
+A pod made by Divide and Conquer also goes through this dialog, with one difference: cancelling it does not undo the connection, because the chunk has already left the note (see [organize](../organize/spec.md)).
 
 The checkbox is a one-time, standalone action based on who is in the host pod right now. There is no dynamic membership: connecting does not tie the two pods' membership together.
 It:
@@ -275,7 +276,6 @@ Main questions:
   - whether leaving the host pod revokes it. Revoking cannot take back data the member already has on their device, and forms they added stay (see [members-and-roles](../members-and-roles/spec.md)).
 - What happens to a connected pod link copied into another pod: whether it stays a connected pod link of the new host, or becomes a plain pod link.
 - Who becomes the owner of a pod made from `[[beans]]` when a member other than the author taps the link, and what happens when two members tap it at the same moment.
-- Whether a pod made by Divide and Conquer, which the other members of the host pod cannot open, should invite them or warn the user.
 - Abuse. For now the team assumes members are honest, so inviting a large host pod through the checkbox, or connecting a pod only to expose its name, is not limited.
 
 Smaller questions:

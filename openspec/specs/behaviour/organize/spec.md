@@ -41,13 +41,37 @@ Accepting SHALL work as if the user had edited the tags by hand (see [pod-tags](
 ### Requirement: Divide and Conquer leaves a link
 
 Divide and Conquer SHALL move a chunk of the note out and leave a link where it was.
-A chunk that fits a new pod of its own SHALL become that pod, carrying the category tag its content calls for, and the link SHALL be a connected pod link: the new pod is connected to the pod of the note (see [connected-pods](../connected-pods/spec.md)).
+A chunk that fits a new pod of its own SHALL become that pod, owned by the user and carrying the category tag its content calls for, and the link SHALL be a connected pod link: the new pod is connected to the pod of the note (see [connected-pods](../connected-pods/spec.md)).
+Nobody else is invited automatically, even when the pod of the note has other members: users often split a pod to make a smaller space.
+The connection SHALL go through the Connect dialog, so the user chooses whether to invite everyone from the pod of the note with its checkbox (off by default).
+With the checkbox off, nobody is invited and the new pod stays private to the user until an owner adds people the usual way (see [members-and-roles](../members-and-roles/spec.md)).
+When nobody else is in the pod of the note, the dialog shows no checkbox.
+The chunk is replaced by the link as soon as the pod is created, before the dialog opens.
+Dismissing the dialog without confirming still leaves the new pod created and connected, with nobody invited, because the chunk has already left the note.
+Members of the pod of the note who cannot open the new pod see the private pod screen when they tap its link.
 A chunk structured enough to stay SHALL become a form tool in the same pod, and the link SHALL be an internal link.
 
 #### Scenario: Credit card details in a note
 
 - WHEN the note holds a card's name, number and expiry and the user runs Divide and Conquer
 - THEN the chunk is replaced by a link "Paula's Credit Card" that opens a new pod tagged Banking & Payments whose form holds the parsed fields
+
+#### Scenario: Splitting a pod with other members
+
+- WHEN Alice runs Divide and Conquer on "Summer Vacation" (members Alice, Bob, Carol) and a pod "Trip Budget" is created
+- THEN the Connect dialog opens with the checkbox "Invite everyone from Summer Vacation (2)", off
+- WHEN Alice confirms with the checkbox off
+- THEN "Trip Budget" has Alice as its only member and Bob and Carol receive no invitation
+
+#### Scenario: Inviting everyone from the pod of the note
+
+- WHEN Alice turns the checkbox on and confirms
+- THEN Bob and Carol receive ordinary invitations to "Trip Budget" as members
+
+#### Scenario: Dismissing the Connect dialog
+
+- WHEN Alice runs Divide and Conquer on "Summer Vacation" and dismisses the Connect dialog for the new pod "Trip Budget"
+- THEN "Trip Budget" exists, is connected to "Summer Vacation" with Alice as its only member, and the link stays in the note
 
 #### Scenario: Follow-up question
 
