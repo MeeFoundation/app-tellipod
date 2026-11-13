@@ -7,7 +7,7 @@ The Icon is the kit's simple, single place for glyphs. It holds only the icons a
 
 ### Requirement: The Icon draws a named glyph
 
-An Icon SHALL accept a name, which for now is `check-circle`, `info-circle`, `search`, `exclamation-circle`, `house`, `chevron-right`, `chevron-down`, `pencil`, `plus`, `folder-plus`, `paperclip`, `diagram-3`, `people`, `person` or `person-vcard`, and draw the matching glyph from the design system's outline set.
+An Icon SHALL accept a name, which for now is `check-circle`, `info-circle`, `search`, `exclamation-circle`, `exclamation-octagon`, `house`, `chevron-right`, `chevron-down`, `pencil`, `plus`, `folder-plus`, `paperclip`, `diagram-3`, `people`, `person`, `person-vcard`, `x`, `chevron-left`, `three-dots-vertical` or `shield-lock`, and draw the matching glyph from the design system's outline set.
 An Icon SHALL accept a size in px and a text color class.
 The default size SHALL be 16 px and the default color SHALL be the `text/default/body` color.
 
@@ -50,6 +50,16 @@ The default size SHALL be 16 px and the default color SHALL be the `text/default
 
 - WHEN an Icon is rendered with the name `person` at 20 px
 - THEN it shows the outline person glyph at 20 px
+
+#### Scenario: Icons for a toast
+
+- WHEN an Icon is rendered with the name `x` at 20 px and another with the name `exclamation-octagon` at 16 px
+- THEN they show the outline x glyph at 20 px and the outline exclamation-octagon glyph at 16 px
+
+#### Scenario: Icons for a header
+
+- WHEN Icons are rendered with the names `chevron-left` and `three-dots-vertical` at 24 px and `shield-lock` at 14 px
+- THEN they show the outline chevron-left, three-dots-vertical and shield-lock glyphs at those sizes
 
 ### Requirement: An Icon in a Badge takes the Badge's look
 

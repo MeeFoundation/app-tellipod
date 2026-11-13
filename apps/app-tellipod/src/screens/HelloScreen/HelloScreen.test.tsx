@@ -2,8 +2,11 @@ import { render, screen } from "@testing-library/react-native";
 
 import { HelloScreen } from "./HelloScreen";
 
-// The kit index loads the Modal, whose sheet engine needs native modules a unit test lacks.
+// The kit index loads the Modal, whose sheet engine needs native modules a unit test lacks, and the
+// ToastHost, whose animations need the native module of Reanimated.
 jest.mock("@gorhom/bottom-sheet", () => ({}));
+
+jest.mock("react-native-reanimated", () => ({}));
 
 jest.mock("react-native-safe-area-context", () => ({
   useSafeAreaInsets: () => ({ bottom: 0, left: 0, right: 0, top: 0 }),
