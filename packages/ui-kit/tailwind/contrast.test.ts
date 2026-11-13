@@ -620,3 +620,60 @@ describe("Toast contrast", () => {
     }
   });
 });
+
+// Text and background pairs of the AppHeader, its HeaderIconButton and its SearchEntry, from Figma
+// "Mee - Tellipod App v4.0.3", home-topbar (light mode). The header text sits on a gradient, so it
+// is measured against the darkest stop, `surface/brand/light`, at the top.
+const APP_HEADER_TEXT_PAIRS: readonly Pair[] = [
+  {
+    background: surface.brand.light,
+    name: "AppHeader title",
+    text: text.default.title,
+  },
+  {
+    background: surface.brand.light,
+    name: "AppHeader subtitle",
+    text: text.default.subtle,
+  },
+  {
+    background: surface.default.main,
+    name: "SearchEntry placeholder",
+    text: text.default.placeholder,
+  },
+  {
+    background: surface.gray.soft,
+    name: "SearchEntry placeholder pressed",
+    text: text.default.placeholder,
+  },
+];
+
+// The icons of the HeaderIconButton are drawn in the body text color and are non-text parts.
+const APP_HEADER_NON_TEXT_PAIRS: readonly Pair[] = [
+  {
+    background: surface.brand.light,
+    name: "HeaderIconButton icon",
+    text: text.default.body,
+  },
+  {
+    background: surface.gray.light,
+    name: "HeaderIconButton icon pressed",
+    text: text.default.body,
+  },
+];
+
+describe("AppHeader contrast", () => {
+  const ratio = (pair: Pair) => contrastRatio(pair.text, pair.background);
+  const failing = (pairs: readonly Pair[], minimum: number) =>
+    pairs
+      .filter((pair) => ratio(pair) < minimum)
+      .map((pair) => `${pair.name}: ${ratio(pair).toFixed(2)}`);
+
+  it("lists the text pairs below 4.5:1 for the AppHeader specs", () => {
+    // Update "Accessibility exceptions" in the app-header and search-entry specs when this changes.
+    expect(failing(APP_HEADER_TEXT_PAIRS, MINIMUM)).toEqual([]);
+  });
+
+  it("lists the non-text parts below 3:1 for the AppHeader specs", () => {
+    expect(failing(APP_HEADER_NON_TEXT_PAIRS, NON_TEXT_MINIMUM)).toEqual([]);
+  });
+});

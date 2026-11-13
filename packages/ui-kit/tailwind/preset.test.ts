@@ -36,6 +36,12 @@ describe("tailwind preset", () => {
     expect(preset.theme.colors.alpha.dark["10"]).toBe("rgba(2, 6, 23, 0.1)");
   });
 
+  it("holds the AppHeader shadow of the Figma home-topbar", () => {
+    expect(preset.theme.boxShadow.header).toBe(
+      "0 1px 15px 0 rgba(2, 6, 23, 0.15)",
+    );
+  });
+
   it("has no default Tailwind color outside the tokens", () => {
     expect(Object.hasOwn(theme.colors, "slate")).toBe(false);
     expect(Object.hasOwn(theme.colors, "red")).toBe(false);

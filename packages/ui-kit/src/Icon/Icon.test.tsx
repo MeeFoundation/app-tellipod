@@ -15,6 +15,7 @@ describe("Icon glyphs", () => {
   it.each([
     "check-circle",
     "chevron-down",
+    "chevron-left",
     "chevron-right",
     "diagram-3",
     "exclamation-circle",
@@ -29,6 +30,8 @@ describe("Icon glyphs", () => {
     "person-vcard",
     "plus",
     "search",
+    "shield-lock",
+    "three-dots-vertical",
     "x",
   ] as const)("%s renders at 16 px by default", async (name) => {
     await render(<Icon name={name} />);

@@ -73,6 +73,14 @@ const ICON_SIZE = 16;
 const CLOSE_SIZE = 20;
 // Links and the close button are one text line high, so their touch area grows vertically.
 const LINK_HEIGHT = 20;
+// The clip around the content pads 12 px vertically and 16 px horizontally. A touch area cannot
+// reach past it, so the slop is capped there.
+const CLIP_PAD_Y = 12;
+const CLIP_PAD_X = 16;
+const slopY = (size: number) =>
+  Math.min(hitSlopFor(size, MIN_TARGET), CLIP_PAD_Y);
+const slopX = (size: number) =>
+  Math.min(hitSlopFor(size, MIN_TARGET), CLIP_PAD_X);
 
 type LinkProps = {
   readonly link: ToastLink;
@@ -84,8 +92,8 @@ const Link: FC<LinkProps> = ({ link, className, testID }) => (
   <Pressable
     accessibilityRole="button"
     hitSlop={{
-      bottom: hitSlopFor(LINK_HEIGHT, MIN_TARGET),
-      top: hitSlopFor(LINK_HEIGHT, MIN_TARGET),
+      bottom: slopY(LINK_HEIGHT),
+      top: slopY(LINK_HEIGHT),
     }}
     onPress={link.onPress}
     testID={testID}
@@ -178,10 +186,10 @@ export const Toast: FC<ToastProps> = ({
               {actions.map((link, index) => (
                 <Link
                   className={look.link}
-                  // eslint-disable-next-line react/no-array-index-key -- labels may repeat
+                  // biome-ignore lint/suspicious/noArrayIndexKey: labels may repeat
                   key={`${index}-${link.label}`}
                   link={link}
-                  testID={`${testID}-action-${link.label}`}
+                  testID={`${testID}-action-${index}`}
                 />
               ))}
             </View>
@@ -201,10 +209,10 @@ export const Toast: FC<ToastProps> = ({
                 accessibilityLabel="Close"
                 accessibilityRole="button"
                 hitSlop={{
-                  bottom: hitSlopFor(CLOSE_SIZE, MIN_TARGET),
-                  left: hitSlopFor(CLOSE_SIZE, MIN_TARGET),
-                  right: hitSlopFor(CLOSE_SIZE, MIN_TARGET),
-                  top: hitSlopFor(CLOSE_SIZE, MIN_TARGET),
+                  bottom: slopY(CLOSE_SIZE),
+                  left: slopX(CLOSE_SIZE),
+                  right: slopX(CLOSE_SIZE),
+                  top: slopY(CLOSE_SIZE),
                 }}
                 onPress={onClose}
                 testID={`${testID}-close`}

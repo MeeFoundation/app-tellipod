@@ -1,5 +1,6 @@
 import CheckCircle from "bootstrap-icons/icons/check-circle.svg";
 import ChevronDown from "bootstrap-icons/icons/chevron-down.svg";
+import ChevronLeft from "bootstrap-icons/icons/chevron-left.svg";
 import ChevronRight from "bootstrap-icons/icons/chevron-right.svg";
 import Diagram3 from "bootstrap-icons/icons/diagram-3.svg";
 import ExclamationCircle from "bootstrap-icons/icons/exclamation-circle.svg";
@@ -14,6 +15,8 @@ import Person from "bootstrap-icons/icons/person.svg";
 import PersonVcard from "bootstrap-icons/icons/person-vcard.svg";
 import Plus from "bootstrap-icons/icons/plus.svg";
 import Search from "bootstrap-icons/icons/search.svg";
+import ShieldLock from "bootstrap-icons/icons/shield-lock.svg";
+import ThreeDotsVertical from "bootstrap-icons/icons/three-dots-vertical.svg";
 import X from "bootstrap-icons/icons/x.svg";
 import type { FC } from "react";
 import Svg, { Circle, type SvgProps } from "react-native-svg";
@@ -34,6 +37,7 @@ const Dot: FC<SvgProps> = (props) => (
 const RAW_GLYPHS = {
   "check-circle": CheckCircle,
   "chevron-down": ChevronDown,
+  "chevron-left": ChevronLeft,
   "chevron-right": ChevronRight,
   "diagram-3": Diagram3,
   dot: Dot,
@@ -49,6 +53,8 @@ const RAW_GLYPHS = {
   "person-vcard": PersonVcard,
   plus: Plus,
   search: Search,
+  "shield-lock": ShieldLock,
+  "three-dots-vertical": ThreeDotsVertical,
   x: X,
 } as const;
 

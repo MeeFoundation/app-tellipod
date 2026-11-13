@@ -1,4 +1,4 @@
-import { type FC, useEffect, useSyncExternalStore } from "react";
+import { type FC, useEffect, useState, useSyncExternalStore } from "react";
 import { AccessibilityInfo, View } from "react-native";
 import Animated, {
   FadeIn,
@@ -24,6 +24,8 @@ const SIDE_GAP = 12;
 const MOVE_MS = 200;
 // How long a toast without actions stays. Not in the design; chosen with the user.
 const STAY_MS = 4000;
+// With a screen reader on, the toast stays longer so it can be heard and read again.
+const STAY_SCREEN_READER_MS = 10_000;
 
 const HostedToast: FC<{ readonly current: CurrentToast }> = ({ current }) => {
   const { closable = false, ...props } = current.options;
@@ -60,6 +62,25 @@ export const ToastHost: FC = () => {
     }
   }, [id, title, description]);
 
+  const [screenReader, setScreenReader] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void AccessibilityInfo.isScreenReaderEnabled?.()?.then((on) => {
+      if (active) {
+        setScreenReader(on);
+      }
+    });
+    // Follows the user turning the screen reader on or off while the app runs.
+    const subscription = AccessibilityInfo.addEventListener?.(
+      "screenReaderChanged",
+      setScreenReader,
+    );
+    return () => {
+      active = false;
+      subscription?.remove();
+    };
+  }, []);
+
   const hasActions =
     current !== null &&
     (current.options.action !== undefined ||
@@ -68,9 +89,12 @@ export const ToastHost: FC = () => {
     if (id === undefined || hasActions) {
       return undefined;
     }
-    const timer = setTimeout(() => toast.dismiss(id), STAY_MS);
+    const timer = setTimeout(
+      () => toast.dismiss(id),
+      screenReader ? STAY_SCREEN_READER_MS : STAY_MS,
+    );
     return () => clearTimeout(timer);
-  }, [id, hasActions]);
+  }, [id, hasActions, screenReader]);
 
   const entering = reduceMotion
     ? FadeIn.duration(MOVE_MS)
@@ -89,7 +113,9 @@ export const ToastHost: FC = () => {
         <Animated.View
           entering={entering}
           exiting={exiting}
-          key={current.id}
+          // One slot for every toast: a replacement swaps the content in place, so the old toast
+          // never lingers under the new one with live handlers.
+          key="toast-slot"
           style={{
             bottom: insets.bottom + BOTTOM_GAP,
             left: SIDE_GAP,
