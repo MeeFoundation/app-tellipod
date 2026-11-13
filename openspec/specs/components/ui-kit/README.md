@@ -16,5 +16,7 @@
 | [cell-info](cell-info/spec.md) | Using or changing the CellInfo |
 | [divider](divider/spec.md) | Using or changing the Divider |
 | [modal](modal/spec.md) | Using or changing the Modal |
+| [toast](toast/spec.md) | Using or changing the Toast |
+| [toast-host](toast-host/spec.md) | Showing a toast from a screen or changing where and how toasts appear |
 | [icon](icon/spec.md) | Using an icon in UI, adding an icon to the kit or changing where icon glyphs come from |
 | [storybook](storybook/spec.md) | Adding or changing a component story or a token story |

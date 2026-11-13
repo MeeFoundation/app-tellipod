@@ -18,6 +18,7 @@ describe("Icon glyphs", () => {
     "chevron-right",
     "diagram-3",
     "exclamation-circle",
+    "exclamation-octagon",
     "folder-plus",
     "house",
     "info-circle",
@@ -28,6 +29,7 @@ describe("Icon glyphs", () => {
     "person-vcard",
     "plus",
     "search",
+    "x",
   ] as const)("%s renders at 16 px by default", async (name) => {
     await render(<Icon name={name} />);
     const icon = screen.getByTestId(`icon-${name}`, HIDDEN);

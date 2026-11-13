@@ -3,6 +3,7 @@ import ChevronDown from "bootstrap-icons/icons/chevron-down.svg";
 import ChevronRight from "bootstrap-icons/icons/chevron-right.svg";
 import Diagram3 from "bootstrap-icons/icons/diagram-3.svg";
 import ExclamationCircle from "bootstrap-icons/icons/exclamation-circle.svg";
+import ExclamationOctagon from "bootstrap-icons/icons/exclamation-octagon.svg";
 import FolderPlus from "bootstrap-icons/icons/folder-plus.svg";
 import House from "bootstrap-icons/icons/house.svg";
 import InfoCircle from "bootstrap-icons/icons/info-circle.svg";
@@ -13,6 +14,7 @@ import Person from "bootstrap-icons/icons/person.svg";
 import PersonVcard from "bootstrap-icons/icons/person-vcard.svg";
 import Plus from "bootstrap-icons/icons/plus.svg";
 import Search from "bootstrap-icons/icons/search.svg";
+import X from "bootstrap-icons/icons/x.svg";
 import type { FC } from "react";
 import Svg, { Circle, type SvgProps } from "react-native-svg";
 
@@ -36,6 +38,7 @@ const RAW_GLYPHS = {
   "diagram-3": Diagram3,
   dot: Dot,
   "exclamation-circle": ExclamationCircle,
+  "exclamation-octagon": ExclamationOctagon,
   "folder-plus": FolderPlus,
   house: House,
   "info-circle": InfoCircle,
@@ -46,6 +49,7 @@ const RAW_GLYPHS = {
   "person-vcard": PersonVcard,
   plus: Plus,
   search: Search,
+  x: X,
 } as const;
 
 export type IconName = keyof typeof RAW_GLYPHS;

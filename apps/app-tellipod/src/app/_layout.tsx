@@ -13,6 +13,8 @@ import { Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import { ToastHost } from "@tellipod/ui-kit";
+
 import "../../global.css";
 
 export const ErrorBoundary: FC<ErrorBoundaryProps> = ({ error }) => (
@@ -43,6 +45,7 @@ const RootLayout: FC = () => {
         <JotaiProvider>
           <BottomSheetModalProvider>
             <Slot />
+            <ToastHost />
           </BottomSheetModalProvider>
         </JotaiProvider>
       </SafeAreaProvider>
